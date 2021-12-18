@@ -20,7 +20,6 @@ android {
     buildFeatures {
         compose = true
     }
-
     composeOptions {
         kotlinCompilerExtensionVersion = "1.1.0-beta04"
     }
@@ -36,4 +35,7 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
+
+    val coroutinesVersion = "1.6.0-RC3"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 }

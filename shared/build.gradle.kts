@@ -26,11 +26,24 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        all {
+            languageSettings {
+                optIn("kotlin.Experimental")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            }
+        }
+
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC3")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0-RC3")
             }
         }
         val androidMain by getting
