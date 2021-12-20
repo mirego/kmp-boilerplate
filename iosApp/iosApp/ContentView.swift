@@ -2,10 +2,11 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greeting()
-
+    
+    @ObservedObject var greet = ObservableFlowWrapper<NSString>(Greeting().greeting(), initial: "initial")
+    
 	var body: some View {
-		Text(greet)
+        Text("\(greet.value)")
 	}
 }
 
