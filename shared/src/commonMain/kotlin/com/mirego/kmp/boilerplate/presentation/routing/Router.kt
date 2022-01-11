@@ -1,4 +1,4 @@
-package com.mirego.kmp.boilerplate.routing
+package com.mirego.kmp.boilerplate.presentation.routing
 
 import com.mirego.kmp.boilerplate.utils.CFlow
 import com.mirego.kmp.boilerplate.utils.wrap
@@ -9,6 +9,7 @@ interface Router {
     val screen: CFlow<Screen>
 
     fun push(screen: Screen)
+    fun pop()
 }
 
 object MainRouter : Router {
@@ -21,5 +22,9 @@ object MainRouter : Router {
 
     override fun push(screen: Screen) {
         _screens.value += screen
+    }
+
+    override fun pop() {
+        _screens.value = _screens.value.dropLast(1)
     }
 }

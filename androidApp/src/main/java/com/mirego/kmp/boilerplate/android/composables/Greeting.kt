@@ -4,6 +4,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.flowOf
 fun Greeting(textFlow: Flow<String>) {
     val text: String by textFlow.collectAsState("initial")
 
-    Text(text = text)
+    Text(text = text, textAlign = TextAlign.Center)
 }
 
 @Preview

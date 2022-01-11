@@ -14,6 +14,7 @@
 		BC5CC7B427760F2C00426C97 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* Home.swift */; };
 		BC64D820278C9DD700FAF397 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64D81F278C9DD700FAF397 /* Main.swift */; };
 		BC83B466276E4F080053E064 /* FlowUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83B465276E4F080053E064 /* FlowUtils.swift */; };
+		BCFFCFD9278F551300EAA9BA /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFFCFD8278F550800EAA9BA /* Example.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC64D81F278C9DD700FAF397 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		BC83B465276E4F080053E064 /* FlowUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowUtils.swift; sourceTree = "<group>"; };
+		BCFFCFD8278F550800EAA9BA /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,8 +86,9 @@
 		BC5CC7B327760ED800426C97 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BCFFCFD7278F550400EAA9BA /* Example */,
+				BCFFCFD6278F54FA00EAA9BA /* Home */,
 				BC64D81F278C9DD700FAF397 /* Main.swift */,
-				7555FF82242A565900829871 /* Home.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -96,6 +99,22 @@
 				BC83B465276E4F080053E064 /* FlowUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		BCFFCFD6278F54FA00EAA9BA /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7555FF82242A565900829871 /* Home.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		BCFFCFD7278F550400EAA9BA /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				BCFFCFD8278F550800EAA9BA /* Example.swift */,
+			);
+			path = Example;
 			sourceTree = "<group>";
 		};
 		C8C629BFDC2144230B71E3BC /* Frameworks */ = {
@@ -215,6 +234,7 @@
 				BC83B466276E4F080053E064 /* FlowUtils.swift in Sources */,
 				BC64D820278C9DD700FAF397 /* Main.swift in Sources */,
 				BC5CC7B427760F2C00426C97 /* Home.swift in Sources */,
+				BCFFCFD9278F551300EAA9BA /* Example.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
