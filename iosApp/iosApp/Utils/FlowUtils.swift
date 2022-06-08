@@ -2,11 +2,12 @@ import Foundation
 import shared
 
 public class ObservableFlowWrapper<T: AnyObject>: ObservableObject {
-    @Published public var value: T
+
+    @Published public private(set) var value: T
     
     private var watcher: Closeable?
     
-    init(_ flow: CFlow<T>, initial value: T) {
+    public init(_ flow: CFlow<T>, initial value: T) {
         self.value = value
 
         watcher = flow.watch { [weak self] t in
