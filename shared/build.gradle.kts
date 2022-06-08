@@ -25,12 +25,28 @@ kotlin {
         }
     }
 
+    @Suppress("UNUSED_VARIABLE")
     sourceSets {
-        val commonMain by getting
+        all {
+            languageSettings {
+                optIn("kotlin.Experimental")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            }
+        }
+
+        val coroutinesVersion = "1.6.2"
+
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
         }
         val androidMain by getting
@@ -62,10 +78,10 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
+        compileSdk = 32
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 32
     }
 }

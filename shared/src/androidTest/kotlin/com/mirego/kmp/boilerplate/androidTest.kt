@@ -1,12 +1,14 @@
 package com.mirego.kmp.boilerplate
 
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertTrue
 
 class AndroidGreetingTest {
 
     @Test
-    fun testExample() {
-        assertTrue("Check Android is mentioned", Greeting().greeting().contains("Android"))
+    fun testExample() = runTest {
+        assertTrue(Greeting().greeting().single().contains("Android"), "Check Android is mentioned")
     }
 }
