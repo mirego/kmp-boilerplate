@@ -14,10 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mirego.kmp.boilerplate.android.composables.Routable
 import com.mirego.kmp.boilerplate.presentation.viewmodel.example.ExampleViewModel
 
 @Composable
-fun Example(viewModel: ExampleViewModel) {
+fun Example(viewModel: ExampleViewModel) = Routable(viewModel) {
     val exampleText: String by viewModel.exampleMessage.collectAsState(initial = "")
     val backButtonText: String by viewModel.backButtonText.collectAsState(initial = "")
 

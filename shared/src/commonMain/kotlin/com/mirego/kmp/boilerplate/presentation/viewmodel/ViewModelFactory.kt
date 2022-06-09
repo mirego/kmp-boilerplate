@@ -1,5 +1,7 @@
 package com.mirego.kmp.boilerplate.presentation.viewmodel
 
+import com.mirego.kmp.boilerplate.presentation.routing.MainRouter
+import com.mirego.kmp.boilerplate.presentation.routing.Router
 import com.mirego.kmp.boilerplate.presentation.viewmodel.example.ExampleViewModel
 import com.mirego.kmp.boilerplate.presentation.viewmodel.example.ExampleViewModelImpl
 import com.mirego.kmp.boilerplate.presentation.viewmodel.home.HomeViewModel
@@ -11,10 +13,12 @@ interface ViewModelFactory {
 }
 
 object MobileViewModelFactory : ViewModelFactory {
-    override val homeViewModel: HomeViewModel
-        get() = HomeViewModelImpl()
 
-    override fun exampleViewModel(origin: String): ExampleViewModelImpl {
-        return ExampleViewModelImpl(origin)
-    }
+    private val router: Router = MainRouter
+
+    override val homeViewModel: HomeViewModel
+        get() = HomeViewModelImpl(router)
+
+    override fun exampleViewModel(origin: String) =
+        ExampleViewModelImpl(router, origin)
 }

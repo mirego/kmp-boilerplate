@@ -14,11 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mirego.kmp.boilerplate.android.composables.Routable
 import com.mirego.kmp.boilerplate.android.composables.Greeting
 import com.mirego.kmp.boilerplate.presentation.viewmodel.home.HomeViewModel
 
 @Composable
-fun Home(viewModel: HomeViewModel) {
+fun Home(viewModel: HomeViewModel) = Routable(viewModel) {
     Box(modifier = Modifier.fillMaxSize(1.0f), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Greeting(textFlow = viewModel.greetingMessage)

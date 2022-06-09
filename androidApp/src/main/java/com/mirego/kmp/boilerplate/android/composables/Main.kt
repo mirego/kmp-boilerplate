@@ -13,8 +13,8 @@ import com.mirego.kmp.boilerplate.presentation.viewmodel.ViewModelFactory
 
 @Composable
 fun Main(
-    router: Router = MainRouter,
-    viewModelFactory: ViewModelFactory = MobileViewModelFactory
+    viewModelFactory: ViewModelFactory = MobileViewModelFactory,
+    router: Router = MainRouter
 ) {
     val screen: Screen by router.screen.collectAsState(initial = Screen.Home)
 
