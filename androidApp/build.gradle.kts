@@ -5,9 +5,9 @@ plugins {
 
 android {
     defaultConfig {
-        compileSdk = 32
+        compileSdk = 33
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
 
         applicationId = "com.mirego.kmp.boilerplate.android"
         versionCode = 1
@@ -22,7 +22,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0-beta03"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     packagingOptions {
         // Do not include coroutines debug infrastructure in the resulting APK
@@ -34,14 +34,15 @@ android {
 dependencies {
     implementation(project(":shared"))
 
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.activity:activity-compose:1.6.1")
 
-    val composeVersion = "1.2.0-beta03"
+    // Jetpack Compose
+    // See https://developer.android.com/jetpack/androidx/releases/compose#versions
+    val composeVersion = "1.3.1"
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
 
-    val coroutinesVersion = "1.6.2"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 }
