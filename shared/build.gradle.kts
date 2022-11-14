@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 version = "0.1"
@@ -82,6 +83,13 @@ android {
         compileSdk = 33
         minSdk = 21
         targetSdk = 33
+    }
+}
+
+ktlint {
+    enableExperimentalRules.set(true)
+    filter {
+        exclude { element -> element.file.path.contains("generated/") }
     }
 }
 
