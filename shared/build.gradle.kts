@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -81,4 +83,11 @@ android {
         minSdk = 21
         targetSdk = 33
     }
+}
+
+// Make sure iOS simulator tests are ran on an available device (defaults to iPhone 14).
+// Run `/usr/bin/xcrun simctl list devices available` to list the available devices on your machine
+// See https://slack-chats.kotlinlang.org/t/535280/i-have-the-same-issue-leaving-a-comment-to-track
+tasks.filterIsInstance<KotlinNativeSimulatorTest>().forEach { task ->
+    task.deviceId = properties["iosSimulatorName"] as? String ?: "iPhone 14"
 }
