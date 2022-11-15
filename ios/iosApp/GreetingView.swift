@@ -1,7 +1,7 @@
-import shared
+import Shared
 import SwiftUI
 
-struct ContentView: View {
+struct GreetingView: View {
     
     @ObservedObject var greet = ObservableFlowWrapper<NSString>(Greeting().greeting(), initial: "initial")
     
@@ -10,8 +10,8 @@ struct ContentView: View {
 	}
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct GreetingView_Previews: PreviewProvider {
 	static var previews: some View {
-		ContentView()
+        GreetingView()
 	}
 }

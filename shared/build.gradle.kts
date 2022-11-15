@@ -18,17 +18,20 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
+        summary = "Project summary"
+        homepage = "https://github.com/mirego/your-project"
+        name = "Shared"
 
         ios.deploymentTarget = "14.1"
 
-        podfile = project.file("../iosApp/Podfile")
+        podfile = project.file("../ios/Podfile")
 
         framework {
-            baseName = "shared"
+            baseName = "Shared"
             isStatic = false
         }
+
+        pod("SwiftLint")
     }
 
     @Suppress("UNUSED_VARIABLE")
