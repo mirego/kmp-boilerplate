@@ -21,6 +21,8 @@ This boilerplate comes with batteries included, you’ll find:
 - An iOS app using [SwiftUI](https://developer.apple.com/xcode/swiftui)
 - Asynchronous & multithreading support
   with [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
+- Model serialization support
+  with [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)
 - Opinionated Kotlin linting with [Ktlint](https://github.com/pinterest/ktlint)
 - Opinionated Swift linting with [SwiftLint](https://github.com/realm/SwiftLint)
 - A [CI workflow](.github/workflows/ci.yml)

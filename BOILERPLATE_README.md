@@ -16,9 +16,10 @@
 
 ### Supported platforms
 
-| iOS  | Android  |
-|------|----------|
-| 14.1 | 5.0 (21) |
+| Platform | Version    |
+|----------|------------|
+| iOS      | ≥ 14.1     |
+| Android  | ≥ 5.0 (21) |
 
 ## 🚧 Dependencies
 

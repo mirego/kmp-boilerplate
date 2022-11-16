@@ -15,7 +15,7 @@ content=$(find . -type f \( \
   -name "*.swift" -or \
   -name "*.gradle.kts" -or \
   -name "*.podspec" -or \
-  -name "*Podfile*" -or \
+  -name "Podfile" -or \
   -name "*.plist" -or \
   -name "*.pbxproj" \
 \) \
