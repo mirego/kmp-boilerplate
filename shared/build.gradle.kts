@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTes
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    kotlin("plugin.serialization") version "1.7.20"
     id("com.android.library")
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
@@ -44,6 +45,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }
         val commonTest by getting {
