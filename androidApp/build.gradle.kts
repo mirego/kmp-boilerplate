@@ -9,7 +9,7 @@ android {
         minSdk = 21
         targetSdk = 33
 
-        applicationId = "com.mirego.kmp.boilerplate.android"
+        applicationId = "com.mirego.kmp.boilerplate"
         versionCode = 1
         versionName = "0.1"
     }
