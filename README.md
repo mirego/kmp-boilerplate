@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="https://user-images.githubusercontent.com/5982196/202266973-6cec2e9e-627d-4a97-a664-eef04d1e07d3.png" width="600" />
   <p>This repository is the stable base upon which we build our Kotlin Multiplatform projects at Mirego.<br />We want to share it with the world so you can build awesome multiplatform applications too.</p>
   <a href="https://github.com/mirego/kmp-boilerplate/actions/workflows/ci.yml"><img src="https://github.com/mirego/kmp-boilerplate/actions/workflows/ci.yml/badge.svg"/></a>
   <a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin"/></a>
