@@ -75,6 +75,7 @@ started:
 | Persisted preferences    | [`multiplatform-setttings`](https://github.com/russhwolf/multiplatform-settings)                                        |
 | Mocking (Unit tests)     | [`mockk`](https://mockk.io/)                                                                                            |
 | Declarative UI framework | [`trikot-viewmodels-declarative-flow`](https://github.com/mirego/trikot/tree/master/trikot-viewmodels-declarative-flow) |
+| Date & time              | [`kotlinx-datetime`](https://github.com/Kotlin/kotlinx-datetime)                              |
 
 ## License
 
