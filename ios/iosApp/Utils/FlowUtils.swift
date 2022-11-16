@@ -1,5 +1,5 @@
 import Foundation
-import shared
+import Shared
 
 public class ObservableFlowWrapper<T: AnyObject>: ObservableObject {
 

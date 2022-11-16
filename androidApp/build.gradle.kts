@@ -4,12 +4,13 @@ plugins {
 }
 
 android {
+    namespace = "com.mirego.kmp.boilerplate"
+    compileSdk = 33
     defaultConfig {
-        compileSdk = 33
         minSdk = 21
         targetSdk = 33
 
-        applicationId = "com.mirego.kmp.boilerplate.android"
+        applicationId = "com.mirego.kmp.boilerplate"
         versionCode = 1
         versionName = "0.1"
     }

@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
 
 plugins {
@@ -18,17 +19,20 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
+        summary = "Project summary"
+        homepage = "https://github.com/mirego/your-project"
+        name = "Shared"
 
         ios.deploymentTarget = "14.1"
 
-        podfile = project.file("../iosApp/Podfile")
+        podfile = project.file("../ios/Podfile")
 
         framework {
-            baseName = "shared"
+            baseName = "Shared"
             isStatic = false
         }
+
+        pod("SwiftLint")
     }
 
     @Suppress("UNUSED_VARIABLE")
@@ -101,4 +105,16 @@ ktlint {
 // See https://slack-chats.kotlinlang.org/t/535280/i-have-the-same-issue-leaving-a-comment-to-track
 tasks.filterIsInstance<KotlinNativeSimulatorTest>().forEach { task ->
     task.deviceId = properties["iosSimulatorName"] as? String ?: "iPhone 14"
+}
+
+// Silence "source sets were configured but not added" warning
+// See https://discuss.kotlinlang.org/t/disabling-androidandroidtestrelease-source-set-in-gradle-kotlin-dsl-script/21448/6
+extensions.findByType<KotlinMultiplatformExtension>()?.let { ext ->
+    val sourceSets = setOf(
+        "androidAndroidTestRelease",
+        "androidTestFixtures",
+        "androidTestFixturesDebug",
+        "androidTestFixturesRelease"
+    )
+    ext.sourceSets.removeAll { sourceSets.contains(it.name) }
 }
