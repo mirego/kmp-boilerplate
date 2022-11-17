@@ -71,7 +71,7 @@ started:
 | Category                 | Libraries                                                                                                               |
 |--------------------------|-------------------------------------------------------------------------------------------------------------------------|
 | HTTP networking          | [`ktor`](https://ktor.io/)                                                                                              |
-| GrahpQL client           | [`apollo-kotlin`](https://www.apollographql.com/docs/kotlin/)                                                           |
+| GraphQL client           | [`apollo-kotlin`](https://www.apollographql.com/docs/kotlin/)                                                           |
 | Persisted preferences    | [`multiplatform-setttings`](https://github.com/russhwolf/multiplatform-settings)                                        |
 | Mocking (Unit tests)     | [`mockk`](https://mockk.io/)                                                                                            |
 | Declarative UI framework | [`trikot-viewmodels-declarative-flow`](https://github.com/mirego/trikot/tree/master/trikot-viewmodels-declarative-flow) |
