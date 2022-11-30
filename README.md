@@ -73,6 +73,7 @@ started:
 | HTTP networking          | [`ktor`](https://ktor.io/)                                                                                              |
 | GraphQL client           | [`apollo-kotlin`](https://www.apollographql.com/docs/kotlin/)                                                           |
 | Persisted preferences    | [`multiplatform-setttings`](https://github.com/russhwolf/multiplatform-settings)                                        |
+| I/O & File system        | [`okio`](https://square.github.io/okio/multiplatform/)                                        |
 | Mocking (Unit tests)     | [`mockk`](https://mockk.io/)                                                                                            |
 | Declarative UI framework | [`trikot-viewmodels-declarative-flow`](https://github.com/mirego/trikot/tree/master/trikot-viewmodels-declarative-flow) |
 | Date & time              | [`kotlinx-datetime`](https://github.com/Kotlin/kotlinx-datetime)                              |
