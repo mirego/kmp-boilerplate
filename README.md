@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/5982196/202266973-6cec2e9e-627d-4a97-a664-eef04d1e07d3.png" width="600" />
   <p><br />This repository is the stable base upon which we build our Kotlin Multiplatform projects at Mirego.<br />We want to share it with the world so you can build awesome multiplatform applications too.</p>
   <a href="https://github.com/mirego/kmp-boilerplate/actions/workflows/ci.yml"><img src="https://github.com/mirego/kmp-boilerplate/actions/workflows/ci.yaml/badge.svg"/></a>
-  <a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin"/></a>
+  <a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-1.8.10-blue.svg?logo=kotlin"/></a>
   <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg"/></a>
 </div>
 
@@ -16,7 +16,7 @@ our [blog post](https://shift.mirego.com/en/boilerplate-projects).
 This boilerplate comes with batteries included, you’ll find:
 
 - A brand new [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) project using
-  [Kotlin 1.7.20](https://kotlinlang.org/docs/whatsnew1720.html) and
+  [Kotlin 1.8.10](https://github.com/JetBrains/kotlin/releases/tag/v1.8.10) and
   the [Cocoapods Plugin](https://kotlinlang.org/docs/native-cocoapods.html)
 - An Android app using [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - An iOS app using [SwiftUI](https://developer.apple.com/xcode/swiftui)
