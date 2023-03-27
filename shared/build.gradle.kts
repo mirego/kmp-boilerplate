@@ -1,12 +1,11 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
 
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    kotlin("plugin.serialization") version "1.7.20"
+    kotlin("plugin.serialization")
     id("com.android.library")
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 version = "0.1"
@@ -29,10 +28,7 @@ kotlin {
 
         framework {
             baseName = "Shared"
-            isStatic = false
         }
-
-        pod("SwiftLint")
     }
 
     @Suppress("UNUSED_VARIABLE")
@@ -54,19 +50,12 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-
+                implementation(kotlin("test"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
         }
         val androidMain by getting
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
-            }
-        }
+        val androidUnitTest by getting
 
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -88,8 +77,8 @@ android {
     defaultConfig {
         compileSdk = 33
         minSdk = 21
-        targetSdk = 33
     }
+    namespace = "com.mirego.kmp.boilerplate.common"
 }
 
 ktlint {
@@ -104,17 +93,5 @@ ktlint {
 // Run `/usr/bin/xcrun simctl list devices available` to list the available devices on your machine
 // See https://slack-chats.kotlinlang.org/t/535280/i-have-the-same-issue-leaving-a-comment-to-track
 tasks.filterIsInstance<KotlinNativeSimulatorTest>().forEach { task ->
-    task.deviceId = properties["iosSimulatorName"] as? String ?: "iPhone 14"
-}
-
-// Silence "source sets were configured but not added" warning
-// See https://discuss.kotlinlang.org/t/disabling-androidandroidtestrelease-source-set-in-gradle-kotlin-dsl-script/21448/6
-extensions.findByType<KotlinMultiplatformExtension>()?.let { ext ->
-    val sourceSets = setOf(
-        "androidAndroidTestRelease",
-        "androidTestFixtures",
-        "androidTestFixturesDebug",
-        "androidTestFixturesRelease"
-    )
-    ext.sourceSets.removeAll { sourceSets.contains(it.name) }
+    task.device.set(properties["iosSimulatorName"] as? String ?: "iPhone 14")
 }
