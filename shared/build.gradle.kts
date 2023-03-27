@@ -11,6 +11,7 @@ plugins {
 version = "0.1"
 
 kotlin {
+    jvmToolchain(11)
     android {
         publishAllLibraryVariants()
     }
@@ -35,7 +36,6 @@ kotlin {
     sourceSets {
         all {
             languageSettings {
-                optIn("kotlin.Experimental")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
@@ -73,12 +73,18 @@ kotlin {
 }
 
 android {
+    namespace = "com.mirego.kmp.boilerplate.common"
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    compileSdk = 33
     defaultConfig {
-        compileSdk = 33
         minSdk = 21
     }
-    namespace = "com.mirego.kmp.boilerplate.common"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
 
 ktlint {
