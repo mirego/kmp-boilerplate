@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
 
 plugins {
@@ -11,7 +13,7 @@ plugins {
 version = "0.1"
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
     android {
         publishAllLibraryVariants()
     }
@@ -32,7 +34,6 @@ kotlin {
         }
     }
 
-    @Suppress("UNUSED_VARIABLE")
     sourceSets {
         all {
             languageSettings {
@@ -45,7 +46,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
             }
         }
         val commonTest by getting {
@@ -82,8 +83,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
