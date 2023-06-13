@@ -16,7 +16,7 @@ our [blog post](https://shift.mirego.com/en/boilerplate-projects).
 This boilerplate comes with batteries included, you’ll find:
 
 - A brand new [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) project using
-  [Kotlin 1.8.20](https://kotlinlang.org/docs/whatsnew1820.html) and
+  [Kotlin 1.8.21](https://kotlinlang.org/docs/whatsnew1820.html) and
   the [Cocoapods Plugin](https://kotlinlang.org/docs/native-cocoapods.html)
 - An Android app using [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - An iOS app using [SwiftUI](https://developer.apple.com/xcode/swiftui)
@@ -73,10 +73,10 @@ started:
 | HTTP networking          | [`ktor`](https://ktor.io/)                                                                                              |
 | GraphQL client           | [`apollo-kotlin`](https://www.apollographql.com/docs/kotlin/)                                                           |
 | Persisted preferences    | [`multiplatform-setttings`](https://github.com/russhwolf/multiplatform-settings)                                        |
-| I/O & File system        | [`okio`](https://square.github.io/okio/multiplatform/)                                        |
+| I/O & File system        | [`okio`](https://square.github.io/okio/multiplatform/)                                                                  |
 | Mocking (Unit tests)     | [`mockk`](https://mockk.io/)                                                                                            |
 | Declarative UI framework | [`trikot-viewmodels-declarative-flow`](https://github.com/mirego/trikot/tree/master/trikot-viewmodels-declarative-flow) |
-| Date & time              | [`kotlinx-datetime`](https://github.com/Kotlin/kotlinx-datetime)                              |
+| Date & time              | [`kotlinx-datetime`](https://github.com/Kotlin/kotlinx-datetime)                                                        |
 
 ## License
 
