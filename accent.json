@@ -1,0 +1,12 @@
+{
+  "apiUrl": "",
+  "apiKey": "",
+  "files": [
+    {
+      "language": "en",
+      "format": "json",
+      "source": "shared/src/commonMain/resources/translations/translation.en.json",
+      "target": "shared/src/commonMain/resources/translations/translation.%slug%.json"
+    }
+  ]
+}
