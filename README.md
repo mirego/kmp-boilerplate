@@ -28,6 +28,7 @@ This boilerplate comes with batteries included, you’ll find:
 - Opinionated Swift linting with [SwiftLint](https://github.com/realm/SwiftLint)
 - A [CI workflow](.github/workflows/ci.yaml)
   using [GitHub actions](https://docs.github.com/en/actions)
+- Translations with [Trikot.KWord](https://github.com/mirego/trikot/tree/master/trikot-kword) and [Accent](https://www.accent.reviews) (using a scheduled GitHub Actions [workflow](./.github/workflows/accent.yaml))
 - A clean and useful `README.md` template (in [english](./BOILERPLATE_README.md))
 
 ## Usage
@@ -69,7 +70,7 @@ have their own needs and requirements. Here’s a list of our preferred librarie
 started:
 
 | Category                 | Libraries                                                                                                               |
-|--------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | HTTP networking          | [`ktor`](https://ktor.io/)                                                                                              |
 | GraphQL client           | [`apollo-kotlin`](https://www.apollographql.com/docs/kotlin/)                                                           |
 | Persisted preferences    | [`multiplatform-setttings`](https://github.com/russhwolf/multiplatform-settings)                                        |
