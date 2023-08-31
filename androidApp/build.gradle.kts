@@ -1,16 +1,14 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.mirego.kmp.boilerplate"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
 
         applicationId = "com.mirego.kmp.boilerplate"
         versionCode = 1
@@ -37,7 +35,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
+        kotlinCompilerExtensionVersion = libs.versions.androidComposeCompiler.get()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
