@@ -1,6 +1,11 @@
 # Unless otherwise noted, rules are disabled because they reduce the readability of the code
 # See https://realm.github.io/SwiftLint/rule-directory.html for more info on each rule
 
+analyzer_rules:
+  - explicit_self
+  - unused_declaration
+  - unused_import
+
 # Rule identifiers to exclude from running
 disabled_rules:
   - comment_spacing
@@ -34,7 +39,6 @@ opt_in_rules:
   #- explicit_acl
   #- explicit_enum_raw_value
   - explicit_init
-  - explicit_self
   #- explicit_top_level_acl
   #- explicit_type_interface
   - extension_access_modifier
@@ -109,8 +113,6 @@ opt_in_rules:
   - unneeded_parentheses_in_closure_argument
   - unowned_variable_capture
   - untyped_error_in_catch
-  - unused_declaration
-  - unused_import
   #- vertical_parameter_alignment_on_call
   #- vertical_whitespace_between_cases
   #- vertical_whitespace_closing_braces
@@ -131,9 +133,9 @@ conditional_returns_on_newline:
 
 # Use the same deployment target as the project
 deployment_target:
-   iOS_deployment_target: 9.0
-   tvOS_deployment_target: 9.1
-   watchOS_deployment_target: 2.0
+  iOS_deployment_target: 9.0
+  tvOS_deployment_target: 9.1
+  watchOS_deployment_target: 2.0
 
 file_length:
   ignore_comment_only_lines: true
@@ -161,4 +163,4 @@ discouraged_object_literal:
   color_literal: false
 
 attributes:
-  always_on_line_above: ["@objc"]
+  always_on_line_above: [ "@objc" ]
