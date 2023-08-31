@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/5982196/202266973-6cec2e9e-627d-4a97-a664-eef04d1e07d3.png" width="600" />
   <p><br />This repository is the stable base upon which we build our Kotlin Multiplatform projects at Mirego.<br />We want to share it with the world so you can build awesome multiplatform applications too.</p>
   <a href="https://github.com/mirego/kmp-boilerplate/actions/workflows/ci.yml"><img src="https://github.com/mirego/kmp-boilerplate/actions/workflows/ci.yaml/badge.svg"/></a>
-  <a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-1.8.21-blue.svg?logo=kotlin"/></a>
+  <a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-1.9.10-blue.svg?logo=kotlin"/></a>
   <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg"/></a>
 </div>
 
@@ -16,7 +16,7 @@ our [blog post](https://shift.mirego.com/en/boilerplate-projects).
 This boilerplate comes with batteries included, you’ll find:
 
 - A brand new [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) project using
-  [Kotlin 1.8.21](https://kotlinlang.org/docs/whatsnew1820.html) and
+  [Kotlin 1.9.10](https://github.com/JetBrains/kotlin/releases/tag/v1.9.10) and
   the [Cocoapods Plugin](https://kotlinlang.org/docs/native-cocoapods.html)
 - An Android app using [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - An iOS app using [SwiftUI](https://developer.apple.com/xcode/swiftui)
@@ -28,7 +28,9 @@ This boilerplate comes with batteries included, you’ll find:
 - Opinionated Swift linting with [SwiftLint](https://github.com/realm/SwiftLint)
 - A [CI workflow](.github/workflows/ci.yaml)
   using [GitHub actions](https://docs.github.com/en/actions)
-- Translations with [Trikot.KWord](https://github.com/mirego/trikot/tree/master/trikot-kword) and [Accent](https://www.accent.reviews) (using a scheduled GitHub Actions [workflow](./.github/workflows/accent.yaml))
+- Translations with [Trikot.KWord](https://github.com/mirego/trikot/tree/master/trikot-kword)
+  and [Accent](https://www.accent.reviews) (using a scheduled GitHub
+  Actions [workflow](./.github/workflows/accent.yaml))
 - A clean and useful `README.md` template (in [english](./BOILERPLATE_README.md))
 
 ## Usage
@@ -70,7 +72,7 @@ have their own needs and requirements. Here’s a list of our preferred librarie
 started:
 
 | Category                 | Libraries                                                                                                               |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------|
 | HTTP networking          | [`ktor`](https://ktor.io/)                                                                                              |
 | GraphQL client           | [`apollo-kotlin`](https://www.apollographql.com/docs/kotlin/)                                                           |
 | Persisted preferences    | [`multiplatform-setttings`](https://github.com/russhwolf/multiplatform-settings)                                        |
@@ -81,7 +83,7 @@ started:
 
 ## License
 
-Kmp Boilerplate is © 2022 [Mirego](https://www.mirego.com) and may be freely distributed under
+Kmp Boilerplate is © 2023 [Mirego](https://www.mirego.com) and may be freely distributed under
 the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See
 the [`LICENSE.md`](https://github.com/mirego/kmp-boilerplate/blob/master/LICENSE.md) file.
 
