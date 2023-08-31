@@ -1,20 +1,16 @@
-@file:Suppress("UNUSED_VARIABLE")
-
-import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest
-
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    kotlin("plugin.serialization")
-    id("com.android.library")
-    id("org.jlleitschuh.gradle.ktlint")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.native.cocoapods)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.ktlint)
 }
 
 version = "0.1"
 
 kotlin {
     jvmToolchain(17)
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     ios()
@@ -75,7 +71,7 @@ android {
     namespace = "com.mirego.kmp.boilerplate.common"
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 21
     }
@@ -92,11 +88,4 @@ ktlint {
     filter {
         exclude { element -> element.file.path.contains("generated/") }
     }
-}
-
-// Make sure iOS simulator tests are ran on an available device (defaults to iPhone 14).
-// Run `/usr/bin/xcrun simctl list devices available` to list the available devices on your machine
-// See https://slack-chats.kotlinlang.org/t/535280/i-have-the-same-issue-leaving-a-comment-to-track
-tasks.filterIsInstance<KotlinNativeSimulatorTest>().forEach { task ->
-    task.device.set(properties["iosSimulatorName"] as? String ?: "iPhone 14")
 }
