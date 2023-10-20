@@ -53,17 +53,22 @@ This boilerplate comes with batteries included, you’ll find:
 
 ### Building the project
 
+Make sure you have [Bundler](https://rubygems.org/gems/bundler) installed (`gem install bundler`)
+
 #### Android
 
-1. Open the root folder using [Android Studio](https://developer.android.com/studio)
-2. Run the app on your device or simulator 🚀
+1. Install shared code specific gems at the root of the project (`bundle install`)
+2. Open the root folder using [Android Studio](https://developer.android.com/studio)
+3. Sync Gradle dependencies
+4. Build and run the app on your device or simulator 🚀
 
 #### iOS
 
-1. Open the [workspace](./ios/iosApp.xcworkspace) using [Xcode](https://developer.apple.com/xcode/)
+1. Install iOS specific gems in the `/ios` folder (`cd ios && bundle install`)
+2. Open the [workspace](./ios/iosApp.xcworkspace) using [Xcode](https://developer.apple.com/xcode/)
    or [AppCode](https://www.jetbrains.com/objc/)
-2. Specify your Development Team under the `Signing and Capabilities` tab of the `iosApp` target
-3. Run the app on your device or simulator 🚀
+3. Specify your Development Team under the `Signing and Capabilities` tab of the `iosApp` target
+4. Build and run the app on your device or simulator 🚀
 
 ## Preferred libraries
 

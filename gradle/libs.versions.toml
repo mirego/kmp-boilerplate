@@ -1,13 +1,13 @@
 [versions]
 androidComposeCompiler = "1.5.3"
-androidGradlePlugin = "8.1.1"
-androidxActivityCompose = "1.7.2"
+androidGradlePlugin = "8.1.2"
+androidxActivityCompose = "1.8.0"
 androidxAppcompat = "1.6.1"
-androidxComposeBom = "2023.08.00"
+androidxComposeBom = "2023.10.01"
 kotlin = "1.9.10"
 kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.6.0"
-ktlint = "11.5.1"
+ktlint = "11.6.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }

@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 android {
     namespace = "com.mirego.kmp.boilerplate"
     compileSdk = 34
@@ -36,10 +40,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidComposeCompiler.get()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
     packaging {
         // Do not include coroutines debug infrastructure in the resulting APK

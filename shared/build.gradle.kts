@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.native.cocoapods)
@@ -10,6 +12,7 @@ version = "0.1"
 
 kotlin {
     jvmToolchain(17)
+
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -20,8 +23,6 @@ kotlin {
         summary = "Project summary"
         homepage = "https://github.com/mirego/your-project"
         name = "Shared"
-
-        ios.deploymentTarget = "14.1"
 
         podfile = project.file("../ios/Podfile")
 
