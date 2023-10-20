@@ -12,6 +12,7 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* GreetingView.swift */; };
 		9B8ACFDB4E332DFCA8B97CBB /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4E1328B104D05A50A097EE /* Pods_iosApp.framework */; };
+		BC5700EB2B1A94D200525C22 /* PreviewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5700EA2B1A94D200525C22 /* PreviewContext.swift */; };
 		BC83B466276E4F080053E064 /* FlowUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83B465276E4F080053E064 /* FlowUtils.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,7 @@
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC5700EA2B1A94D200525C22 /* PreviewContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContext.swift; sourceTree = "<group>"; };
 		BC83B465276E4F080053E064 /* FlowUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowUtils.swift; sourceTree = "<group>"; };
 		E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,6 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */,
+				BC5700EA2B1A94D200525C22 /* PreviewContext.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* GreetingView.swift in Sources */,
+				BC5700EB2B1A94D200525C22 /* PreviewContext.swift in Sources */,
 				BC83B466276E4F080053E064 /* FlowUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
