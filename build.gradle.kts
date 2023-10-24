@@ -19,7 +19,9 @@ dependencyCheck {
     formats = listOf("HTML", "SARIF")
     outputDirectory = "reports"
 
-    analyzers.assemblyEnabled = false
-    analyzers.experimentalEnabled = true
-    analyzers.knownExploitedEnabled = true
+    analyzers.apply {
+        assemblyEnabled = false
+        experimentalEnabled = true
+        knownExploitedEnabled = true
+    }
 }
