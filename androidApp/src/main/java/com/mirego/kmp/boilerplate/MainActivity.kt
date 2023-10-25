@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Greeting(textFlow = Greeting().greeting())
+            Greeting(textFlow = com.mirego.kmp.boilerplate.viewmodel.Greeting().greeting())
         }
     }
 }
