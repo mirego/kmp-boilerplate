@@ -55,6 +55,19 @@ android {
             resources.srcDirs("../shared/src/commonMain/resources")
         }
     }
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("ci") {
+            dimension = "environment"
+            applicationIdSuffix = ".ci"
+        }
+
+        create("store") {
+            dimension = "environment"
+        }
+    }
 }
 
 dependencies {
