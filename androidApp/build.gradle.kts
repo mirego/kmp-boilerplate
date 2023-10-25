@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "0.1"
 
-        val translationFilePath = "${project.rootDir}/common/src/commonMain/resources/translations/translation.en.json"
+        val translationFilePath = "${project.rootDir}/shared/src/commonMain/resources/translations/translation.en.json"
         buildConfigField("String", "KWORD_TRANSLATION_FILE_PATH", "\"$translationFilePath\"")
     }
     buildTypes {
@@ -52,7 +52,7 @@ android {
 
     sourceSets {
         getByName("main") {
-            resources.srcDirs("../common/src/commonMain/resources")
+            resources.srcDirs("../shared/src/commonMain/resources")
         }
     }
 }
