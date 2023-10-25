@@ -31,15 +31,8 @@ fun generalModule(bootstrap: Bootstrap): Module {
         single { bootstrap.environment }
         single { bootstrap.appInformation }
         single { bootstrap.appInformation.locale.language }
-        single(
-            StringQualifier(ModuleQualifier.REGION_CODE)
-        ) { bootstrap.appInformation.locale.regionCode }
-        single(
-            StringQualifier(ModuleQualifier.DISK_CACHE_PATH)
-        ) {
-            bootstrap.appInformation.diskCachePath +
-                "/${bootstrap.appInformation.locale.language.toLangCode()}"
-        }
+        single(StringQualifier(ModuleQualifier.REGION_CODE)) { bootstrap.appInformation.locale.regionCode }
+        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath + "/${bootstrap.appInformation.locale.language.toLangCode()}" }
         single { buildJson() }
     }
 }
