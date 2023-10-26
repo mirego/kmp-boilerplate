@@ -3,6 +3,7 @@ package com.mirego.kmp.boilerplate.app
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.mirego.kmp.boilerplate.app.ui.application.ApplicationView
 import com.mirego.kmp.boilerplate.bootstrap.Bootstrapper
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             ApplicationView(applicationViewModel = viewModel)

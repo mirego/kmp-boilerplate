@@ -4,7 +4,7 @@ import Trikot
 
 struct ApplicationView: View {
     @ObservedObject private var observableViewModel: ObservableViewModelAdapter<ApplicationViewModel>
-    
+
     init(viewModel: ApplicationViewModel) {
         observableViewModel = viewModel.asObservable()
     }
@@ -12,14 +12,14 @@ struct ApplicationView: View {
     var viewModel: ApplicationViewModel {
         observableViewModel.viewModel
     }
-    
-	var body: some View {
-        Text("Hi")
-	}
+
+    var body: some View {
+        RootView(viewModel: viewModel.rootViewModel)
+    }
 }
 
-struct GreetingView_Previews: PreviewProvider {
-	static var previews: some View {
+struct ApplicationView_Previews: PreviewProvider {
+    static var previews: some View {
         ApplicationView(viewModel: factoryPreview().createApplication())
-	}
+    }
 }

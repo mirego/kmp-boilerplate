@@ -1,8 +1,8 @@
 package com.mirego.kmp.boilerplate.app.bootstrap
 
 import android.content.Context
+import com.mirego.kmp.boilerplate.BuildConfig
 import com.mirego.kmp.boilerplate.bootstrap.AppInformation
-import com.mirego.kmp.boilerplate.common.BuildConfig
 import com.mirego.kmp.boilerplate.model.Language
 import com.mirego.kmp.boilerplate.model.Locale
 

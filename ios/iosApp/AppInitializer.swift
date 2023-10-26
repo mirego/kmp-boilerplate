@@ -12,7 +12,8 @@ enum AppInitializer {
     private static func initializeCommon() {
         TrikotKword.shared.setCurrentLanguage(Foundation.Locale.isPreferredLanguagesFrench ? "fr" : "en")
         TrikotViewModelDeclarative.shared.initialize(
-            imageProvider: ImageProvider()
+            imageProvider: ImageProvider(),
+            spanStyleProvider: DefaultSpanStyleProvider()
         )
     }
 

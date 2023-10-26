@@ -73,6 +73,7 @@ android {
 dependencies {
     implementation(project(":shared"))
 
+    implementation(libs.android.splash)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
 

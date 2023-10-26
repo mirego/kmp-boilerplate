@@ -1,13 +1,14 @@
 package com.mirego.kmp.boilerplate.app.bootstrap
 
 import android.content.Context
+import com.mirego.kmp.boilerplate.BuildConfig
 import com.mirego.kmp.boilerplate.app.resources.AndroidImageProvider
 import com.mirego.kmp.boilerplate.bootstrap.AppEnvironment
 import com.mirego.kmp.boilerplate.bootstrap.Bootstrap
-import com.mirego.kmp.boilerplate.common.BuildConfig
 import com.mirego.trikot.kword.android.AndroidKWord
+import com.mirego.trikot.viewmodels.declarative.configuration.DefaultTextStyleProvider
 import com.mirego.trikot.viewmodels.declarative.configuration.TrikotViewModelDeclarative
-import java.util.Locale
+import java.util.*
 
 class AndroidBootstrap(context: Context) : Bootstrap {
 
@@ -27,7 +28,8 @@ class AndroidBootstrap(context: Context) : Bootstrap {
         }
 
         TrikotViewModelDeclarative.initialize(
-            imageProvider = AndroidImageProvider()
+            imageProvider = AndroidImageProvider(),
+            textStyleProvider = DefaultTextStyleProvider()
         )
     }
 }
