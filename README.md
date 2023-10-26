@@ -86,6 +86,10 @@ started:
 | Declarative UI framework | [`trikot-viewmodels-declarative-flow`](https://github.com/mirego/trikot/tree/master/trikot-viewmodels-declarative-flow) |
 | Date & time              | [`kotlinx-datetime`](https://github.com/Kotlin/kotlinx-datetime)                                                        |
 
+## OWASP Dependency-Check
+
+[OWASP Dependency-Check](http://jeremylong.github.io/DependencyCheck/index.html) is installed as a Gradle plugin to scan your project to identify the use of known vulnerable components. It mainly checks for vulnerabilities in Gradle dependencies, but if [bundle-audit](https://github.com/rubysec/bundler-audit) is present on the system, it will also scan the Ruby Gems dependencies. It also has the capabiligh to scan for Cocoapods/Swift Package Manager dependencies if executed on a macOS system.
+
 ## License
 
 Kmp Boilerplate is © 2023 [Mirego](https://www.mirego.com) and may be freely distributed under
