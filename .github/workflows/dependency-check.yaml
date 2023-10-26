@@ -18,6 +18,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .tool-versions
+          bundler-cache: true
+      - run: |
+          bundle install
+          gem install bundler-audit
+          bundle-audit update
+
       - uses: actions/setup-java@v3
         with:
           distribution: "temurin"
