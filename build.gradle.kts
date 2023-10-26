@@ -16,7 +16,7 @@ tasks.register("clean", Delete::class) {
 }
 
 dependencyCheck {
-    formats = listOf("HTML", "SARIF")
+    format = "SARIF"
     outputDirectory = "reports"
 
     analyzers.apply {
