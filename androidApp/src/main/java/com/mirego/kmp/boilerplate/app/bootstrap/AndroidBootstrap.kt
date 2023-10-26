@@ -9,6 +9,7 @@ import com.mirego.kmp.boilerplate.bootstrap.LocaleUtils
 import com.mirego.trikot.kword.android.AndroidKWord
 import com.mirego.trikot.viewmodels.declarative.configuration.DefaultTextStyleProvider
 import com.mirego.trikot.viewmodels.declarative.configuration.TrikotViewModelDeclarative
+import java.util.*
 
 class AndroidBootstrap(context: Context) : Bootstrap {
 
