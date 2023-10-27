@@ -53,6 +53,7 @@ This boilerplate comes with batteries included, you’ll find:
 
 ### Building the project
 
+Run `asdf install` to install the dependencies described in `.tool-versions` on your system
 Make sure you have [Bundler](https://rubygems.org/gems/bundler) installed (`gem install bundler`)
 
 #### Android
@@ -66,7 +67,6 @@ Make sure you have [Bundler](https://rubygems.org/gems/bundler) installed (`gem 
 
 1. Install iOS specific gems in the `/ios` folder (`cd ios && bundle install`)
 2. Open the [workspace](./ios/iosApp.xcworkspace) using [Xcode](https://developer.apple.com/xcode/)
-   or [AppCode](https://www.jetbrains.com/objc/)
 3. Specify your Development Team under the `Signing and Capabilities` tab of the `iosApp` target
 4. Build and run the app on your device or simulator 🚀
 
