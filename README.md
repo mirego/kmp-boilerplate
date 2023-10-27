@@ -53,8 +53,8 @@ This boilerplate comes with batteries included, you’ll find:
 
 ### Building the project
 
-Run `asdf install` to install the dependencies described in `.tool-versions` on your system
-Make sure you have [Bundler](https://rubygems.org/gems/bundler) installed (`gem install bundler`)
+* Run `asdf install` to install the dependencies described in `.tool-versions` on your system
+* Make sure you have [Bundler](https://rubygems.org/gems/bundler) installed (`gem install bundler`)
 
 #### Android
 
