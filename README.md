@@ -88,7 +88,7 @@ started:
 
 ## OWASP Dependency-Check
 
-[OWASP Dependency-Check](http://jeremylong.github.io/DependencyCheck/index.html) is installed as a Gradle plugin to scan your project to identify the use of known vulnerable components. It mainly checks for vulnerabilities in Gradle dependencies, but if [bundle-audit](https://github.com/rubysec/bundler-audit) is present on the system, it will also scan the Ruby Gems dependencies. It also has the capabiligh to scan for Cocoapods/Swift Package Manager dependencies if executed on a macOS system.
+[OWASP Dependency-Check](http://jeremylong.github.io/DependencyCheck/index.html) is installed as a Gradle plugin to scan your project to identify the use of known vulnerable components. It mainly checks for vulnerabilities in Gradle dependencies, but if [bundle-audit](https://github.com/rubysec/bundler-audit) is present on the system, it will also scan the Ruby Gems dependencies. It also has the capability to scan for Cocoapods/Swift Package Manager dependencies if executed on a macOS system.
 
 ## License
 
