@@ -9,7 +9,8 @@ import kotlinx.coroutines.CoroutineScope
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class ViewModelFactoryPreview(
-    private val i18N: I18N
+    private val i18N: I18N,
+    private val useCaseFactoryPreview: UseCaseFactoryPreview = UseCaseFactoryPreview()
 ) : ViewModelFactory {
 
     fun createCoroutineScope() = CoroutineScopeProvider.provideMainWithSuperviserJob(
@@ -26,6 +27,14 @@ class ViewModelFactoryPreview(
     override fun createRoot(coroutineScope: CoroutineScope) = createRoot()
 
     fun createRoot() = RootViewModelImpl(
+        i18N = i18N,
+        viewModelFactory = this,
+        coroutineScope = createCoroutineScope()
+    )
+
+    override fun createProjects(coroutineScope: CoroutineScope) = createProjects(PreviewState.DATA, coroutineScope)
+    fun createProjects(previewState: PreviewState, coroutineScope: CoroutineScope) = ProjectsViewModelImpl(
+        projectsUseCase = useCaseFactoryPreview.projectsUseCase(previewState),
         i18N = i18N,
         viewModelFactory = this,
         coroutineScope = createCoroutineScope()

@@ -1,0 +1,18 @@
+query Projects($projectsSlug: PageSlug!) {
+    page(slug: $projectsSlug) {
+        ... on Page {
+            blocks {
+                ... on ProjectsList {
+                    projects {
+                        entries {
+                            pageSlug
+                            name
+                            introductionText
+                            listImageUrl(width: 1200, height: 1200)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
