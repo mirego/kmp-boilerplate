@@ -1,0 +1,951 @@
+input AddressFormInput {
+  city: String!
+
+  country: String!
+
+  postalCode: String!
+
+  provinceTerritoryState: String!
+
+  streetAddress: String!
+}
+
+type Animation implements Block {
+  blockType: BlockTypes!
+
+  content: AnimationContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type AnimationContent {
+  autoplay: Boolean!
+
+  controls: Boolean!
+
+  loop: Boolean!
+
+  posterUrl(height: Int, quality: Int, width: Int): String
+
+  title: String!
+
+  videoUrl: String
+}
+
+type Banner implements Block {
+  blockType: BlockTypes!
+
+  content: BannerContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type BannerContent {
+  subtitle: String
+
+  title: String
+}
+
+interface Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+enum BlockTypes {
+  ANIMATION
+
+  BANNER
+
+  CAROUSEL
+
+  CLIENTS_LIST
+
+  COLUMNS
+
+  CONTACT_FORM
+
+  EMPTY
+
+  IMAGE_WITH_ACTION
+
+  IMAGE_WITH_TEXT
+
+  INTERVIEW_HEADER
+
+  INTERVIEW_NAVIGATOR
+
+  INTERVIEWS_LIST
+
+  MANIFESTO_SIGNATURE_FORM
+
+  MANIFESTO_SIGNATURE_LIST
+
+  NEWS_ARTICLE_HEADER
+
+  NEWS_ARTICLES_LIST
+
+  PARAGRAPH
+
+  PHOTO
+
+  PROJECT_HEADER
+
+  PROJECT_NAVIGATOR
+
+  PROJECTS_LIST
+
+  QUOTE
+
+  RELEASE_HEADER
+
+  RELEASE_NAVIGATOR
+
+  RELEASES_CAROUSEL
+
+  STAT
+
+  TITLE
+
+  TITLE_WITH_CAPTION
+
+  VIDEO
+}
+
+"""
+Contains either a `slug` or an `href`, never both
+"""
+type CallToAction {
+  href: Url
+
+  label: String
+
+  options: CallToActionOptions
+
+  slug: PageSlug
+}
+
+type CallToActionOptions {
+  target: String!
+}
+
+type Carousel implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: CarouselContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type CarouselContent {
+  slides: [CarouselSlide!]!
+}
+
+type CarouselSlide {
+  caption: String
+
+  htmlTitle: String
+
+  photoUrl(height: Int, quality: Int, width: Int): Url!
+}
+
+type ClientEntities {
+  entries: [ClientEntity!]!
+
+  meta: PaginationMeta!
+}
+
+type ClientEntity {
+  coverPictureUrl(height: Int, quality: Int, width: Int): Url!
+
+  industry: String!
+
+  interviews: [InterviewEntity]
+
+  logoUrl(height: Int, quality: Int, width: Int): Url!
+
+  name: String!
+
+  projects: [ProjectEntity]
+
+  releases: [ReleaseEntity]
+}
+
+type ClientsList implements Block {
+  blockType: BlockTypes!
+
+  clients(page: Int): ClientEntities!
+
+  displayConfiguration: DisplayConfiguration
+
+  paginated: Boolean!
+}
+
+"""
+Color in hexadecimal format (ex: #333333, #4f5e4a)
+"""
+scalar Color
+
+type Column {
+  blocks: [ColumnBlock]
+}
+
+interface ColumnBlock {
+  blockType: BlockTypes!
+}
+
+type Columns implements Block {
+  blockType: BlockTypes!
+
+  configuration: ColumnsConfiguration!
+
+  content: [Column!]
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type ColumnsConfiguration {
+  layoutKey: LayoutKeys!
+}
+
+type ContactForm implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  endedAt: String
+
+  formContent: FormContent!
+
+  initiative: String
+
+  neverEnds: Boolean!
+
+  startedAt: String!
+}
+
+enum ContentAlignments {
+  CENTER
+
+  LEFT
+
+  RIGHT
+}
+
+"""
+The `DateTime` scalar type represents a date and time in the UTC
+timezone. The DateTime appears in a JSON response as an ISO8601 formatted
+string, including UTC timezone ("Z"). The parsed date and time string will
+be converted to UTC if there is an offset.
+"""
+scalar DateTime
+
+type DisplayConfiguration {
+  backgroundColor: Color
+
+  backgroundPhotoUrl(height: Int, quality: Int, width: Int): Url
+
+  backgroundVideoUrl: Url
+
+  contentAlignment: ContentAlignments!
+
+  maxWidthOverride: MaxWidthOverrides
+
+  paddingBottomOverride: PaddingOverrides
+
+  paddingTopOverride: PaddingOverrides
+
+  textBodyColor: Color
+}
+
+type Empty implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type FormContent {
+  description: String!
+
+  fifthFieldName: String!
+
+  firstFieldName: String!
+
+  formType: String!
+
+  fourthFieldName: String!
+
+  id: ID!
+
+  isDeleted: Boolean!
+
+  name: String!
+
+  secondFieldName: String!
+
+  thirdFieldName: String!
+
+  title: String!
+}
+
+type FormResult {
+  agreesMiregoCommunications: Boolean!
+
+  city: String
+
+  contactFormId: ID!
+
+  country: String
+
+  fifthFieldValue: String!
+
+  firstFieldValue: String!
+
+  fourthFieldValue: String!
+
+  id: ID!
+
+  postalCode: String
+
+  projectDescription: String
+
+  provinceTerritoryState: String
+
+  secondFieldValue: String!
+
+  streetAddress: String
+
+  thirdFieldValue: String!
+}
+
+input GenericFormInput {
+  agreesMiregoCommunications: Boolean!
+
+  contactFormId: ID!
+
+  fifthFieldValue: String!
+
+  firstFieldValue: String!
+
+  fourthFieldValue: String!
+
+  initiative: String
+
+  secondFieldValue: String!
+
+  thirdFieldValue: String!
+}
+
+type ImageWithAction implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: ImageWithActionContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type ImageWithActionContent {
+  alignRight: Boolean!
+
+  callToAction: CallToAction
+
+  imageUrl(height: Int, quality: Int, width: Int): String!
+
+  subtitle: String
+
+  title: String
+}
+
+type ImageWithText implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: ImageWithTextContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type ImageWithTextContent {
+  body: String
+
+  fullWidthImage: Boolean!
+
+  imageUrl(height: Int, quality: Int, width: Int): String!
+
+  layout: ImageWithTextLayouts
+
+  subtitle: String
+
+  title: String!
+}
+
+enum ImageWithTextLayouts {
+  SIDE_BY_SIDE_LEFT
+
+  SIDE_BY_SIDE_RIGHT
+}
+
+input InboundFormInput {
+  projectDescription: String!
+}
+
+type InterviewEntities {
+  entries: [InterviewEntity!]!
+
+  meta: PaginationMeta!
+}
+
+type InterviewEntity {
+  client: ClientEntity!
+
+  interviewees: [IntervieweeEntity!]!
+
+  mainImageUrl(height: Int, quality: Int, width: Int): Url!
+
+  navigatorImageUrl(height: Int, quality: Int, width: Int): Url!
+
+  pageSlug: String!
+
+  year: Int!
+}
+
+type InterviewHeader implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  entity: InterviewEntity
+}
+
+type InterviewNavigator implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  interviews: InterviewNavigatorInterviews!
+}
+
+type InterviewNavigatorInterviews {
+  next: InterviewEntity!
+
+  previous: InterviewEntity!
+}
+
+type IntervieweeEntity {
+  name: String!
+}
+
+type InterviewsList implements Block {
+  blockType: BlockTypes!
+
+  callToAction: CallToAction
+
+  displayConfiguration: DisplayConfiguration
+
+  interviews(page: Int): InterviewEntities!
+}
+
+enum LayoutKeys {
+  DOUBLE_33_66
+
+  DOUBLE_50_50
+
+  DOUBLE_66_33
+
+  DOUBLE_FULL_WIDTH_50_50
+
+  SINGLE_CENTER
+
+  SINGLE_LEFT
+
+  TRIPLE_33_33_33
+
+  TRIPLE_TIGHT_33_33_33
+}
+
+type ManifestoSignature {
+  city: String
+
+  email: String!
+
+  firstName: String!
+
+  id: ID!
+
+  lastName: String!
+}
+
+type ManifestoSignatureEntities {
+  entries: [ManifestoSignatureEntity!]!
+
+  meta: PaginationMeta!
+}
+
+type ManifestoSignatureEntity {
+  city: String
+
+  email: String!
+
+  firstName: String!
+
+  lastName: String!
+}
+
+type ManifestoSignatureForm implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: ManifestoSignatureFormContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type ManifestoSignatureFormContent {
+  description: String!
+
+  title: String!
+}
+
+input ManifestoSignatureInput {
+  city: String
+
+  email: String!
+
+  firstName: String!
+
+  lastName: String!
+}
+
+type ManifestoSignatureList implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  buttonCallToAction: CallToAction
+
+  callToAction: CallToAction
+
+  content: ManifestoSignatureListContent!
+
+  displayConfiguration: DisplayConfiguration
+
+  paginated: Boolean!
+
+  showSignatureCount: Boolean!
+
+  signatures(page: Int): ManifestoSignatureEntities!
+}
+
+type ManifestoSignatureListContent {
+  title: String
+}
+
+enum MaxWidthOverrides {
+  LARGE
+
+  MEDIUM
+
+  SMALL
+}
+
+type Menu {
+  id: ID!
+
+  items: [MenuItem!]!
+
+  slug: String!
+}
+
+"""
+Contains either a `slug` or an `href`, never both
+"""
+type MenuItem {
+  href: Url
+
+  label: String
+
+  options: MenuItemOptions
+
+  slug: PageSlug
+}
+
+type MenuItemOptions {
+  target: String!
+}
+
+type RootMutationType {
+  addManifestoSignature(content: ManifestoSignatureInput!): ManifestoSignature
+
+  createFormResult(addressForm: AddressFormInput, formType: String!, genericForm: GenericFormInput!, inboundForm: InboundFormInput): FormResult
+}
+
+type NewsArticleEntities {
+  entries: [NewsArticleEntity!]!
+
+  meta: PaginationMeta!
+}
+
+type NewsArticleEntity {
+  pageSlug: String!
+
+  publishedAt: DateTime!
+
+  title: String!
+}
+
+type NewsArticleHeader implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  entity: NewsArticleEntity
+}
+
+type NewsArticlesList implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  newsArticles(page: Int): NewsArticleEntities!
+
+  paginated: Boolean!
+}
+
+enum PaddingOverrides {
+  EXTRA_SMALL
+
+  LARGE
+
+  SMALL
+}
+
+type Page {
+  alternateLocaleSlug: PageSlug!
+
+  blocks: [Block!]!
+
+  description: String
+
+  id: ID!
+
+  seoIndexing: Boolean!
+
+  slug: PageSlug!
+
+  thumbnailUrl(height: Int, quality: Int, width: Int): Url
+
+  title: String!
+}
+
+type PageError {
+  message: String!
+}
+
+union PageResponse = Page|PageError|Redirect
+
+"""
+Slug representing an internal page built with the API
+"""
+scalar PageSlug
+
+type PaginationMeta {
+  currentPage: Int!
+
+  nextPage: Int
+
+  pageSize: Int!
+
+  previousPage: Int
+
+  totalEntries: Int!
+
+  totalPages: Int!
+}
+
+type Paragraph implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: ParagraphContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type ParagraphContent {
+  body: String
+
+  callToAction: CallToAction
+
+  title: String
+}
+
+type Photo implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: PhotoContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type PhotoContent {
+  caption: String
+
+  htmlTitle: String
+
+  photoUrl(height: Int, quality: Int, width: Int): Url!
+}
+
+type ProjectEntities {
+  entries: [ProjectEntity!]!
+
+  meta: PaginationMeta!
+}
+
+type ProjectEntity {
+  client: ClientEntity!
+
+  introductionText: String!
+
+  listImageUrl(height: Int, quality: Int, width: Int): Url!
+
+  mainColor: String
+
+  mainImageUrl(height: Int, quality: Int, width: Int): Url!
+
+  name: String!
+
+  navigatorImageUrl(height: Int, quality: Int, width: Int): Url!
+
+  pageSlug: String!
+
+  projectType: String!
+
+  textColor: String
+
+  year: Int!
+}
+
+type ProjectHeader implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  entity: ProjectEntity
+}
+
+type ProjectNavigator implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  projects: ProjectNavigatorProjects
+}
+
+type ProjectNavigatorProjects {
+  next: ProjectEntity!
+
+  previous: ProjectEntity!
+}
+
+type ProjectsList implements Block {
+  blockType: BlockTypes!
+
+  callToAction: CallToAction
+
+  displayAsGrid: Boolean!
+
+  displayConfiguration: DisplayConfiguration
+
+  displayGridTitle: Boolean
+
+  gridColumnCount: String
+
+  projects(page: Int): ProjectEntities!
+}
+
+type RootQueryType {
+  menu(slug: String!): Menu
+
+  page(publicationId: ID, slug: PageSlug): PageResponse
+}
+
+type Quote implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: QuoteContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type QuoteContent {
+  body: String
+
+  size: QuoteSizes
+
+  source: String
+
+  sourceContext: String
+}
+
+enum QuoteSizes {
+  LARGE
+
+  SMALL
+}
+
+type Redirect {
+  url: String!
+}
+
+type ReleaseEntities {
+  entries: [ReleaseEntity!]!
+
+  meta: PaginationMeta!
+}
+
+type ReleaseEntity {
+  client: ClientEntity!
+
+  introductionText: String!
+
+  listImageUrl(height: Int, quality: Int, width: Int): Url!
+
+  mainColor: String
+
+  name: String!
+
+  navigatorImageUrl(height: Int, quality: Int, width: Int): Url!
+
+  pageSlug: String!
+
+  releasedAt: DateTime!
+
+  textColor: String
+}
+
+type ReleaseHeader implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  entity: ReleaseEntity
+}
+
+type ReleaseNavigator implements Block {
+  blockType: BlockTypes!
+
+  displayConfiguration: DisplayConfiguration
+
+  releases: ReleaseNavigatorReleases
+}
+
+type ReleaseNavigatorReleases {
+  next: ReleaseEntity!
+
+  previous: ReleaseEntity!
+}
+
+type ReleasesCarousel implements Block {
+  blockType: BlockTypes!
+
+  callToAction: CallToAction
+
+  content: ReleasesCarouselContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type ReleasesCarouselContent {
+  releases: [ReleaseEntity!]!
+
+  title: String
+}
+
+type ReleasesList implements Block {
+  blockType: BlockTypes!
+
+  callToAction: CallToAction
+
+  displayAsGrid: Boolean!
+
+  displayConfiguration: DisplayConfiguration
+
+  displayGridTitle: Boolean
+
+  gridColumnCount: String
+
+  releases(page: Int): ReleaseEntities!
+}
+
+type Stat implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: StatContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type StatContent {
+  description: String
+
+  subtitle: String
+
+  title: String
+}
+
+type Title implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: TitleContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type TitleContent {
+  callToAction: CallToAction
+
+  subtitle: String
+
+  title: String!
+}
+
+type TitleWithCaption implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: TitleWithCaptionContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type TitleWithCaptionContent {
+  caption: String
+
+  description: String
+
+  title: String!
+}
+
+"""
+URL with scheme, host, path and params
+"""
+scalar Url
+
+type Video implements Block & ColumnBlock {
+  blockType: BlockTypes!
+
+  content: VideoContent!
+
+  displayConfiguration: DisplayConfiguration
+}
+
+type VideoContent {
+  autoplay: Boolean!
+
+  controls: Boolean!
+
+  loop: Boolean!
+
+  posterUrl(height: Int, quality: Int, width: Int): String!
+
+  videoUrl: String!
+}
+
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+}

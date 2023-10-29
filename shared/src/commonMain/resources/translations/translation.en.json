@@ -1,2 +1,7 @@
 {
+    "generic_empty_content_title": "Nothing here...",
+    "generic_error_message": "An unfortunate error occurred",
+    "generic_error_title": "Oops...",
+    "generic_retry": "Retry",
+    "projects_empty_content_message": "There are no projects to show"
 }
