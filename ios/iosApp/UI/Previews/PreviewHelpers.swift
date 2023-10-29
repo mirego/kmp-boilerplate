@@ -10,5 +10,6 @@ func previewi18N(languageCode: String) -> I18N {
 
 func factoryPreview(languageCode: String = "en") -> ViewModelFactoryPreview {
     let i18N = previewi18N(languageCode: languageCode)
-    return ViewModelFactoryPreview(i18N: i18N)
+    let usecaseFactory = UseCaseFactoryPreview()
+    return ViewModelFactoryPreview(i18N: i18N, useCaseFactoryPreview: usecaseFactory)
 }
