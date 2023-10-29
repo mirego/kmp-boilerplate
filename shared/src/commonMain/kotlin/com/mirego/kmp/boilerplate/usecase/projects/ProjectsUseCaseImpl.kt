@@ -19,10 +19,10 @@ class ProjectsUseCaseImpl(
                 ProjectsViewData.Content(
                     it.map { project ->
                         ProjectItemViewData(
-                            project.pageSlug,
-                            project.name,
-                            project.introductionText,
-                            project.listImageUrl.toString()
+                            id = project.pageSlug,
+                            title = project.name,
+                            description = project.introductionText,
+                            imageUrl = project.listImageUrl.toString()
                         )
                     }
                 )

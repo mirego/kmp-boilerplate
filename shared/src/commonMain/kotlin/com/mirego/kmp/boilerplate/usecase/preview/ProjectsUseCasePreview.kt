@@ -1,5 +1,6 @@
 package com.mirego.kmp.boilerplate.usecase.preview
 
+import com.mirego.kmp.boilerplate.usecase.projects.ProjectItemViewData
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsUseCase
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsViewData
 import com.mirego.kmp.boilerplate.utils.StateData
@@ -15,6 +16,17 @@ import kotlin.time.Duration.Companion.seconds
 class ProjectsUseCasePreview(
     previewState: PreviewState
 ) : ProjectsUseCase {
+    companion object {
+        fun buildPreviewItems() = (0 until 5).map {
+            ProjectItemViewData(
+                id = it.toString(),
+                title = "Project #$it",
+                description = "A small project description #$it",
+                imageUrl = ""
+            )
+        }
+    }
+
     private val previewStateFlow = MutableStateFlow(previewState)
 
     override fun projects(): Flow<StateData<ProjectsViewData>> = previewStateFlow.map {
@@ -22,9 +34,7 @@ class ProjectsUseCasePreview(
             is PreviewState.Data -> {
                 when (it) {
                     PreviewState.Data.Content -> stateDataData(
-                        ProjectsViewData.Content(
-                            emptyList()
-                        )
+                        ProjectsViewData.Content(buildPreviewItems())
                     )
 
                     PreviewState.Data.Empty -> stateDataData(
