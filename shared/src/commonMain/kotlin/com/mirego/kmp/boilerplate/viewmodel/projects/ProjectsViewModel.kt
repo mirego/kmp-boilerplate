@@ -16,7 +16,7 @@ interface ProjectsViewModel : VMDLifecycleViewModel {
 
 sealed interface ProjectsRootContent {
     data class Content(
-        val items: VMDListViewModelImpl<ProjectItemContent>
+        val items: VMDListViewModelImpl<ProjectItem>
     ) : ProjectsRootContent
 
     data class Empty(
@@ -28,9 +28,10 @@ sealed interface ProjectsRootContent {
     ) : ProjectsRootContent
 }
 
-data class ProjectItemContent(
+data class ProjectItem(
     override val identifier: String,
     val title: String,
     val description: String,
-    val image: VMDImageViewModel
+    val image: VMDImageViewModel,
+    val isLoading: Boolean
 ) : VMDIdentifiableContent
