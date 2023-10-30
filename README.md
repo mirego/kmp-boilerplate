@@ -53,7 +53,8 @@ This boilerplate comes with batteries included, you’ll find:
 
 ### Building the project
 
-Make sure you have [Bundler](https://rubygems.org/gems/bundler) installed (`gem install bundler`)
+* Run `asdf install` to install the dependencies described in `.tool-versions` on your system
+* Make sure you have [Bundler](https://rubygems.org/gems/bundler) installed (`gem install bundler`)
 
 #### Android
 
@@ -66,7 +67,6 @@ Make sure you have [Bundler](https://rubygems.org/gems/bundler) installed (`gem 
 
 1. Install iOS specific gems in the `/ios` folder (`cd ios && bundle install`)
 2. Open the [workspace](./ios/iosApp.xcworkspace) using [Xcode](https://developer.apple.com/xcode/)
-   or [AppCode](https://www.jetbrains.com/objc/)
 3. Specify your Development Team under the `Signing and Capabilities` tab of the `iosApp` target
 4. Build and run the app on your device or simulator 🚀
 
@@ -88,7 +88,7 @@ started:
 
 ## OWASP Dependency-Check
 
-[OWASP Dependency-Check](http://jeremylong.github.io/DependencyCheck/index.html) is installed as a Gradle plugin to scan your project to identify the use of known vulnerable components. It mainly checks for vulnerabilities in Gradle dependencies, but if [bundle-audit](https://github.com/rubysec/bundler-audit) is present on the system, it will also scan the Ruby Gems dependencies. It also has the capabiligh to scan for Cocoapods/Swift Package Manager dependencies if executed on a macOS system.
+[OWASP Dependency-Check](http://jeremylong.github.io/DependencyCheck/index.html) is installed as a Gradle plugin to scan your project to identify the use of known vulnerable components. It mainly checks for vulnerabilities in Gradle dependencies, but if [bundle-audit](https://github.com/rubysec/bundler-audit) is present on the system, it will also scan the Ruby Gems dependencies. It also has the capability to scan for Cocoapods/Swift Package Manager dependencies if executed on a macOS system.
 
 ## License
 
