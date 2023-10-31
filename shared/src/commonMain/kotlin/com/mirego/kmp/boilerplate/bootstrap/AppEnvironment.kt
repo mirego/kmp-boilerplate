@@ -6,7 +6,7 @@ enum class AppEnvironment(
 ) {
     DEV(
         key = "dev",
-        "https://api-qa.mirego.com/graphql"
+        "https://api.mirego.com/graphql"
     ),
     PRODUCTION(
         key = "production",

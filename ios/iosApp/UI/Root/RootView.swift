@@ -14,9 +14,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        Text("Hi")
-        
-
+        ProjectsView(viewModel: viewModel.projectsViewModel)
     }
 }
 

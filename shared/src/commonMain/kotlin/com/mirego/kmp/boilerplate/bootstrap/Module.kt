@@ -28,8 +28,7 @@ fun buildJson() = Json {
 
 fun generalModule(bootstrap: Bootstrap): Module {
     return module {
-        val environment = bootstrap.environment
-        single { createApolloClientBuilder(environment).build() }
+        single { createApolloClientBuilder(bootstrap).build() }
         single<I18N> { KWord }
         single { bootstrap.environment }
         single { bootstrap.appInformation }
@@ -40,10 +39,10 @@ fun generalModule(bootstrap: Bootstrap): Module {
     }
 }
 
-private fun createApolloClientBuilder(appEnvironment: AppEnvironment): ApolloClient.Builder =
+private fun createApolloClientBuilder(bootstrap: Bootstrap): ApolloClient.Builder =
     ApolloClient.Builder()
-        .serverUrl(appEnvironment.graphQlApiUrl)
-        .autoPersistedQueries()
+        .serverUrl(bootstrap.environment.graphQlApiUrl)
+        .addHttpHeader("X-Accept-Language", bootstrap.appInformation.locale.language.toLangCode())
 
 
 object ModuleQualifier {

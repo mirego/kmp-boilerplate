@@ -17,6 +17,7 @@ kotlinxSerialization = "1.6.0"
 kword-plugin = "4.0.0"
 ktlint = "11.6.1"
 okio = "3.6.0"
+skie = "0.4.20"
 trikot = "5.2.0"
 
 [libraries]
@@ -39,6 +40,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+skie = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
 
 trikot-vmd = { module = "com.mirego.trikot:viewmodels-declarative-flow", version.ref = "trikot" }
 trikot-kword = { module = "com.mirego.trikot:kword", version.ref = "trikot" }
@@ -59,6 +61,7 @@ kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 mirego-kwordPlugin = { id = "mirego.kword", version.ref = "kword-plugin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+skie-plugin = { id = "co.touchlab.skie", version.ref = "skie" }
 
 [bundles]
 

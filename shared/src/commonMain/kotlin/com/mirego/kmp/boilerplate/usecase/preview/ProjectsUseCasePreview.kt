@@ -21,7 +21,8 @@ class ProjectsUseCasePreview(
             ProjectItemViewData(
                 id = it.toString(),
                 title = "Project #$it",
-                description = "A small project description #$it",
+                subtitle = "A small project description #$it",
+                description = "iOS & Android applications",
                 imageUrl = ""
             )
         }

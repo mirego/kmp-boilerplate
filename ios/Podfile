@@ -6,7 +6,8 @@ inhibit_all_warnings!
 
 target 'iosApp' do
   use_frameworks!
-  platform :ios, $deploymentTarget
+  platform :ios, $deploymentTarget  
+    #  Multiplatform
     pod 'Shared', :path => '../shared'
 
     ENV['TRIKOT_FRAMEWORK_NAME']='Shared'

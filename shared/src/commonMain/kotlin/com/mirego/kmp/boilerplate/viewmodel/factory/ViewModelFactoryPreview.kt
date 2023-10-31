@@ -35,11 +35,11 @@ class ViewModelFactoryPreview(
         coroutineScope = createCoroutineScope()
     )
 
-    override fun createProjects(coroutineScope: CoroutineScope) = createProjects(PreviewState.Data.Content, coroutineScope)
-    fun createProjects(previewState: PreviewState, coroutineScope: CoroutineScope) = ProjectsViewModelImpl(
+    override fun createProjects(coroutineScope: CoroutineScope) = createProjects(PreviewState.Data.Content)
+    fun createProjects(previewState: PreviewState = PreviewState.Data.Content) = ProjectsViewModelImpl(
         projectsUseCase = useCaseFactoryPreview.projectsUseCase(previewState),
         i18N = i18N,
         viewModelFactory = this,
-        coroutineScope = coroutineScope
+        coroutineScope = createCoroutineScope()
     )
 }

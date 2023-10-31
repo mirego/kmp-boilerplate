@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.mirego.kwordPlugin)
     alias(libs.plugins.apollo.graphql)
+    alias(libs.plugins.skie.plugin)
 }
 
 version = "0.1"
@@ -29,6 +30,12 @@ kword {
     translationFile = file("src/commonMain/resources/translations/translation.en.json")
     enumClassName = "com.mirego.kmp.boilerplate.localization.KWordTranslation"
     generatedDir = file("src/commonMain/generated")
+}
+
+skie {
+    analytics {
+        disableUpload.set(true)
+    }
 }
 
 apollo {
@@ -94,6 +101,7 @@ kotlin {
                 api(libs.kotlinx.serialization.json)
                 api(libs.koin.core)
                 implementation(libs.okio)
+                implementation(libs.skie)
                 api(libs.trikot.vmd.annotations)
                 api(libs.trikot.datasources)
                 api(libs.trikot.kword)

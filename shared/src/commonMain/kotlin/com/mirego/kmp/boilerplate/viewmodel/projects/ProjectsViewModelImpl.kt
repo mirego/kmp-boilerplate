@@ -38,7 +38,7 @@ class ProjectsViewModelImpl(
                 when (val prioritizedData = stateData.prioritiseData()) {
                     is DataState.Data -> when (val data = prioritizedData.value) {
                         is ProjectsViewData.Content -> buildData(data)
-                        is ProjectsViewData.Empty -> buildEmpty()
+                        is ProjectsViewData.Empty -> buildEmptyData()
                     }
 
                     is DataState.Error -> buildError()
@@ -48,8 +48,31 @@ class ProjectsViewModelImpl(
         )
     }
 
-    private fun buildData(viewData: ProjectsViewData.Content) = ProjectsRootContent.Content(
-        items = list(
+    private fun buildData(viewData: ProjectsViewData.Content) = ProjectsRoot.Content(
+        sections = list {
+            elements = listOf(
+                buildHeader(),
+                buildProjectList(viewData)
+            )
+        }
+    )
+
+    private fun buildEmptyData() = ProjectsRoot.Content(
+        sections = list {
+            elements = listOf(
+                buildHeader(),
+                buildEmpty()
+            )
+        }
+    )
+
+    private fun buildHeader() = ProjectsContentSection.Header(
+        i18N[KWordTranslation.PROJECTS_HEADER_TITLE],
+        i18N[KWordTranslation.PROJECTS_HEADER_DESCRIPTION]
+    )
+
+    private fun buildProjectList(viewData: ProjectsViewData.Content) = ProjectsContentSection.ProjectsList(
+        viewModel = list(
             elements = viewData.items.map { item ->
                 item.toItem(isLoading = false)
             }
@@ -59,6 +82,7 @@ class ProjectsViewModelImpl(
     private fun ProjectItemViewData.toItem(isLoading: Boolean) = ProjectItem(
         identifier = id,
         title = title,
+        subtitle = subtitle,
         description = description,
         image = remoteImage(
             imageUrl = imageUrl,
@@ -67,8 +91,8 @@ class ProjectsViewModelImpl(
         isLoading = isLoading
     )
 
-    private fun buildEmpty() = ProjectsRootContent.Empty(
-        empty = EmptyViewModelImpl(
+    private fun buildEmpty() = ProjectsContentSection.NoProjects(
+        emptyViewModel = EmptyViewModelImpl(
             title = i18N[KWordTranslation.GENERIC_EMPTY_CONTENT_TITLE],
             message = i18N[KWordTranslation.PROJECTS_EMPTY_CONTENT_MESSAGE],
             actionButton = null,
@@ -76,8 +100,8 @@ class ProjectsViewModelImpl(
         )
     )
 
-    private fun buildError() = ProjectsRootContent.Error(
-        error = ErrorViewModelImpl.build(
+    private fun buildError() = ProjectsRoot.Error(
+        errorViewModel = ErrorViewModelImpl.build(
             i18N = i18N,
             titleKey = KWordTranslation.GENERIC_ERROR_TITLE,
             messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE,
@@ -90,11 +114,18 @@ class ProjectsViewModelImpl(
         }
     )
 
-    private fun buildLoading() = ProjectsRootContent.Content(
-        items = list(
-            elements = ProjectsUseCasePreview.buildPreviewItems().map {
-                it.toItem(isLoading = true)
-            }
-        )
+    private fun buildLoading() = ProjectsRoot.Content(
+        sections = list {
+            elements = listOf(
+                buildHeader(),
+                ProjectsContentSection.ProjectsList(
+                    viewModel = list(
+                        elements = ProjectsUseCasePreview.buildPreviewItems().map {
+                            it.toItem(isLoading = true)
+                        }
+                    )
+                )
+            )
+        }
     )
 }

@@ -31,8 +31,9 @@ class ProjectsRepositoryImpl(
         ).mapValue {
             it.value.page
                 ?.asPage()
-                ?.blocks?.firstOrNull()
-                ?.asProjectsList()?.projects?.entries.orEmpty()
+                ?.blocks?.firstNotNullOfOrNull {
+                    it.asProjectsList()?.projects?.entries
+                }.orEmpty()
         }
 
     override suspend fun refreshProjects() {

@@ -4,7 +4,8 @@ import Trikot
 
 struct ApplicationView: View {
     @ObservedObject private var observableViewModel: ObservableViewModelAdapter<ApplicationViewModel>
-
+    @StateObject private var statusBarConfigurator = StatusBarConfigurator()
+    
     init(viewModel: ApplicationViewModel) {
         observableViewModel = viewModel.asObservable()
     }
@@ -15,6 +16,11 @@ struct ApplicationView: View {
 
     var body: some View {
         RootView(viewModel: viewModel.rootViewModel)
+            .prepareStatusBarConfigurator(statusBarConfigurator)
+            .environment(\.statusBarConfigurator, statusBarConfigurator)
+            .onAppear {
+                statusBarConfigurator.statusBarStyle = .lightContent
+            }
     }
 }
 

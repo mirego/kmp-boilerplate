@@ -20,8 +20,9 @@ class ProjectsUseCaseImpl(
                     it.map { project ->
                         ProjectItemViewData(
                             id = project.pageSlug,
-                            title = project.name,
-                            description = project.introductionText,
+                            title = project.client.name,
+                            subtitle = project.name,
+                            description = project.projectType,
                             imageUrl = project.listImageUrl.toString()
                         )
                     }
