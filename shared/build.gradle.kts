@@ -114,10 +114,19 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.mockk.common)
             }
         }
         val androidMain by getting
-        val androidUnitTest by getting
+
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlin.test.junit)
+                implementation(libs.mockk)
+            }
+        }
+
 
         val iosX64Main by getting
         val iosArm64Main by getting

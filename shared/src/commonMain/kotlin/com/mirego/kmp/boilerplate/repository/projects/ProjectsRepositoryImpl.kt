@@ -22,12 +22,8 @@ class ProjectsRepositoryImpl(
 ) : ProjectsRepository {
     override fun projects(): Flow<StateData<List<ProjectsQuery.Data.PagePage.ProjectsListBlock.Projects.Entry>>> =
         dataSource.read(
-            ProjectsQuery(
-                when (language) {
-                    Language.ENGLISH -> "work"
-                    Language.FRENCH -> "projets"
-                }
-            ).request(forceRefresh = false)
+            buildQuery()
+                .request(forceRefresh = false)
         ).mapValue {
             it.value.page
                 ?.asPage()
@@ -38,9 +34,17 @@ class ProjectsRepositoryImpl(
 
     override suspend fun refreshProjects() {
         dataSource.read(
-            ProjectsQuery("").request(forceRefresh = true)
+            buildQuery()
+                .request(forceRefresh = true)
         ).filter { !it.isPending() }.first()
     }
+
+    private fun buildQuery() = ProjectsQuery(
+        when (language) {
+            Language.ENGLISH -> "work"
+            Language.FRENCH -> "projets"
+        }
+    )
 }
 
 private fun ProjectsQuery.request(forceRefresh: Boolean = true) =
@@ -48,6 +52,6 @@ private fun ProjectsQuery.request(forceRefresh: Boolean = true) =
         query = this,
         serializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::toJson,
         deSerializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::fromJson,
-        cacheableId = this.id(),
+        cacheableId = this.id() + this.projectsSlug.toString(),
         requestType = if (forceRefresh) FlowDataSourceRequest.Type.REFRESH_CACHE else FlowDataSourceRequest.Type.USE_CACHE
     )

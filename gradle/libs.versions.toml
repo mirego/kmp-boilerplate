@@ -16,6 +16,7 @@ kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.6.0"
 kword-plugin = "4.0.0"
 ktlint = "11.6.1"
+mockk = "1.12.5"
 okio = "3.6.0"
 skie = "0.4.20"
 trikot = "5.2.0"
@@ -38,9 +39,14 @@ koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-comp
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit" }
 
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 skie = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
+
+mockk-common = { module = "io.mockk:mockk-common", version.ref = "mockk" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 trikot-vmd = { module = "com.mirego.trikot:viewmodels-declarative-flow", version.ref = "trikot" }
 trikot-kword = { module = "com.mirego.trikot:kword", version.ref = "trikot" }
