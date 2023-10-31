@@ -1,12 +1,13 @@
 import Foundation
 import Shared
+import Trikot
 
 class AppInformationImpl: AppInformation {
-    let locale: Shared.Locale
+    var locale: SkieSwiftMutableStateFlow<Shared.Locale>
     let versionNumber: String
     let diskCachePath: String
 
-    init (environmentKey: String) {
+    init(environmentKey: String) {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? ""
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""
         versionNumber = "\(version).\(build)"
@@ -16,6 +17,7 @@ class AppInformationImpl: AppInformation {
         
         let language = Foundation.Locale.isPreferredLanguagesFrench ? Shared.Language.french : Shared.Language.english
         let regionCode = Foundation.Locale.current.regionCode
-        locale = Shared.Locale(language: language, regionCode: regionCode)
+        let currentLocale = Shared.Locale(language: language, regionCode: regionCode)
+        locale = AppInformationCompanion().buildLocaleMutableStateFlow(value: currentLocale)
     }
 }

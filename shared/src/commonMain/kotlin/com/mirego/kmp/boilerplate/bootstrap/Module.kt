@@ -32,9 +32,8 @@ fun generalModule(bootstrap: Bootstrap): Module {
         single<I18N> { KWord }
         single { bootstrap.environment }
         single { bootstrap.appInformation }
-        single { bootstrap.appInformation.locale.language }
-        single(StringQualifier(ModuleQualifier.REGION_CODE)) { bootstrap.appInformation.locale.regionCode }
-        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath + "/${bootstrap.appInformation.locale.language.toLangCode()}" }
+//        single { bootstrap.appInformation.locale.language }
+        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath } // + "/${bootstrap.appInformation.locale.language.toLangCode()}" }
         single { buildJson() }
     }
 }
@@ -42,10 +41,9 @@ fun generalModule(bootstrap: Bootstrap): Module {
 private fun createApolloClientBuilder(bootstrap: Bootstrap): ApolloClient.Builder =
     ApolloClient.Builder()
         .serverUrl(bootstrap.environment.graphQlApiUrl)
-        .addHttpHeader("X-Accept-Language", bootstrap.appInformation.locale.language.toLangCode())
+//        .addHttpHeader("X-Accept-Language", bootstrap.appInformation.locale.language.toLangCode())
 
 
 object ModuleQualifier {
     const val DISK_CACHE_PATH = "diskCachePath"
-    const val REGION_CODE = "regionCode"
 }
