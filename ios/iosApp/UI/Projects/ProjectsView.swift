@@ -26,7 +26,7 @@ struct ProjectsView: View {
         if let rootContent = viewModel.rootContent {
             switch onEnum(of: rootContent) {
                 case let .content(content):
-                    ProjectsContentView(viewModel: content.sections)                    
+                    ProjectsContentView(viewModel: content.sections)
                 case let .error(error):
                     ErrorView(viewModel: error.errorViewModel)
             }

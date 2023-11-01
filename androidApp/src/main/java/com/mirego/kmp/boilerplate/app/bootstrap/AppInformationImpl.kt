@@ -5,13 +5,16 @@ import com.mirego.kmp.boilerplate.BuildConfig
 import com.mirego.kmp.boilerplate.bootstrap.AppInformation
 import com.mirego.kmp.boilerplate.model.Language
 import com.mirego.kmp.boilerplate.model.Locale
+import com.mirego.kmp.boilerplate.utils.ConcreteFlow
+import com.mirego.kmp.boilerplate.utils.wrap
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class AppInformationImpl(context: Context) : AppInformation {
-    override val locale: MutableStateFlow<Locale> = AppInformation.buildLocaleMutableStateFlow(currentLocale())
+    private val internalLocale = MutableStateFlow(currentLocale())
+    override fun locale(): ConcreteFlow<Locale> = internalLocale.wrap()
 
     fun updateLocale() {
-        locale.value = currentLocale()
+        internalLocale.value = currentLocale()
     }
 
     private fun currentLocale() = Locale(

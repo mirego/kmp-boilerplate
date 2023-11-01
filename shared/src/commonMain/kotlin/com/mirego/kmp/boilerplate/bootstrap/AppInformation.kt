@@ -1,14 +1,10 @@
 package com.mirego.kmp.boilerplate.bootstrap
 
 import com.mirego.kmp.boilerplate.model.Locale
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.mirego.kmp.boilerplate.utils.ConcreteFlow
 
 interface AppInformation {
-    companion object {
-        fun buildLocaleMutableStateFlow(value: Locale) = MutableStateFlow(value)
-    }
-
-    val locale: MutableStateFlow<Locale>
+    fun locale(): ConcreteFlow<Locale>
     val versionNumber: String
     val diskCachePath: String
 }

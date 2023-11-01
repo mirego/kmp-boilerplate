@@ -9,5 +9,5 @@ import org.koin.core.annotation.Single
 class LocaleRepositoryImpl(
     private val appInformation: AppInformation
 ) : LocaleRepository {
-    override fun locale(): Flow<Locale> = appInformation.locale
+    override fun locale(): Flow<Locale> = appInformation.locale()
 }
