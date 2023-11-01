@@ -1,5 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel.factory
 
+import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
+import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsViewModel
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsViewModel
 import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -16,5 +18,13 @@ class ViewModelFactoryImpl : ViewModelFactory, KoinComponent {
 
     override fun createProjects(coroutineScope: CoroutineScope): ProjectsViewModel = get {
         parametersOf(coroutineScope)
+    }
+
+    override fun createProjectDetails(
+        navigationData: ProjectDetailsNavigationData,
+        closeAction: () -> Unit,
+        coroutineScope: CoroutineScope
+    ): ProjectDetailsViewModel = get {
+        parametersOf(navigationData, closeAction, coroutineScope)
     }
 }

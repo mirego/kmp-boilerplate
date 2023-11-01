@@ -10,10 +10,10 @@ import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
 import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModelImpl
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDLifecycleViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.list
 import com.mirego.trikot.viewmodels.declarative.viewmodel.remoteImage
 import kotlinx.coroutines.CoroutineScope
@@ -22,13 +22,15 @@ import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 
 @Factory
-@PublishedSubClass(superClass = VMDLifecycleViewModelImpl::class)
+@PublishedSubClass(superClass = NavigationViewModelImpl::class)
 class ProjectsViewModelImpl(
     private val projectsUseCase: ProjectsUseCase,
     private val i18N: I18N,
     viewModelFactory: ViewModelFactory,
     coroutineScope: CoroutineScope
 ) : ProjectsViewModel, BaseProjectsViewModelImpl(
+    onTrackScreenView = {},
+    viewModelFactory = viewModelFactory,
     coroutineScope = coroutineScope
 ) {
 

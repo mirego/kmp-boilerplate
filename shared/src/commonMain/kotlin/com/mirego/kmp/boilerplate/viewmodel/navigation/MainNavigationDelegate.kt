@@ -1,7 +1,9 @@
 package com.mirego.kmp.boilerplate.viewmodel.navigation
 
-interface MainNavigationDelegate {
+import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
 
+interface MainNavigationDelegate {
+    fun navigateToProjectDetails(navigationData: ProjectDetailsNavigationData)
 }
 
 enum class CloseActionType {
