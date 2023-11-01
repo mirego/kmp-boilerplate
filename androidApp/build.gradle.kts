@@ -41,6 +41,9 @@ android {
     buildFeatures {
         compose = true
     }
+    androidResources {
+        generateLocaleConfig = true
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidComposeCompiler.get()
     }
