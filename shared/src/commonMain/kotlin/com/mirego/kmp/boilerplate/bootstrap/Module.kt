@@ -32,8 +32,7 @@ fun generalModule(bootstrap: Bootstrap): Module {
         single<I18N> { KWord }
         single { bootstrap.environment }
         single { bootstrap.appInformation }
-//        single { bootstrap.appInformation.locale.language }
-        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath } // + "/${bootstrap.appInformation.locale.language.toLangCode()}" }
+        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath }
         single { buildJson() }
     }
 }
@@ -41,7 +40,7 @@ fun generalModule(bootstrap: Bootstrap): Module {
 private fun createApolloClientBuilder(bootstrap: Bootstrap): ApolloClient.Builder =
     ApolloClient.Builder()
         .serverUrl(bootstrap.environment.graphQlApiUrl)
-//        .addHttpHeader("X-Accept-Language", bootstrap.appInformation.locale.language.toLangCode())
+        .addHttpInterceptor(LocaleHeaderInterceptor())
 
 
 object ModuleQualifier {

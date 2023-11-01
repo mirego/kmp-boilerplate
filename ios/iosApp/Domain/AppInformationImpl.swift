@@ -3,7 +3,7 @@ import Shared
 import Trikot
 
 class AppInformationImpl: AppInformation {
-    var locale: SkieSwiftMutableStateFlow<Shared.Locale>
+    let locale: SkieSwiftMutableStateFlow<Shared.Locale>
     let versionNumber: String
     let diskCachePath: String
 
