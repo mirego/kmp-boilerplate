@@ -20,7 +20,8 @@ struct ProjectsView: View {
                 Color(.primaryBlack)
                     .ignoresSafeArea()
             )
-            .handleNavigation(viewModel, route: viewModel.navigationRoute)
+            .navigationBarHidden(true)
+            .handleNavigation(viewModel, route: viewModel.navigationRoute, navigationTypeOverride: navigationTypeOverride)
     }
 
     @ViewBuilder private var contentView: some View {
@@ -32,6 +33,16 @@ struct ProjectsView: View {
                     ErrorView(viewModel: error.errorViewModel)
             }
         }
+    }
+}
+
+extension ProjectsView {
+    func navigationTypeOverride(route: VMDNavigationRoute) -> NavigationType? {
+        if route is NavigationRouteProjectDetails {
+            return .fullScreen
+        }
+        
+        return nil
     }
 }
 

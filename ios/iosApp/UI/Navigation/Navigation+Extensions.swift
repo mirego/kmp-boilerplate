@@ -45,7 +45,7 @@ extension View {
         )
     }
 
-    func push<Route: NavigationRoute, Content: View>(
+    func push<Route: VMDNavigationRoute, Content: View>(
         route: Route?,
         @ViewBuilder content: @escaping (Route) -> Content
     ) -> some View {

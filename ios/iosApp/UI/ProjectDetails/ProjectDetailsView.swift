@@ -16,6 +16,7 @@ struct ProjectDetailsView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             contentView
+                .ignoresSafeArea(edges: .top)
             
             VMDButton(viewModel.closeButton) {
                 $0.image.image?
@@ -25,13 +26,14 @@ struct ProjectDetailsView: View {
                     .foregroundStyle(Color.white)
                     .contentShape(Rectangle())
             }
-            .padding([.top, .leading], 16)
+            .padding(.leading, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             viewModel.backgroundColor.color
                 .ignoresSafeArea()
         )
+        .navigationBarHidden(true)
     }
 
     @ViewBuilder private var contentView: some View {
