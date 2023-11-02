@@ -22,7 +22,7 @@ import org.koin.core.annotation.Factory
 @Factory
 @PublishedSubClass(superClass = NavigationViewModelImpl::class)
 class ProjectDetailsViewModelImpl(
-    navigationData: ProjectDetailsNavigationData,
+    private val navigationData: ProjectDetailsNavigationData,
     projectDetailsUseCase: ProjectDetailsUseCase,
     private val i18N: I18N,
     viewModelFactory: ViewModelFactory,
@@ -69,7 +69,8 @@ class ProjectDetailsViewModelImpl(
     )
 
     private fun buildLoading() = buildContent(
-        viewData = ProjectDetailsUseCasePreview.buildPreviewViewData(),
+        viewData = ProjectDetailsUseCasePreview.buildPreviewViewData()
+            .copy(backgroundColor = navigationData.backgroundColor, textColor = navigationData.textColor),
         isLoading = true
     )
 
