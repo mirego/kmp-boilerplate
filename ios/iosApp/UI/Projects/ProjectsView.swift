@@ -20,6 +20,7 @@ struct ProjectsView: View {
                 Color(.primaryBlack)
                     .ignoresSafeArea()
             )
+            .handleNavigation(viewModel, route: viewModel.navigationRoute)
     }
 
     @ViewBuilder private var contentView: some View {

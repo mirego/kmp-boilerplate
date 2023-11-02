@@ -12,6 +12,8 @@ query Projects($projectsSlug: PageSlug!) {
                             client {
                                 name
                             }
+                            mainColor
+                            textColor
                         }
                     }
                 }

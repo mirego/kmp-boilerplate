@@ -28,6 +28,10 @@
 		895BED092AF0A4C3005B1212 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED082AF0A4C3005B1212 /* ErrorView.swift */; };
 		895BED0B2AF0A7ED005B1212 /* EmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED0A2AF0A7ED005B1212 /* EmptyContentView.swift */; };
 		895BED0E2AF3E66C005B1212 /* ProjectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED0D2AF3E66C005B1212 /* ProjectDetailsView.swift */; };
+		895BED112AF3FD32005B1212 /* NavigationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED102AF3FD32005B1212 /* NavigationModifier.swift */; };
+		895BED132AF3FD76005B1212 /* Navigation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED122AF3FD76005B1212 /* Navigation+Extensions.swift */; };
+		895BED152AF3FDD0005B1212 /* Binding+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED142AF3FDD0005B1212 /* Binding+Extensions.swift */; };
+		895BED172AF416F5005B1212 /* VMDColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED162AF416F5005B1212 /* VMDColor+Extensions.swift */; };
 		9B8ACFDB4E332DFCA8B97CBB /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4E1328B104D05A50A097EE /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +61,10 @@
 		895BED082AF0A4C3005B1212 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		895BED0A2AF0A7ED005B1212 /* EmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyContentView.swift; sourceTree = "<group>"; };
 		895BED0D2AF3E66C005B1212 /* ProjectDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailsView.swift; sourceTree = "<group>"; };
+		895BED102AF3FD32005B1212 /* NavigationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModifier.swift; sourceTree = "<group>"; };
+		895BED122AF3FD76005B1212 /* Navigation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigation+Extensions.swift"; sourceTree = "<group>"; };
+		895BED142AF3FDD0005B1212 /* Binding+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extensions.swift"; sourceTree = "<group>"; };
+		895BED162AF416F5005B1212 /* VMDColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VMDColor+Extensions.swift"; sourceTree = "<group>"; };
 		E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +139,7 @@
 			children = (
 				89011D582AE9B00F0073544B /* Application */,
 				895BECFF2AEFF0FB005B1212 /* Common */,
+				895BED0F2AF3FD0E005B1212 /* Navigation */,
 				895BECFC2AEFF06C005B1212 /* Projects */,
 				895BED0C2AF3E650005B1212 /* ProjectDetails */,
 				895BECF92AEAB3D1005B1212 /* Root */,
@@ -159,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				89011D522AE9A8150073544B /* LocaleExtensions.swift */,
+				895BED162AF416F5005B1212 /* VMDColor+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -197,6 +207,16 @@
 				895BED0D2AF3E66C005B1212 /* ProjectDetailsView.swift */,
 			);
 			path = ProjectDetails;
+			sourceTree = "<group>";
+		};
+		895BED0F2AF3FD0E005B1212 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				895BED102AF3FD32005B1212 /* NavigationModifier.swift */,
+				895BED122AF3FD76005B1212 /* Navigation+Extensions.swift */,
+				895BED142AF3FDD0005B1212 /* Binding+Extensions.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		C8C629BFDC2144230B71E3BC /* Frameworks */ = {
@@ -370,16 +390,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				89011D492AE9A3690073544B /* AppDelegate.swift in Sources */,
+				895BED172AF416F5005B1212 /* VMDColor+Extensions.swift in Sources */,
 				89011D4D2AE9A4FC0073544B /* AppEnvironment+iOS.swift in Sources */,
 				895BED012AEFF111005B1212 /* StatusBarConfigurator.swift in Sources */,
+				895BED152AF3FDD0005B1212 /* Binding+Extensions.swift in Sources */,
 				89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */,
 				895BED072AF099BC005B1212 /* ProjectsContentView.swift in Sources */,
+				895BED132AF3FD76005B1212 /* Navigation+Extensions.swift in Sources */,
 				895BED0E2AF3E66C005B1212 /* ProjectDetailsView.swift in Sources */,
 				89011D4F2AE9A7340073544B /* AppInitializer.swift in Sources */,
 				89011D542AE9A8150073544B /* LocaleExtensions.swift in Sources */,
 				895BED092AF0A4C3005B1212 /* ErrorView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				895BECFE2AEFF078005B1212 /* ProjectsView.swift in Sources */,
+				895BED112AF3FD32005B1212 /* NavigationModifier.swift in Sources */,
 				89011D512AE9A7750073544B /* ImageProvider.swift in Sources */,
 				89011D4B2AE9A4CD0073544B /* BootstrapImpl.swift in Sources */,
 				895BED032AEFF281005B1212 /* TextStyle.swift in Sources */,

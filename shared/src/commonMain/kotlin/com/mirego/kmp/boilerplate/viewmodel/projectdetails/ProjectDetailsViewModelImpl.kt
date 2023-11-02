@@ -12,7 +12,9 @@ import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
 import com.mirego.trikot.viewmodels.declarative.content.VMDTextPairContent
+import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithImage
+import com.mirego.trikot.viewmodels.declarative.viewmodel.remoteImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
@@ -31,6 +33,9 @@ class ProjectDetailsViewModelImpl(
     viewModelFactory = viewModelFactory,
     coroutineScope = coroutineScope
 ) {
+    override val backgroundColor: VMDColor = navigationData.backgroundColor
+    override val textColor: VMDColor = navigationData.textColor
+
     init {
         bindRootContent(
             projectDetailsUseCase.projectsDetails(navigationData.id).map { stateData ->
@@ -44,7 +49,10 @@ class ProjectDetailsViewModelImpl(
     }
 
     private fun buildContent(viewData: ProjectDetailsViewData, isLoading: Boolean) = ProjectDetailsRoot.Content(
-        imageUrl = viewData.imageUrl,
+        image = remoteImage(
+            imageUrl = viewData.imageUrl,
+            placeholderImageResource = SharedImageResource.imagePlaceholder
+        ),
         title = viewData.title,
         subtitle = viewData.subtitle,
         projectType = VMDTextPairContent(

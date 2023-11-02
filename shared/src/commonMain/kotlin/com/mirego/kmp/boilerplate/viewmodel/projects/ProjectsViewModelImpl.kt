@@ -93,7 +93,11 @@ class ProjectsViewModelImpl(
         ),
         tapAction = {
             navigateToProjectDetails(
-                ProjectDetailsNavigationData(id = id)
+                ProjectDetailsNavigationData(
+                    id = id,
+                    backgroundColor = backgroundColor,
+                    textColor = textColor
+                )
             )
         },
         isLoading = isLoading

@@ -11,7 +11,9 @@ import com.mirego.kmp.boilerplate.utils.StateData
 import com.mirego.trikot.datasources.flow.FlowDataSourceRequest
 import com.mirego.trikot.datasources.flow.extensions.mapValue
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Single
 
+@Single
 class ProjectDetailsRepositoryImpl(
     private val dataSource: ProjectDetailsDataSource
 ) : ProjectDetailsRepository {

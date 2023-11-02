@@ -5,7 +5,9 @@ import com.mirego.kmp.boilerplate.utils.StateData
 import com.mirego.trikot.datasources.flow.extensions.mapValue
 import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Factory
 
+@Factory
 class ProjectDetailsUseCaseImpl(
     private val repository: ProjectDetailsRepository
 ) : ProjectDetailsUseCase {
@@ -13,15 +15,18 @@ class ProjectDetailsUseCaseImpl(
         repository.projectDetails(id = id)
             .mapValue { entity ->
                 ProjectDetailsViewData(
-                    entity.mainImageUrl.toString(),
-                    entity.introductionText,
-                    entity.name,
-                    entity.projectType,
-                    entity.year.toString(),
-                    entity.mainColor?.toVMDColor() ?: VMDColor.None,
-                    entity.textColor?.toVMDColor() ?: VMDColor.None
+                    imageUrl = entity.mainImageUrl.toString(),
+                    title = entity.client.name,
+                    subtitle = entity.name,
+                    projectType = entity.projectType,
+                    releaseYear = entity.year.toString(),
+                    backgroundColor = entity.mainColor?.toVMDColor() ?: defaultBackgroundColor,
+                    textColor = entity.textColor?.toVMDColor() ?: defaultTextColor
                 )
             }
+
+    private var defaultBackgroundColor = VMDColor(255, 255, 255, 1f)
+    private var defaultTextColor = VMDColor(255, 255, 255, 1f)
 }
 
 fun String.toVMDColor(): VMDColor? {

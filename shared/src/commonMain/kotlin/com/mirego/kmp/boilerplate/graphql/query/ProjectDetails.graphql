@@ -6,12 +6,14 @@ query ProjectDetails($id: PageSlug!) {
                 ...on ProjectHeader {
                     entity {
                         mainImageUrl(width: 1200, height: 1200)
-                        introductionText
                         name
                         projectType
                         year
                         mainColor
                         textColor
+                        client {
+                            name
+                        }
                     }
                 }
             }
