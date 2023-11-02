@@ -49,6 +49,9 @@ class ViewModelFactoryPreview(
         createProjectDetails()
 
     fun createProjectDetails(previewState: PreviewState = PreviewState.Data.Content) = ProjectDetailsViewModelImpl(
+        navigationData = ProjectDetailsNavigationData(""),
+        projectDetailsUseCase = useCaseFactoryPreview.projectDetailsUseCase(previewState),
+        i18N = i18N,
         viewModelFactory = this,
         closeAction = {},
         coroutineScope = createCoroutineScope()

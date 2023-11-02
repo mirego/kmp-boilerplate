@@ -52,5 +52,6 @@ data class ProjectItem(
     val subtitle: String,
     val description: String,
     val image: VMDImageViewModel,
+    val tapAction: () -> Unit,
     val isLoading: Boolean
 ) : VMDIdentifiableContent

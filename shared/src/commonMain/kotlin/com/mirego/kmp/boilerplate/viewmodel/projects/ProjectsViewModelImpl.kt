@@ -11,6 +11,7 @@ import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
 import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
@@ -90,6 +91,11 @@ class ProjectsViewModelImpl(
             imageUrl = imageUrl,
             placeholderImageResource = SharedImageResource.imagePlaceholder
         ),
+        tapAction = {
+            navigateToProjectDetails(
+                ProjectDetailsNavigationData(id = id)
+            )
+        },
         isLoading = isLoading
     )
 

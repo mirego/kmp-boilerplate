@@ -1,3 +1,5 @@
 package com.mirego.kmp.boilerplate.viewmodel.projectdetails
 
-object ProjectDetailsNavigationData
+data class ProjectDetailsNavigationData(
+    val id: String
+)

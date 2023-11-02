@@ -5,5 +5,7 @@
     "generic_retry": "Retry",
     "projects_header_title": "Our projects",
     "projects_header_description": "Over the years, we’ve built over 300 digital products used every day by millions of users on mobile phones, Web browsers, tablets, watches, TV screens, digital kiosks and home assistants. Here are a few of them.",
-    "projects_empty_content_message": "There are no projects to show"
+    "projects_empty_content_message": "There are no projects to show",
+    "project_details_project_type": "Type",
+    "project_details_release_year": "Launch year"
 }
