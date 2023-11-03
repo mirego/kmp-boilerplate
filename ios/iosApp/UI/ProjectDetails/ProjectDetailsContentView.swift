@@ -11,6 +11,7 @@ struct ProjectDetailsContentView: View {
     var body: some View {
         GeometryReader { proxy in
             contentView
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .background(
                     backgroundImageView
@@ -73,6 +74,7 @@ struct ProjectDetailsContentView: View {
                     imagePlaceHolder?
                         .resizable()
                         .scaledToFit()
+                        .foregroundStyle(Color.black)
                         .frame(width: 100, height: 100)
                 }
             }

@@ -50,10 +50,10 @@ class ApolloGraphQLDiskDataSource<R : ApolloGraphQLDataSourceRequest<T>, T : Que
     override suspend fun save(request: R, data: FlowDataSourceExpiringValue<T>?) {
         data?.value?.let { dataToSave ->
             withContext(Dispatchers.IO) {
+                val filePath = buildFilePath(request)
                 try {
                     NativeFileSystem.fileSystem.createDirectories(diskCachePath.toPath())
-                    val filePath = buildFilePath(request)
-                    val content = NativeFileSystem.fileSystem.sink(filePath).buffer()
+                    val content = NativeFileSystem.fileSystem.sink(file = filePath, mustCreate = true).buffer()
                     val jsonWritter = BufferedSinkJsonWriter(content)
                     jsonWritter.beginObject()
                     request.serializeJsonMethod(jsonWritter, customScalarAdapters, dataToSave)
@@ -61,7 +61,7 @@ class ApolloGraphQLDiskDataSource<R : ApolloGraphQLDataSourceRequest<T>, T : Que
                     content.flush()
                     content.close()
                 } catch (error: Throwable) {
-                    println("Failed to save json in disk cache! Error: $error")
+                    println("Failed to save json in disk cache, $filePath : $error")
                 }
             }
         }

@@ -35,6 +35,9 @@ private fun ProjectDetailsQuery.request(forceRefresh: Boolean = true) =
         query = this,
         serializeJsonMethod = ProjectDetailsQuery_ResponseAdapter.Data::toJson,
         deSerializeJsonMethod = ProjectDetailsQuery_ResponseAdapter.Data::fromJson,
-        cacheableId = id() + id.toString(),
-        requestType = if (forceRefresh) FlowDataSourceRequest.Type.REFRESH_CACHE else FlowDataSourceRequest.Type.USE_CACHE
+        cacheableId = "${projectId.toString().replace("/", "-")}-${id()}",
+        requestType = if (forceRefresh)
+            FlowDataSourceRequest.Type.REFRESH_CACHE
+        else
+            FlowDataSourceRequest.Type.USE_CACHE
     )

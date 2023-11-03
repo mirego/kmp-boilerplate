@@ -11,6 +11,11 @@ import org.koin.core.annotation.Factory
 class ProjectDetailsUseCaseImpl(
     private val repository: ProjectDetailsRepository
 ) : ProjectDetailsUseCase {
+    companion object {
+        private val defaultBackgroundColor = VMDColor(255, 255, 255, 1f)
+        private val defaultTextColor = VMDColor(255, 255, 255, 1f)
+    }
+
     override fun projectsDetails(id: String): Flow<StateData<ProjectDetailsViewData>> =
         repository.projectDetails(id = id)
             .mapValue { entity ->
@@ -24,9 +29,6 @@ class ProjectDetailsUseCaseImpl(
                     textColor = entity.textColor?.toVMDColor() ?: defaultTextColor
                 )
             }
-
-    private var defaultBackgroundColor = VMDColor(255, 255, 255, 1f)
-    private var defaultTextColor = VMDColor(255, 255, 255, 1f)
 }
 
 fun String.toVMDColor(): VMDColor? {

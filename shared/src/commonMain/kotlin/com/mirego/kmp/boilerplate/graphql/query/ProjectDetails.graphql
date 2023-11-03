@@ -1,5 +1,5 @@
-query ProjectDetails($id: PageSlug!) {
-    page(slug: $id) {
+query ProjectDetails($projectId: PageSlug!) {
+    page(slug: $projectId) {
         ... on Page {
             blocks {
                 blockType

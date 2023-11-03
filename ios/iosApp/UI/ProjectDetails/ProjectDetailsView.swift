@@ -17,23 +17,25 @@ struct ProjectDetailsView: View {
         ZStack(alignment: .topLeading) {
             contentView
                 .ignoresSafeArea(edges: .top)
-            
-            VMDButton(viewModel.closeButton) {
-                $0.image.image?
-                    .renderingMode(.template)
-                    .resizable()
-                    .frame(width: 35, height: 35)
-                    .foregroundStyle(Color.white)
-                    .contentShape(Rectangle())
-            }
-            .padding(.leading, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             viewModel.backgroundColor.color
                 .ignoresSafeArea()
         )
-        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                VMDButton(viewModel.closeButton) {
+                    $0.image.image?
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 35, height: 35)
+                        .foregroundStyle(Color.white)
+                        .contentShape(Rectangle())
+                }
+            }
+        }
     }
 
     @ViewBuilder private var contentView: some View {

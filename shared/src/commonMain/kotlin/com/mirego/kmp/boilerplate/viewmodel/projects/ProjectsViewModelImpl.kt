@@ -45,7 +45,10 @@ class ProjectsViewModelImpl(
                     }
 
                     is DataState.Error -> buildError()
-                    is DataState.Pending -> buildLoading()
+                    is DataState.Pending -> {
+                        println("xxdebug buildLoading")
+                        buildLoading()
+                    }
                 }
             }
         )

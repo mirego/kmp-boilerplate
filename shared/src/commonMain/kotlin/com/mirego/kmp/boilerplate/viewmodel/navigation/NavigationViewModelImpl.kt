@@ -9,7 +9,12 @@ open class NavigationViewModelImpl(
     onTrackScreenView: () -> Unit,
     private val viewModelFactory: ViewModelFactory,
     coroutineScope: CoroutineScope
-) : NavigationViewModel, MainNavigationDelegate, VMDNavigationViewModelImpl<NavigationRoute>(onTrackScreenView = onTrackScreenView, coroutineScope = coroutineScope) {
+) : NavigationViewModel,
+    MainNavigationDelegate,
+    VMDNavigationViewModelImpl<NavigationRoute>(
+        onTrackScreenView = onTrackScreenView,
+        coroutineScope = coroutineScope
+    ) {
 
     override fun navigateToProjectDetails(navigationData: ProjectDetailsNavigationData) {
         updateRoute(
