@@ -1,7 +1,9 @@
 package com.mirego.kmp.boilerplate.app.ui.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,12 +36,14 @@ import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDText
 
 @Composable
 fun ErrorView(errorViewModel: ErrorViewModel) {
+    val iconPadding = 4.dp
     val viewModel: ErrorViewModel by errorViewModel.observeAsState()
     Column(
         modifier = Modifier
             .statusBarsPadding()
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         VMDImage(
             modifier = Modifier.size(55.dp),
@@ -48,7 +52,7 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
         )
 
         VMDText(
-            modifier = Modifier.padding(top = padding * 2),
+            modifier = Modifier.padding(top = padding * 2 - iconPadding),
             viewModel = viewModel.title,
             style = style(TextSize.LARGE_TITLE, TextWeight.REGULAR),
             color = Color.White,
@@ -66,12 +70,12 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
         VMDButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = padding)
                 .widthIn(max = 320.dp)
-                .padding(vertical = 12.dp)
-                .clip(RoundedCornerShape(16.dp))
+                .padding(top = padding * 2)
+                .padding(horizontal = padding * 2)
+                .clip(RoundedCornerShape(percent = 50))
                 .background(Color.Red)
-                .padding(top = padding * 2),
+                .padding(vertical = 12.dp),
             viewModel = viewModel.retryButton,
         ) { content ->
             Text(

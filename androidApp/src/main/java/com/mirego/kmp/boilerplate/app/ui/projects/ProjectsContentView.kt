@@ -1,6 +1,7 @@
 package com.mirego.kmp.boilerplate.app.ui.projects
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +17,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
@@ -28,6 +30,7 @@ import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.theme.AccentOrange
 import com.mirego.kmp.boilerplate.app.ui.theme.TextSize
 import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
+import com.mirego.kmp.boilerplate.app.ui.theme.loading
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectItem
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsContentSection
@@ -48,7 +51,10 @@ fun ProjectsContentView(listViewModel: VMDListViewModel<ProjectsContentSection>)
     ) { section ->
         when (section) {
             is ProjectsContentSection.Header -> HeaderView(header = section)
-            is ProjectsContentSection.NoProjects -> EmptyContentView(emptyViewModel = section.emptyViewModel)
+            is ProjectsContentSection.NoProjects -> EmptyContentView(
+                emptyViewModel = section.emptyViewModel,
+                modifier = Modifier.padding(top = 100.dp)
+            )
             is ProjectsContentSection.ProjectsList -> ProjectsListView(viewModel = section.viewModel)
         }
     }
@@ -80,9 +86,8 @@ private fun HeaderView(header: ProjectsContentSection.Header) {
 @Composable
 private fun ProjectsListView(viewModel: VMDListViewModel<ProjectItem>) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(padding)
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(padding * 2)
     ) {
         viewModel.elements.forEach { item ->
             ItemView(item)
@@ -96,7 +101,14 @@ private fun ItemView(item: ProjectItem) {
         verticalArrangement = Arrangement.spacedBy(padding)
     ) {
         VMDImage(
-            modifier = Modifier.clip(RoundedCornerShape(16.dp)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(
+                    spotColor = Color.White.copy(alpha = 0.2f),
+                    elevation = 6.dp,
+                    shape = RoundedCornerShape(16.dp),
+                )
+                .loading(item.isLoading),
             viewModel = item.image,
             contentScale = ContentScale.FillWidth
         )
@@ -104,9 +116,9 @@ private fun ItemView(item: ProjectItem) {
         Column(
             modifier = Modifier
                 .padding(horizontal = padding)
-                .padding(top = padding)
         ) {
             Text(
+                modifier = Modifier.loading(item.isLoading),
                 text = item.title,
                 style = style(TextSize.SUB_HEADLINE, TextWeight.REGULAR),
                 color = Color.White,
@@ -114,17 +126,20 @@ private fun ItemView(item: ProjectItem) {
             )
 
             Text(
-                modifier = Modifier.padding(top = 4.dp),
+                modifier = Modifier
+                    .loading(item.isLoading),
                 text = item.subtitle,
-                style = style(TextSize.SUB_HEADLINE, TextWeight.REGULAR),
+                style = style(TextSize.TITLE1, TextWeight.REGULAR),
                 color = Color.White,
                 maxLines = 2
             )
 
             Text(
-                modifier = Modifier.padding(top = padding),
+                modifier = Modifier
+                    .loading(item.isLoading)
+                    .padding(top = 12.dp),
                 text = item.description,
-                style = style(TextSize.SUB_HEADLINE, TextWeight.REGULAR),
+                style = style(TextSize.CAPTION1, TextWeight.REGULAR),
                 color = Color.AccentOrange,
                 maxLines = 2
             )

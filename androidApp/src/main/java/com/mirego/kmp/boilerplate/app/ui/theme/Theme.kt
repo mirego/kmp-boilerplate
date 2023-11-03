@@ -3,7 +3,11 @@ package com.mirego.kmp.boilerplate.app.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.placeholder
+import com.google.accompanist.placeholder.shimmer
 
 @Composable
 fun Theme(
@@ -18,3 +22,11 @@ fun Theme(
         content = content
     )
 }
+
+fun Modifier.loading(isLoading: Boolean) = this.then(
+    placeholder(
+        visible = isLoading,
+        highlight = PlaceholderHighlight.shimmer(highlightColor = Color.ShimmerHighlight),
+        color = Color.ShimmerBackground
+    )
+)
