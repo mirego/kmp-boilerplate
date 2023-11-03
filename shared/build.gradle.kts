@@ -19,6 +19,7 @@ val TRIKOT_FRAMEWORK_NAME = "Shared"
 fun org.jetbrains.kotlin.gradle.plugin.mpp.Framework.configureFramework() {
     baseName = TRIKOT_FRAMEWORK_NAME
     isStatic = false
+    export(libs.trikot.analytics)
     export(libs.trikot.vmd)
     export(libs.trikot.kword)
     export(libs.trikot.datasources)
@@ -102,6 +103,7 @@ kotlin {
                 api(libs.koin.core)
                 implementation(libs.okio)
                 implementation(libs.skie)
+                api(libs.trikot.analytics)
                 api(libs.trikot.vmd.annotations)
                 api(libs.trikot.datasources)
                 api(libs.trikot.kword)

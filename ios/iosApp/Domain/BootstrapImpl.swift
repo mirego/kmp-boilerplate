@@ -8,5 +8,14 @@ final class BootstrapImpl: Bootstrap {
 
     init() {
         appInformation = AppInformationImpl(environmentKey: environment.key)
+        
+        let firebaseAnalyticsService = AnalyticsServiceImpl()
+        #if DEBUG
+            firebaseAnalyticsService.isEnabled = false
+        #else
+           firebaseAnalyticsService.isEnabled = true
+        #endif
+        
+        SharedAnalyticsConfiguration().analyticsManager = firebaseAnalyticsService
     }
 }

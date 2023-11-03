@@ -74,6 +74,8 @@ class ProjectsUseCaseTestImpl : BaseTest() {
         listImageUrl = "https://miregologo.com",
         client = ProjectsQuery.Data.PagePage.ProjectsListBlock.Projects.Entry.Client(
             name = "Mirego"
-        )
+        ),
+        "000000",
+        "FFFFFF"
     )
 }
