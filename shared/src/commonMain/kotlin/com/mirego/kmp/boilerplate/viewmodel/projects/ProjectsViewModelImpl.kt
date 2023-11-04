@@ -1,5 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel.projects
 
+import com.mirego.kmp.boilerplate.analytics.Analytics
+import com.mirego.kmp.boilerplate.analytics.ScreenName
 import com.mirego.kmp.boilerplate.extension.prioritiseData
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectsUseCasePreview
@@ -30,7 +32,9 @@ class ProjectsViewModelImpl(
     viewModelFactory: ViewModelFactory,
     coroutineScope: CoroutineScope
 ) : ProjectsViewModel, BaseProjectsViewModelImpl(
-    onTrackScreenView = {},
+    onTrackScreenView = {
+        Analytics.trackScreenView(ScreenName.projects)
+    },
     viewModelFactory = viewModelFactory,
     coroutineScope = coroutineScope
 ) {
@@ -95,6 +99,7 @@ class ProjectsViewModelImpl(
             placeholderImageResource = SharedImageResource.imagePlaceholder
         ),
         tapAction = {
+            Analytics.trackViewProject(projectId = id)
             navigateToProjectDetails(
                 ProjectDetailsNavigationData(
                     id = id,
