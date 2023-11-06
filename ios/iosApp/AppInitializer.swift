@@ -1,12 +1,33 @@
+import FirebaseCore
 import Foundation
 import Kingfisher
 import Shared
 import Trikot
 
 enum AppInitializer {
-    static func initializeComponents(environment: AppEnvironment) {
+    static func initializeComponents(environment _: AppEnvironment) {
+        initializeFirebase()
         initializeCommon()
         initializeKingfisher()
+    }
+
+    private static func initializeFirebase() {
+        guard
+            let filePath = Bundle.main.path(forResource: "ToReplace-GoogleService-Info", ofType: "plist"),
+            let firebaseOptions = FirebaseOptions(contentsOfFile: filePath) else {
+            return
+        }
+
+        FirebaseApp.configure(options: firebaseOptions)
+
+        let firebaseAnalyticsService = AnalyticsServiceImpl()
+        #if DEBUG
+            firebaseAnalyticsService.isEnabled = false
+        #else
+            firebaseAnalyticsService.isEnabled = true
+        #endif
+
+        SharedAnalyticsConfiguration().analyticsManager = firebaseAnalyticsService
     }
 
     private static func initializeCommon() {
