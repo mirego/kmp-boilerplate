@@ -22,11 +22,3 @@ fun Theme(
         content = content
     )
 }
-
-fun Modifier.loading(isLoading: Boolean) = this.then(
-    placeholder(
-        visible = isLoading,
-        highlight = PlaceholderHighlight.shimmer(highlightColor = Color.ShimmerHighlight),
-        color = Color.ShimmerBackground
-    )
-)

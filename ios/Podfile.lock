@@ -1,7 +1,6 @@
 PODS:
   - Kingfisher (7.8.1)
   - Shared (0.1)
-  - SwiftGen (6.6.2)
   - SwiftLint (0.53.0)
   - SwiftUIIntrospect (1.1.0)
   - Trikot/kword (5.2.0):
@@ -16,7 +15,6 @@ PODS:
 
 DEPENDENCIES:
   - Shared (from `../shared`)
-  - SwiftGen
   - SwiftLint
   - "Trikot/kword (from `git@github.com:mirego/trikot.git`, tag `5.2.0`)"
   - "Trikot/viewmodels.declarative.SwiftUI.flow (from `git@github.com:mirego/trikot.git`, tag `5.2.0`)"
@@ -24,7 +22,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Kingfisher
-    - SwiftGen
     - SwiftLint
     - SwiftUIIntrospect
 
@@ -43,11 +40,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
   Shared: 185e58fd174d1d4b955d7581bc1bacb9810272fa
-  SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
   SwiftUIIntrospect: 53b6a16734c822804ff82c35d9073d8d8edfb085
   Trikot: ca201c8ae67ff21f35a60a0bda6c600fbe51b282
 
-PODFILE CHECKSUM: a6683730b9e619cd4c94d6f20ba4e3f5943142c0
+PODFILE CHECKSUM: a8e15659553c290a2147c108f4746a4431cf7594
 
 COCOAPODS: 1.13.0

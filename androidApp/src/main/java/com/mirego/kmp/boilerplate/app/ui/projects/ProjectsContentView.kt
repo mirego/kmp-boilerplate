@@ -1,14 +1,17 @@
 package com.mirego.kmp.boilerplate.app.ui.projects
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -17,27 +20,29 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mirego.kmp.boilerplate.app.ui.common.Const.padding
 import com.mirego.kmp.boilerplate.app.ui.common.EmptyContentView
+import com.mirego.kmp.boilerplate.app.ui.common.loading
 import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.theme.AccentOrange
 import com.mirego.kmp.boilerplate.app.ui.theme.TextSize
 import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
-import com.mirego.kmp.boilerplate.app.ui.theme.loading
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectItem
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsContentSection
 import com.mirego.trikot.viewmodels.declarative.components.VMDListViewModel
 import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
+import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.LocalImage
+import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.PlaceholderState
 import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDImage
 import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDLazyColumn
+import com.mirego.trikot.viewmodels.declarative.properties.VMDImageResource
 
 @Composable
 fun ProjectsContentView(listViewModel: VMDListViewModel<ProjectsContentSection>) {
@@ -103,14 +108,14 @@ private fun ItemView(item: ProjectItem) {
         VMDImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .shadow(
-                    spotColor = Color.White.copy(alpha = 0.2f),
-                    elevation = 6.dp,
-                    shape = RoundedCornerShape(16.dp),
-                )
+                .aspectRatio(1f)
+                .clip(RoundedCornerShape(16.dp))
                 .loading(item.isLoading),
             viewModel = item.image,
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.FillWidth,
+            placeholder = { placeholderImageResource: VMDImageResource, state: PlaceholderState ->
+                ImagePlaceholder(placeholderImageResource = placeholderImageResource, state = state)
+            }
         )
 
         Column(
@@ -144,6 +149,25 @@ private fun ItemView(item: ProjectItem) {
                 maxLines = 2
             )
         }
+    }
+}
+
+@Composable
+private fun ImagePlaceholder(placeholderImageResource: VMDImageResource, state: PlaceholderState) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.2f))
+            .clip(RoundedCornerShape(16.dp))
+            .loading(state == PlaceholderState.LOADING),
+        contentAlignment = Alignment.Center
+    ) {
+        LocalImage(
+            modifier = Modifier.size(64.dp),
+            imageResource = placeholderImageResource,
+            contentScale = ContentScale.FillWidth,
+            colorFilter = ColorFilter.tint(Color.Gray)
+        )
     }
 }
 
