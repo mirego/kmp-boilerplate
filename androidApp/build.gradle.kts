@@ -82,6 +82,7 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.placeholder.material)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.material)
