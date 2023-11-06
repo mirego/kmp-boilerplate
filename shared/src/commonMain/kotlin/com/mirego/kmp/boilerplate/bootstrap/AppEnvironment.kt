@@ -11,11 +11,11 @@ enum class AppEnvironment(
         "https://api.mirego.com/graphql",
         iOSSpecific = PlatformSpecific(
             killSwitchAPIKey = "", // Replace with your own killSwitchAPIKey
-            killSwitchUrl = "https://mirego-killswitch-qa.herokuapp.com/killswitch"
+            killSwitchUrl = "https://killswitch.mirego.com/killswitch"
         ),
         androidSpecific = PlatformSpecific(
             killSwitchAPIKey = "", // Replace with your own killSwitchAPIKey
-            killSwitchUrl = "https://mirego-killswitch-qa.herokuapp.com/killswitch"
+            killSwitchUrl = "https://killswitch.mirego.com/killswitch"
         )
     ),
     PRODUCTION(
