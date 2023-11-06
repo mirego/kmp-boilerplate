@@ -11,12 +11,12 @@ import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsRoot
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsViewModelImpl
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runTest
 
-class ProjectsViewModelImplTestTest : BaseTest() {
+class ProjectsViewModelImplTest : BaseTest() {
     private val useCase = mockk<ProjectsUseCase>()
     private val viewModelFactory = mockk<ViewModelFactory>()
 

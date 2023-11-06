@@ -131,7 +131,6 @@ kotlin {
             }
         }
 
-
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -172,6 +171,8 @@ ktlint {
     enableExperimentalRules.set(true)
     filter {
         exclude { element -> element.file.path.contains("generated/") }
+        exclude { element -> element.file.path.contains("viewmodel/SharedImageResource") }
+        exclude { element -> element.file.path.contains("analytics/Analytics") }
     }
 }
 
@@ -182,3 +183,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
         dependsOn(tasks.withType<com.mirego.kword.KWordEnumGenerate>())
     }
 }
+
+tasks["runKtlintFormatOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
+tasks["runKtlintCheckOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
