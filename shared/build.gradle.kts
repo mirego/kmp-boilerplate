@@ -23,6 +23,7 @@ fun org.jetbrains.kotlin.gradle.plugin.mpp.Framework.configureFramework() {
     export(libs.trikot.kword)
     export(libs.trikot.datasources)
     export(libs.trikot.vmd.annotations)
+    export(libs.killswitch)
     binaryOption("bundleId", TRIKOT_FRAMEWORK_NAME)
 }
 
@@ -106,6 +107,7 @@ kotlin {
                 api(libs.trikot.datasources)
                 api(libs.trikot.kword)
                 api(libs.trikot.vmd)
+                api(libs.killswitch)
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
             kotlin.srcDir(kword.generatedDir)

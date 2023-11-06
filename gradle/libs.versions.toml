@@ -8,6 +8,7 @@ androidxActivityCompose = "1.8.0"
 androidxAppcompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
 apollo = "3.7.4"
+killswitch = "1.0.3"
 koin = "3.5.0"
 koin-android = "3.5.0"
 koin-androidx-compose = "3.5.0"
@@ -33,6 +34,7 @@ androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
 apollo-runtime = { group = "com.apollographql.apollo3", name = "apollo-runtime" }
+killswitch = { module = "com.mirego.killswitch-mobile:killswitch", version.ref = "killswitch" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin_ksp" }
 ksp-koinCompiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin_ksp" }
@@ -73,4 +75,3 @@ serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref 
 skie-plugin = { id = "co.touchlab.skie", version.ref = "skie" }
 
 [bundles]
-

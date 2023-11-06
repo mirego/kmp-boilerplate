@@ -7,6 +7,7 @@ enum AppInitializer {
     static func initializeComponents(environment: AppEnvironment) {
         initializeCommon()
         initializeKingfisher()
+        inititalizeKillSwitch()
     }
 
     private static func initializeCommon() {
@@ -19,5 +20,18 @@ enum AppInitializer {
 
     private static func initializeKingfisher() {
         ImageCache.default.diskStorage.config.sizeLimit = 500 * 1_024 * 1_024 // 500 MB
+    }
+    
+    private static func inititalizeKillSwitch() {
+        Task {
+            do {
+                let viewData = try await IOSKillswitch().engage(key: AppEnvironment.current.iOSSpecific.killSwitchAPIKey, url: Const.shared.KILLSWITCH_URL)
+                DispatchQueue.main.async {
+                    IOSKillswitch().showDialog(viewData: viewData)
+                }
+            } catch {
+                print("Killswitch error: \(error)")
+            }
+        }
     }
 }
