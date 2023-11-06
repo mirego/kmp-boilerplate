@@ -10,20 +10,20 @@ enum class AppEnvironment(
         key = "dev",
         "https://api.mirego.com/graphql",
         iOSSpecific = PlatformSpecific(
-            killSwitchAPIKey = KILLSWITCH_API_KEY
+            killSwitchAPIKey = "Replace with your own killSwitchAPIKey"
         ),
         androidSpecific = PlatformSpecific(
-            killSwitchAPIKey = KILLSWITCH_API_KEY
+            killSwitchAPIKey = "Replace with your own killSwitchAPIKey"
         )
     ),
     PRODUCTION(
         key = "production",
         "https://api.mirego.com/graphql",
         iOSSpecific = PlatformSpecific(
-            killSwitchAPIKey = KILLSWITCH_API_KEY
+            killSwitchAPIKey = "Replace with your own killSwitchAPIKey"
         ),
         androidSpecific = PlatformSpecific(
-            killSwitchAPIKey = KILLSWITCH_API_KEY
+            killSwitchAPIKey = "Replace with your own killSwitchAPIKey"
         )
     )
 }
@@ -31,5 +31,3 @@ enum class AppEnvironment(
 data class PlatformSpecific(
     val killSwitchAPIKey: String
 )
-
-private const val KILLSWITCH_API_KEY = "Replace with your own KILLSWITCH_API_KEY"

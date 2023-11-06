@@ -17,6 +17,7 @@ import com.mirego.kmp.boilerplate.trikot.viewmodels.declarative.compose.getIniti
 import com.mirego.kmp.boilerplate.utils.Const
 import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModel
 import kotlinx.coroutines.launch
+import org.koin.core.component.get
 
 class MainActivity : AppCompatActivity() {
     private val bootstrapper: Bootstrapper
@@ -26,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         getInitialViewModel {
             bootstrapper.applicationViewModel()
         }
+    }
+
+    private val appEnvironment: AppEnvironment by lazy {
+        bootstrapper.get()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 AndroidKillswitch.showDialog(
-                    AndroidKillswitch.engage(AppEnvironment.PRODUCTION.androidSpecific.killSwitchAPIKey, this@MainActivity, Const.KILLSWITCH_URL), // TODO use current appEnvironment
+                    AndroidKillswitch.engage(appEnvironment.androidSpecific.killSwitchAPIKey, this@MainActivity, Const.KILLSWITCH_URL), // TODO use current appEnvironment
                     this@MainActivity,
                     android.R.style.Theme_DeviceDefault_Light_Dialog_Alert
                 )
