@@ -20,11 +20,7 @@ class ViewModelFactoryImpl : ViewModelFactory, KoinComponent {
         parametersOf(coroutineScope)
     }
 
-    override fun createProjectDetails(
-        navigationData: ProjectDetailsNavigationData,
-        closeAction: () -> Unit,
-        coroutineScope: CoroutineScope
-    ): ProjectDetailsViewModel = get {
+    override fun createProjectDetails(navigationData: ProjectDetailsNavigationData, closeAction: () -> Unit, coroutineScope: CoroutineScope): ProjectDetailsViewModel = get {
         parametersOf(navigationData, closeAction, coroutineScope)
     }
 }
