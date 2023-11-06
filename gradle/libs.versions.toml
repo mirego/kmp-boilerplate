@@ -4,10 +4,13 @@ accompanist = "0.32.0"
 androidComposeCompiler = "1.5.3"
 androidGradlePlugin = "8.1.2"
 android-splash = "1.0.1"
+android-playServices = "20.7.0"
+play-services-measurement-api = "21.5.0"
 androidxActivityCompose = "1.8.0"
 androidxAppcompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
 apollo = "3.7.4"
+crashlytics-plugin = "2.9.9"
 killswitch = "1.0.3"
 koin = "3.5.0"
 koin-android = "3.5.0"
@@ -19,13 +22,15 @@ kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.6.0"
 kword-plugin = "4.0.0"
 ktlint = "11.6.1"
+firebase = "32.5.0"
 mockk = "1.12.5"
 okio = "3.6.0"
 skie = "0.4.20"
 trikot = "5.2.0"
 
 [libraries]
-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist"}
+accompanist-placeholder-material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 android-splash = { module = "androidx.core:core-splashscreen", version.ref = "android-splash" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
@@ -33,6 +38,10 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+#android-play-services-measurement-api = { group = "com.google.android.gms", name = "play-services-measurement-api", version.ref = "play-services-measurement-api" }
+android-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+android-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+android-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 apollo-runtime = { group = "com.apollographql.apollo3", name = "apollo-runtime" }
 killswitch = { module = "com.mirego.killswitch-mobile:killswitch", version.ref = "killswitch" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -53,6 +62,8 @@ skie = { module = "co.touchlab.skie:configuration-annotations", version.ref = "s
 mockk-common = { module = "io.mockk:mockk-common", version.ref = "mockk" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
+trikot-analytics = { module = "com.mirego.trikot:analytics", version.ref = "trikot" }
+trikot-analytics-firebase = { module = "com.mirego.trikot.analytics:firebase-ktx", version.ref = "trikot" }
 trikot-vmd = { module = "com.mirego.trikot:viewmodels-declarative-flow", version.ref = "trikot" }
 trikot-kword = { module = "com.mirego.trikot:kword", version.ref = "trikot" }
 trikot-datasources = { module = "com.mirego.trikot:datasources-flow", version.ref = "trikot" }
@@ -70,6 +81,7 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin-native-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+crashlyticsPlugin = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin" }
 mirego-kwordPlugin = { id = "mirego.kword", version.ref = "kword-plugin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 skie-plugin = { id = "co.touchlab.skie", version.ref = "skie" }

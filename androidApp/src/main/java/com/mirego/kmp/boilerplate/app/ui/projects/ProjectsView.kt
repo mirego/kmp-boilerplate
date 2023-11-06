@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mirego.kmp.boilerplate.app.ui.common.ErrorView
 import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.theme.PrimaryBlack
+import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsRoot
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsViewModel
 import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
@@ -44,6 +45,30 @@ private fun ContentView(viewModel: ProjectsViewModel) {
 @Composable
 fun PreviewProjectsView() {
     PreviewProvider {
-        ProjectsView(projectsViewModel = it.createProjects())
+        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Data.Content))
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProjectsEmptyView() {
+    PreviewProvider {
+        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Data.Empty))
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProjectsLoadingView() {
+    PreviewProvider {
+        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Loading))
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProjectsErrorView() {
+    PreviewProvider {
+        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Error))
     }
 }

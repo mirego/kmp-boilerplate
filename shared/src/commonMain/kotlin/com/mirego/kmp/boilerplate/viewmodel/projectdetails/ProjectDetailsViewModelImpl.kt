@@ -1,5 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel.projectdetails
 
+import com.mirego.kmp.boilerplate.analytics.Analytics
+import com.mirego.kmp.boilerplate.analytics.ScreenName
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectDetailsUseCasePreview
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsUseCase
@@ -29,7 +31,9 @@ class ProjectDetailsViewModelImpl(
     closeAction: () -> Unit,
     coroutineScope: CoroutineScope
 ) : ProjectDetailsViewModel, BaseProjectDetailsViewModelImpl(
-    onTrackScreenView = {},
+    onTrackScreenView = {
+        Analytics.trackScreenView(ScreenName.project_details)
+    },
     viewModelFactory = viewModelFactory,
     coroutineScope = coroutineScope
 ) {

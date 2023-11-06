@@ -6,7 +6,11 @@ inhibit_all_warnings!
 
 target 'iosApp' do
   use_frameworks!
-  platform :ios, $deploymentTarget  
+  platform :ios, $deploymentTarget
+    # Thirdo-party
+    pod 'FirebaseCore'
+    pod 'FirebaseAnalytics'
+  
     #  Multiplatform
     pod 'Shared', :path => '../shared'
 

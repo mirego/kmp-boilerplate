@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -25,10 +26,11 @@ import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDImage
 import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDText
 
 @Composable
-fun EmptyContentView(emptyViewModel: EmptyViewModel) {
+fun EmptyContentView(emptyViewModel: EmptyViewModel, modifier: Modifier = Modifier) {
     val viewModel: EmptyViewModel by emptyViewModel.observeAsState()
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         VMDImage(
             modifier = Modifier.size(55.dp),
@@ -39,13 +41,15 @@ fun EmptyContentView(emptyViewModel: EmptyViewModel) {
         VMDText(
             modifier = Modifier.padding(top = padding * 2),
             viewModel = viewModel.title,
+            color = Color.White,
             style = style(TextSize.LARGE_TITLE, TextWeight.REGULAR),
             maxLines = 1
         )
 
         VMDText(
             modifier = Modifier.padding(top = padding),
-            viewModel = viewModel.title,
+            viewModel = viewModel.message,
+            color = Color.White,
             style = style(TextSize.BODY, TextWeight.REGULAR),
             textAlign = TextAlign.Center
         )

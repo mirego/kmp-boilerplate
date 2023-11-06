@@ -2,7 +2,7 @@ import Shared
 import UIKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    let bootstrapper = Bootstrapper()
+    private lazy var bootstrapper = Bootstrapper(bootstrap: BootstrapImpl())
 
     lazy var applicationViewModel: ApplicationViewModel = {
         bootstrapper.applicationViewModel()
@@ -12,9 +12,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        let bootstrap = BootstrapImpl()
-        AppInitializer.initializeComponents(environment: bootstrap.environment)
-        bootstrapper.doInitDependencies(bootstrap: bootstrap)
+        AppInitializer.initializeComponents(environment: bootstrapper.bootstrap.environment)
+        bootstrapper.doInitDependencies()
 
         return true
     }

@@ -75,7 +75,7 @@ class ProjectsUseCaseTestImpl : BaseTest() {
         client = ProjectsQuery.Data.PagePage.ProjectsListBlock.Projects.Entry.Client(
             name = "Mirego"
         ),
-        mainColor = null,
-        textColor = null
+        "000000",
+        "FFFFFF"
     )
 }

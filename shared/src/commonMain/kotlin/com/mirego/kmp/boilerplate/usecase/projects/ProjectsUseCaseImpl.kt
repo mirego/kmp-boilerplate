@@ -6,7 +6,6 @@ import com.mirego.kmp.boilerplate.utils.StateData
 import com.mirego.trikot.datasources.flow.extensions.mapValue
 import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
 
 @Factory
@@ -15,12 +14,7 @@ class ProjectsUseCaseImpl(
 ) : ProjectsUseCase {
     override fun projects(): Flow<StateData<ProjectsViewData>> = projectsRepository
         .projects()
-        .map {
-            println("xxdebug ProjectsUseCase $it")
-            it
-        }
         .mapValue {
-            println("xxdebug content: ${it.firstOrNull()?.listImageUrl.toString()}")
             if (it.isEmpty()) {
                 ProjectsViewData.Empty
             } else {

@@ -25,7 +25,10 @@ enum AppInitializer {
     private static func inititalizeKillSwitch() {
         Task {
             do {
-                let viewData = try await IOSKillswitch().engage(key: AppEnvironment.current.iOSSpecific.killSwitchAPIKey, url: Const.shared.KILLSWITCH_URL)
+                let viewData = try await IOSKillswitch().engage(
+                    key: AppEnvironment.current.iOSSpecific.killSwitchAPIKey,
+                    url: AppEnvironment.current.iOSSpecific.killSwitchUrl
+                )
                 DispatchQueue.main.async {
                     IOSKillswitch().showDialog(viewData: viewData)
                 }
