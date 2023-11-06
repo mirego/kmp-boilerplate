@@ -8,6 +8,7 @@ target 'iosApp' do
   use_frameworks!
   platform :ios, $deploymentTarget
     # Thirdo-party
+    pod 'AppCenter/Distribute'
     pod 'FirebaseCore'
     pod 'FirebaseAnalytics'
   

@@ -95,4 +95,6 @@ dependencies {
     implementation(libs.koin.androidx.compose.navigation)
     implementation(libs.trikot.viewmodels.databinding)
     implementation(libs.trikot.vmd.compose)
+    "ciImplementation"(libs.appcenter)
+    "storeImplementation"(libs.appcenter.play)
 }
