@@ -20,12 +20,13 @@ kword-plugin = "4.0.0"
 ktlint = "11.6.1"
 mockk = "1.12.5"
 okio = "3.6.0"
+owasp = "8.4.2"
 skie = "0.4.20"
 trikot = "5.2.0"
 
 [libraries]
-accompanist-placeholder-material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist"}
-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist"}
+accompanist-placeholder-material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 android-splash = { module = "androidx.core:core-splashscreen", version.ref = "android-splash" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
@@ -70,6 +71,7 @@ kotlin-native-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", versio
 kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 mirego-kwordPlugin = { id = "mirego.kword", version.ref = "kword-plugin" }
+owasp-dependencycheck = { id = "org.owasp.dependencycheck", version.ref = "owasp" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 skie-plugin = { id = "co.touchlab.skie", version.ref = "skie" }
 
