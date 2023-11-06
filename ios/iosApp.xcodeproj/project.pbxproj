@@ -35,6 +35,7 @@
 		895BED192AF42C2B005B1212 /* ProjectDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED182AF42C2B005B1212 /* ProjectDetailsContentView.swift */; };
 		895BED1B2AF4469C005B1212 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED1A2AF4469C005B1212 /* NavigationView.swift */; };
 		895BED1D2AF58517005B1212 /* AnalyticsServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED1C2AF58517005B1212 /* AnalyticsServiceImpl.swift */; };
+		895BED1F2AF9780C005B1212 /* ToReplace-GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 895BED1E2AF9780C005B1212 /* ToReplace-GoogleService-Info.plist */; };
 		9B8ACFDB4E332DFCA8B97CBB /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4E1328B104D05A50A097EE /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		895BED182AF42C2B005B1212 /* ProjectDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailsContentView.swift; sourceTree = "<group>"; };
 		895BED1A2AF4469C005B1212 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		895BED1C2AF58517005B1212 /* AnalyticsServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsServiceImpl.swift; sourceTree = "<group>"; };
+		895BED1E2AF9780C005B1212 /* ToReplace-GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ToReplace-GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				895BED042AEFFEA2005B1212 /* Colors.xcassets */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
+				895BED1E2AF9780C005B1212 /* ToReplace-GoogleService-Info.plist */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				895BED052AEFFEA2005B1212 /* Colors.xcassets in Resources */,
+				895BED1F2AF9780C005B1212 /* ToReplace-GoogleService-Info.plist in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
