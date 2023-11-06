@@ -32,4 +32,4 @@ data class PlatformSpecific(
     val killSwitchAPIKey: String
 )
 
-private const val KILLSWITCH_API_KEY = "809b16d21b5c9525b10f7298ad90b1ce3a4c27223f674d5ac7a2b6fc060929d0"
+private const val KILLSWITCH_API_KEY = "Replace with your own KILLSWITCH_API_KEY"
