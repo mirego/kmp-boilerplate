@@ -24,6 +24,7 @@ ktlint = "11.6.1"
 firebase = "32.5.0"
 mockk = "1.12.5"
 okio = "3.6.0"
+owasp = "8.4.2"
 skie = "0.4.20"
 trikot = "5.2.0"
 
@@ -81,6 +82,7 @@ kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 crashlyticsPlugin = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin" }
 mirego-kwordPlugin = { id = "mirego.kword", version.ref = "kword-plugin" }
+owasp-dependencycheck = { id = "org.owasp.dependencycheck", version.ref = "owasp" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 skie-plugin = { id = "co.touchlab.skie", version.ref = "skie" }
 

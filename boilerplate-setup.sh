@@ -137,6 +137,10 @@ header "Removing boilerplate license → https://choosealicense.com"
 run rm -fr LICENSE.md
 success "Done!\n"
 
+header "Changing the Dependency-Check report format to HTML"
+run sed -i '' 's/SARIF/HTML/' build.gradle.kts
+success "Done!\n"
+
 header "Removing boilerplate setup script..."
 run rm -fr boilerplate-setup.sh
 success "Done!\n"
