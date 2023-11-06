@@ -12,6 +12,7 @@ class AndroidImageProvider : VMDImageProvider {
             SharedImageResource.emptyPageIcon -> R.drawable.baseline_question_mark_24
             SharedImageResource.errorPageIcon -> R.drawable.baseline_warning_24
             SharedImageResource.imagePlaceholder -> R.drawable.baseline_image_24
+            SharedImageResource.closeIcon -> R.drawable.baseline_close_24
         }
         else -> null
     }
