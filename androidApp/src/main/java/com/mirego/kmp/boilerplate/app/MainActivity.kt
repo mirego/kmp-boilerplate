@@ -11,13 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import com.mirego.killswitch.AndroidKillswitch
 import com.mirego.killswitch.KillswitchException
 import com.mirego.kmp.boilerplate.app.ui.application.ApplicationView
-import com.mirego.kmp.boilerplate.bootstrap.AppEnvironment
 import com.mirego.kmp.boilerplate.bootstrap.Bootstrapper
 import com.mirego.kmp.boilerplate.trikot.viewmodels.declarative.compose.getInitialViewModel
-import com.mirego.kmp.boilerplate.utils.Const
 import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModel
 import kotlinx.coroutines.launch
-import org.koin.core.component.get
 
 class MainActivity : AppCompatActivity() {
     private val bootstrapper: Bootstrapper
@@ -27,10 +24,6 @@ class MainActivity : AppCompatActivity() {
         getInitialViewModel {
             bootstrapper.applicationViewModel()
         }
-    }
-
-    private val appEnvironment: AppEnvironment by lazy {
-        bootstrapper.get()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +37,13 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 AndroidKillswitch.showDialog(
-                    AndroidKillswitch.engage(appEnvironment.androidSpecific.killSwitchAPIKey, this@MainActivity, Const.KILLSWITCH_URL), // TODO use current appEnvironment
-                    this@MainActivity,
-                    android.R.style.Theme_DeviceDefault_Light_Dialog_Alert
+                    viewData = AndroidKillswitch.engage(
+                        key = bootstrapper.bootstrap.environment.androidSpecific.killSwitchAPIKey,
+                        context = this@MainActivity,
+                        url = bootstrapper.bootstrap.environment.androidSpecific.killSwitchAPIKey
+                    ),
+                    activity = this@MainActivity,
+                    themeResId = android.R.style.Theme_DeviceDefault_Light_Dialog_Alert
                 )
             } catch (e: KillswitchException) {
                 Log.e(TAG, "Killswitch exception", e)
