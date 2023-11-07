@@ -186,3 +186,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
 
 tasks["runKtlintFormatOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
 tasks["runKtlintCheckOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
+
+val checkCommon: Task by tasks.creating {
+    group = "verification"
+    description = "Like check, but only with android target for common unit tests"
+    dependsOn("ktlintCheck")
+    dependsOn("testReleaseUnitTest")
+}
