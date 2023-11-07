@@ -12,13 +12,7 @@ enum AppInitializer {
     }
 
     private static func initializeFirebase() {
-        guard
-            let filePath = Bundle.main.path(forResource: "ToReplace-GoogleService-Info", ofType: "plist"),
-            let firebaseOptions = FirebaseOptions(contentsOfFile: filePath) else {
-            return
-        }
-
-        FirebaseApp.configure(options: firebaseOptions)
+        FirebaseApp.configure()
 
         let firebaseAnalyticsService = AnalyticsServiceImpl()
         #if DEBUG
