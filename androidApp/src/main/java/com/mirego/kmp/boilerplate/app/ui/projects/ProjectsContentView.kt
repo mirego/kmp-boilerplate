@@ -1,6 +1,8 @@
 package com.mirego.kmp.boilerplate.app.ui.projects
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +17,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -103,6 +107,13 @@ private fun ProjectsListView(viewModel: VMDListViewModel<ProjectItem>) {
 @Composable
 private fun ItemView(item: ProjectItem) {
     Column(
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .clickable(
+                onClick = { item.tapAction.invoke() },
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple()
+            ),
         verticalArrangement = Arrangement.spacedBy(padding)
     ) {
         VMDImage(

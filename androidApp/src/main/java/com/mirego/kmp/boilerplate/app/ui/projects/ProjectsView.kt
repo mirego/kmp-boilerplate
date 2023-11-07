@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.mirego.kmp.boilerplate.app.ui.common.ErrorView
+import com.mirego.kmp.boilerplate.app.ui.navigation.NavigationView
 import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.theme.PrimaryBlack
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
@@ -21,13 +22,15 @@ import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsStat
 @Composable
 fun ProjectsView(projectsViewModel: ProjectsViewModel) {
     val viewModel: ProjectsViewModel by projectsViewModel.observeAsState()
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
-            .background(Color.PrimaryBlack),
-    ) {
-        ContentView(viewModel = viewModel)
+    NavigationView(navigationViewModel = viewModel) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .navigationBarsPadding()
+                .background(Color.PrimaryBlack),
+        ) {
+            ContentView(viewModel = viewModel)
+        }
     }
 }
 
