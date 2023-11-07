@@ -61,7 +61,7 @@ fun ProjectDetailsContentView(content: ProjectDetailsRoot.Content) {
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .padding(horizontal = padding)
-                .padding(bottom = padding),
+                .padding(bottom = padding)
         ) {
             Text(
                 modifier = Modifier.loading(content.isLoading),
