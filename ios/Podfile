@@ -1,9 +1,11 @@
 target 'iosApp' do
   use_frameworks!
-  platform :ios, '15.0'
-  pod 'Shared', :path => '../shared'
+  inhibit_all_warnings!
+  platform :ios, '16.0'
 
+  pod 'Shared', :path => '../shared'
   pod 'SwiftLint'
+  pod 'Kingfisher'
 end
 
 post_install do |installer|

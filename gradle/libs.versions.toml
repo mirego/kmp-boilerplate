@@ -1,13 +1,14 @@
 [versions]
-androidComposeCompiler = "1.5.3"
-androidGradlePlugin = "8.1.2"
-androidxActivityCompose = "1.8.0"
+androidComposeCompiler = "1.5.4"
+androidGradlePlugin = "8.1.4"
+androidxActivityCompose = "1.8.1"
 androidxAppcompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
-kotlin = "1.9.10"
+kotlin = "1.9.20"
 kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.6.0"
 ktlint = "11.6.1"
+skie = "0.5.5"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
@@ -16,9 +17,12 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version = "1.1.1" }
+coil-compose = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+skie-configuration-annotations = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -29,6 +33,7 @@ kotlin-native-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", versio
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 owasp-dependencycheck = { id = "org.owasp.dependencycheck", version = "8.4.2" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+skie = { id = "co.touchlab.skie", version.ref = "skie" }
 
 [bundles]
 
