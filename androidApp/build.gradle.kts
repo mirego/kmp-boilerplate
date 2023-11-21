@@ -11,12 +11,15 @@ android {
     namespace = "com.mirego.kmp.boilerplate"
     compileSdk = 34
     defaultConfig {
-        minSdk = 21
+        minSdk = 28
         targetSdk = 34
 
         applicationId = "com.mirego.kmp.boilerplate"
         versionCode = 1
         versionName = "0.1"
+
+        val translationFilePath = "${project.rootDir}/shared/src/commonMain/resources/translations/translation.en.json"
+        buildConfigField("String", "KWORD_TRANSLATION_FILE_PATH", "\"$translationFilePath\"")
     }
     buildTypes {
         debug {
@@ -46,6 +49,16 @@ android {
         // See https://github.com/Kotlin/kotlinx.coroutines#avoiding-including-the-debug-infrastructure-in-the-resulting-apk
         resources.excludes += "DebugProbesKt.bin"
     }
+
+    sourceSets {
+        getByName("main") {
+            resources.srcDirs("../shared/src/commonMain/resources")
+        }
+    }
+
+    lint {
+        lintConfig = file("$rootDir/androidApp/android_picasso_lint.xml")
+    }
 }
 
 dependencies {
@@ -58,4 +71,9 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.material)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.androidx.compose.navigation)
+    implementation(libs.trikot.viewmodels.databinding)
+    implementation(libs.trikot.vmd.compose)
 }

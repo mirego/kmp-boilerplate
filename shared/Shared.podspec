@@ -4,8 +4,8 @@ Pod::Spec.new do |spec|
     spec.homepage                 = 'https://github.com/mirego/your-project'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
-    spec.license                  = ''
-    spec.summary                  = 'Project summary'
+    spec.license                  = 'BSD-3'
+    spec.summary                  = 'Shared'
     spec.vendored_frameworks      = 'build/cocoapods/framework/Shared.framework'
     spec.libraries                = 'c++'
                 
@@ -35,5 +35,8 @@ Pod::Spec.new do |spec|
             SCRIPT
         }
     ]
-                
+    spec.resources = "src/commonMain/resources/translations/*"
+    spec.prepare_command = <<-CMD
+    ../gradlew :shared:generateDummyFramework
+CMD
 end

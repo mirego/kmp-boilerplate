@@ -4,10 +4,18 @@ androidGradlePlugin = "8.1.2"
 androidxActivityCompose = "1.8.0"
 androidxAppcompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
+koin = "3.5.0"
+koin-android = "3.5.0"
+koin-androidx-compose = "3.5.0"
+koin_ksp = "1.1.0"
+ksp = "1.9.10-1.0.13"
 kotlin = "1.9.10"
 kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.6.0"
+kword-plugin = "4.0.0"
 ktlint = "11.6.1"
+owasp = "8.4.2"
+trikot = "5.2.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
@@ -16,9 +24,23 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin_ksp" }
+ksp-koinCompiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin_ksp" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-androidx-compose" }
+koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin-androidx-compose" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+trikot-vmd = { module = "com.mirego.trikot:viewmodels-declarative-flow", version.ref = "trikot" }
+trikot-kword = { module = "com.mirego.trikot:kword", version.ref = "trikot" }
+trikot-datasources = { module = "com.mirego.trikot:datasources-flow", version.ref = "trikot" }
+trikot-viewmodels-databinding = { module = "com.mirego.trikot:viewmodels-databinding", version.ref = "trikot" }
+trikot-vmd-compose = { module = "com.mirego.trikot:viewmodels-declarative-compose-flow", version.ref = "trikot" }
+trikot-vmd-annotations = { module = "com.mirego.trikot:viewmodels-annotations", version.ref = "trikot" }
+trikot-vmd-annotations-compiler = { module = "com.mirego.trikot:viewmodels-declarative-compiler-flow", version.ref = "trikot" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -26,8 +48,10 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-native-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
-owasp-dependencycheck = { id = "org.owasp.dependencycheck", version = "8.4.2" }
+mirego-kwordPlugin = { id = "mirego.kword", version.ref = "kword-plugin" }
+owasp-dependencycheck = { id = "org.owasp.dependencycheck", version.ref = "owasp" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]

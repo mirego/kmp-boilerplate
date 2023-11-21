@@ -1,9 +1,20 @@
+require_relative './podspec_versions.rb'
+install! 'cocoapods', :warn_for_unused_master_specs_repo => false
+$deploymentTarget = '15.0'
+platform :ios, $deploymentTarget
+inhibit_all_warnings!
+
 target 'iosApp' do
   use_frameworks!
-  platform :ios, '15.0'
-  pod 'Shared', :path => '../shared'
+  platform :ios, $deploymentTarget
+    pod 'Shared', :path => '../shared'
 
-  pod 'SwiftLint'
+    ENV['TRIKOT_FRAMEWORK_NAME']='Shared'
+    properties = load_properties('../gradle/libs.versions.toml')
+    pod 'Trikot/viewmodels.declarative.SwiftUI.flow', :git => 'git@github.com:mirego/trikot.git', :tag => properties['trikot']
+    pod 'Trikot/kword', :git => 'git@github.com:mirego/trikot.git', :tag => properties['trikot']
+
+    pod 'SwiftLint'
 end
 
 post_install do |installer|
