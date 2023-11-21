@@ -7,6 +7,6 @@ enum class AppEnvironment(
         key = "dev"
     ),
     PRODUCTION(
-        key = "production",
+        key = "production"
     )
 }

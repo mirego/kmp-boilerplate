@@ -1,7 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel.factory
 
-import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModelImpl
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.util.CoroutineScopeProvider
 import kotlinx.coroutines.CoroutineExceptionHandler

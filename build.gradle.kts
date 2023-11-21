@@ -24,3 +24,12 @@ dependencyCheck {
         knownExploitedEnabled = true
     }
 }
+
+// CheckCommon with Lint Format
+val cclf: Task by tasks.creating {
+    group = "verification"
+    description = "Like checkCommon, but adds automatic lint fixing"
+    dependsOn("shared:ktlintFormat")
+    dependsOn("androidApp:ktlintFormat")
+    dependsOn("shared:testReleaseUnitTest")
+}
