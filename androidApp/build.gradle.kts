@@ -57,7 +57,7 @@ android {
     }
 
     lint {
-        lintConfig = file("$rootDir/android_picasso_lint.xml")
+        lintConfig = file("$rootDir/androidApp/android_picasso_lint.xml")
     }
 }
 
