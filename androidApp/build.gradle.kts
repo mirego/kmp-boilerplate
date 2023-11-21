@@ -55,6 +55,11 @@ android {
             resources.srcDirs("../shared/src/commonMain/resources")
         }
     }
+
+    lint {
+        // https://github.com/bumptech/glide/issues/4940
+        lintConfig = file("$rootDir/android_glide_lint.xml")
+    }
 }
 
 dependencies {
