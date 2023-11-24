@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ktlint)
 }
 
 kotlin {
@@ -59,11 +60,25 @@ android {
     lint {
         lintConfig = file("$rootDir/androidApp/android_picasso_lint.xml")
     }
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("ci") {
+            dimension = "environment"
+            applicationIdSuffix = ".ci"
+        }
+
+        create("store") {
+            dimension = "environment"
+        }
+    }
 }
 
 dependencies {
     implementation(project(":shared"))
 
+    implementation(libs.android.splash)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
 

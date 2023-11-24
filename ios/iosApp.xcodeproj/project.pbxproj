@@ -10,9 +10,16 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
-		7555FF83242A565900829871 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* GreetingView.swift */; };
+		7555FF83242A565900829871 /* ApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ApplicationView.swift */; };
+		89011D492AE9A3690073544B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D482AE9A3690073544B /* AppDelegate.swift */; };
+		89011D4B2AE9A4CD0073544B /* BootstrapImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D4A2AE9A4CD0073544B /* BootstrapImpl.swift */; };
+		89011D4D2AE9A4FC0073544B /* AppEnvironment+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D4C2AE9A4FC0073544B /* AppEnvironment+iOS.swift */; };
+		89011D4F2AE9A7340073544B /* AppInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D4E2AE9A7340073544B /* AppInitializer.swift */; };
+		89011D512AE9A7750073544B /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D502AE9A7750073544B /* ImageProvider.swift */; };
+		89011D552AE9A8150073544B /* AppInformationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D532AE9A8150073544B /* AppInformationImpl.swift */; };
+		89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D5A2AE9B0310073544B /* PreviewHelpers.swift */; };
+		895BECFB2AEAB3DC005B1212 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BECFA2AEAB3DC005B1212 /* RootView.swift */; };
 		9B8ACFDB4E332DFCA8B97CBB /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4E1328B104D05A50A097EE /* Pods_iosApp.framework */; };
-		BC83B466276E4F080053E064 /* FlowUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83B465276E4F080053E064 /* FlowUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,9 +29,16 @@
 		308A8A1989CCC0B3DD133EE0 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		4E4E1328B104D05A50A097EE /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF82242A565900829871 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
+		7555FF82242A565900829871 /* ApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BC83B465276E4F080053E064 /* FlowUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowUtils.swift; sourceTree = "<group>"; };
+		89011D482AE9A3690073544B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		89011D4A2AE9A4CD0073544B /* BootstrapImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapImpl.swift; sourceTree = "<group>"; };
+		89011D4C2AE9A4FC0073544B /* AppEnvironment+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppEnvironment+iOS.swift"; sourceTree = "<group>"; };
+		89011D4E2AE9A7340073544B /* AppInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInitializer.swift; sourceTree = "<group>"; };
+		89011D502AE9A7750073544B /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
+		89011D532AE9A8150073544B /* AppInformationImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationImpl.swift; sourceTree = "<group>"; };
+		89011D5A2AE9B0310073544B /* PreviewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelpers.swift; sourceTree = "<group>"; };
+		895BECFA2AEAB3DC005B1212 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,22 +83,61 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				89011D4E2AE9A7340073544B /* AppInitializer.swift */,
+				89011D482AE9A3690073544B /* AppDelegate.swift */,
+				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				89011D562AE9AFF90073544B /* Domain */,
+				89011D572AE9AFFF0073544B /* UI */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
-				2152FB032600AC8F00CF470E /* iOSApp.swift */,
-				7555FF82242A565900829871 /* GreetingView.swift */,
-				BC83B464276E4EF80053E064 /* Utils */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
 		};
-		BC83B464276E4EF80053E064 /* Utils */ = {
+		89011D562AE9AFF90073544B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				BC83B465276E4F080053E064 /* FlowUtils.swift */,
+				89011D532AE9A8150073544B /* AppInformationImpl.swift */,
+				89011D4C2AE9A4FC0073544B /* AppEnvironment+iOS.swift */,
+				89011D4A2AE9A4CD0073544B /* BootstrapImpl.swift */,
+				89011D502AE9A7750073544B /* ImageProvider.swift */,
 			);
-			path = Utils;
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		89011D572AE9AFFF0073544B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				89011D582AE9B00F0073544B /* Application */,
+				895BECF92AEAB3D1005B1212 /* Root */,
+				89011D592AE9B0160073544B /* Previews */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		89011D582AE9B00F0073544B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				7555FF82242A565900829871 /* ApplicationView.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		89011D592AE9B0160073544B /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				89011D5A2AE9B0310073544B /* PreviewHelpers.swift */,
+			);
+			path = Previews;
+			sourceTree = "<group>";
+		};
+		895BECF92AEAB3D1005B1212 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				895BECFA2AEAB3DC005B1212 /* RootView.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 		C8C629BFDC2144230B71E3BC /* Frameworks */ = {
@@ -256,9 +309,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89011D492AE9A3690073544B /* AppDelegate.swift in Sources */,
+				89011D4D2AE9A4FC0073544B /* AppEnvironment+iOS.swift in Sources */,
+				89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */,
+				89011D4F2AE9A7340073544B /* AppInitializer.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
-				7555FF83242A565900829871 /* GreetingView.swift in Sources */,
-				BC83B466276E4F080053E064 /* FlowUtils.swift in Sources */,
+				89011D512AE9A7750073544B /* ImageProvider.swift in Sources */,
+				89011D4B2AE9A4CD0073544B /* BootstrapImpl.swift in Sources */,
+				895BECFB2AEAB3DC005B1212 /* RootView.swift in Sources */,
+				7555FF83242A565900829871 /* ApplicationView.swift in Sources */,
+				89011D552AE9A8150073544B /* AppInformationImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

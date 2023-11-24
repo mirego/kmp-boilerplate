@@ -4,11 +4,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".app.AndroidApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.mirego.kmp.boilerplate.MainActivity"
+            android:name="com.mirego.kmp.boilerplate.app.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,4 +17,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
