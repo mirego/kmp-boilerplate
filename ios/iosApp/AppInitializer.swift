@@ -33,11 +33,24 @@ enum AppInitializer {
 
         SharedAnalyticsConfiguration().analyticsManager = firebaseAnalyticsService
     }
-    
+
     private static func initializeAppCenter() {
         guard let appCenterSecret = Bundle.main.object(forInfoDictionaryKey: "APP_CENTER_APP_SECRET") as? String, !appCenterSecret.isEmpty else { return }
         Distribute.updateTrack = .private
         AppCenter.start(withAppSecret: appCenterSecret, services: [Distribute.self])
+    }
+
+    private static func initializeFirebase() {
+        FirebaseApp.configure()
+
+        let firebaseAnalyticsService = AnalyticsServiceImpl()
+        #if DEBUG
+            firebaseAnalyticsService.isEnabled = false
+        #else
+            firebaseAnalyticsService.isEnabled = true
+        #endif
+
+        SharedAnalyticsConfiguration().analyticsManager = firebaseAnalyticsService
     }
 
     private static func initializeCommon() {
@@ -51,7 +64,7 @@ enum AppInitializer {
     private static func initializeKingfisher() {
         ImageCache.default.diskStorage.config.sizeLimit = 500 * 1_024 * 1_024 // 500 MB
     }
-    
+
     private static func inititalizeKillSwitch() {
         Task {
             do {
