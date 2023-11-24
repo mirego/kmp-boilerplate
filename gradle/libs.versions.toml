@@ -9,6 +9,7 @@ play-services-measurement-api = "21.5.0"
 androidxActivityCompose = "1.8.0"
 androidxAppcompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
+appcenter = "5.0.0"
 apollo = "3.7.4"
 crashlytics-plugin = "2.9.9"
 killswitch = "1.0.4"
@@ -43,6 +44,8 @@ androidx-compose-material = { group = "androidx.compose.material", name = "mater
 android-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 android-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 android-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
+appcenter = { module = "com.microsoft.appcenter:appcenter-distribute", version.ref = "appcenter"}
+appcenter-play = { module = "com.microsoft.appcenter:appcenter-distribute-play", version.ref = "appcenter"}
 apollo-runtime = { group = "com.apollographql.apollo3", name = "apollo-runtime" }
 killswitch = { module = "com.mirego.killswitch-mobile:killswitch", version.ref = "killswitch" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
