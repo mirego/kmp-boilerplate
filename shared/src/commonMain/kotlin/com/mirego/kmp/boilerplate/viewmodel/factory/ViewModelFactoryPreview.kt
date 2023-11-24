@@ -1,6 +1,9 @@
 package com.mirego.kmp.boilerplate.viewmodel.factory
 
+import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
+import com.mirego.kmp.boilerplate.usecase.preview.UseCaseFactoryPreview
 import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModelImpl
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.util.CoroutineScopeProvider
@@ -32,7 +35,10 @@ class ViewModelFactoryPreview(
         coroutineScope = createCoroutineScope()
     )
 
-    override fun createProjects(coroutineScope: CoroutineScope) = createProjects(PreviewState.Data.Content, coroutineScope)
+    override fun createProjects(coroutineScope: CoroutineScope) = createProjects(
+        PreviewState.Data.Content,
+        coroutineScope
+    )
     fun createProjects(previewState: PreviewState, coroutineScope: CoroutineScope) = ProjectsViewModelImpl(
         projectsUseCase = useCaseFactoryPreview.projectsUseCase(previewState),
         i18N = i18N,
