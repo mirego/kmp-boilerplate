@@ -4,9 +4,9 @@ import com.mirego.kmp.boilerplate.datasource.DataSourceUtils
 import com.mirego.trikot.datasources.flow.BaseExpiringExecutableFlowDataSource
 import com.mirego.trikot.datasources.flow.ExpiringFlowDataSourceRequest
 import com.mirego.trikot.datasources.flow.FlowDataSourceRequest
+import kotlin.time.Duration.Companion.minutes
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
-import kotlin.time.Duration.Companion.minutes
 
 open class GenericDataSource<T>(
     json: Json,
@@ -15,7 +15,11 @@ open class GenericDataSource<T>(
 ) : BaseExpiringExecutableFlowDataSource<GenericDataSourceRequest<T>, T>(
     diskCachePath?.let { GenericDiskDataSource(json, dataSerializer, diskCachePath) }
 ) {
-    override suspend fun internalRead(request: GenericDataSourceRequest<T>) = DataSourceUtils.buildExpiringValue(request.block(), request)
+    override suspend fun internalRead(request: GenericDataSourceRequest<T>) =
+        DataSourceUtils.buildExpiringValue(
+            request.block(),
+            request
+        )
 }
 
 data class GenericDataSourceRequest<T>(

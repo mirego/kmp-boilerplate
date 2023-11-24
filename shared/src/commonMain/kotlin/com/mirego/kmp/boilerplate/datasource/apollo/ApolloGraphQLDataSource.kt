@@ -20,7 +20,9 @@ open class ApolloGraphQLDataSource<T : Query.Data>(
     diskCachePath?.let { ApolloGraphQLDiskDataSource(diskCachePath) }
 ) {
 
-    override suspend fun internalRead(request: ApolloGraphQLDataSourceRequest<T>): FlowDataSourceExpiringValue<T> {
+    override suspend fun internalRead(
+        request: ApolloGraphQLDataSourceRequest<T>
+    ): FlowDataSourceExpiringValue<T> {
         val response = apolloClient
             .query(request.query)
             .execute()

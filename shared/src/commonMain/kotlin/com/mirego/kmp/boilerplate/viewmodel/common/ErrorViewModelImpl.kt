@@ -19,7 +19,13 @@ class ErrorViewModelImpl(
 ) : ErrorViewModel, VMDViewModelImpl(coroutineScope) {
 
     companion object {
-        fun build(i18N: I18N, titleKey: KWordTranslation, messageKey: KWordTranslation, coroutineScope: CoroutineScope, retryAction: () -> Unit) = ErrorViewModelImpl(
+        fun build(
+            i18N: I18N,
+            titleKey: KWordTranslation,
+            messageKey: KWordTranslation,
+            coroutineScope: CoroutineScope,
+            retryAction: () -> Unit
+        ) = ErrorViewModelImpl(
             icon = SharedImageResource.errorPageIcon,
             title = i18N[titleKey],
             message = i18N[messageKey],

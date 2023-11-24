@@ -52,22 +52,30 @@ fun <T> Flow<StateData<T?>>.mapNullDataToError(): Flow<StateData<T>> = map { sta
     }
 }
 
-fun <T> Flow<StateData<FlowDataSourceExpiringValue<T>>>.removeExpiredValue(extraExpiredMilliseconds: Long = 0): Flow<StateData<T>> {
+fun <T> Flow<StateData<FlowDataSourceExpiringValue<T>>>.removeExpiredValue(
+    extraExpiredMilliseconds: Long = 0
+): Flow<StateData<T>> {
     return map { dataState ->
         when (dataState) {
-            is DataState.Pending -> stateDataPending(dataState.value?.valueIfNotExpired(extraExpiredMilliseconds))
+            is DataState.Pending -> stateDataPending(
+                dataState.value?.valueIfNotExpired(extraExpiredMilliseconds)
+            )
 
             is DataState.Data -> dataState.value.valueIfNotExpired(extraExpiredMilliseconds)?.let {
                 stateDataData(it)
             } ?: stateDataError(Throwable("Data is expired."))
 
-            is DataState.Error -> stateDataError(dataState.error, dataState.value?.valueIfNotExpired(extraExpiredMilliseconds))
+            is DataState.Error -> stateDataError(
+                dataState.error,
+                dataState.value?.valueIfNotExpired(extraExpiredMilliseconds)
+            )
         }
     }
 }
 
-private fun <T> FlowDataSourceExpiringValue<T>.valueIfNotExpired(extraExpiredMilliseconds: Long) = if ((expiredEpoch + extraExpiredMilliseconds) < Date.now.epoch) {
-    null
-} else {
-    value
-}
+private fun <T> FlowDataSourceExpiringValue<T>.valueIfNotExpired(extraExpiredMilliseconds: Long) =
+    if ((expiredEpoch + extraExpiredMilliseconds) < Date.now.epoch) {
+        null
+    } else {
+        value
+    }

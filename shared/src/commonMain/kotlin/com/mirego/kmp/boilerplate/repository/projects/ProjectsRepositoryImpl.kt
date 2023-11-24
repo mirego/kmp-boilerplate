@@ -42,11 +42,10 @@ class ProjectsRepositoryImpl(
     }
 }
 
-private fun ProjectsQuery.request(forceRefresh: Boolean = true) =
-    ApolloGraphQLDataSourceRequest(
-        query = this,
-        serializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::toJson,
-        deSerializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::fromJson,
-        cacheableId = this.id(),
-        requestType = if (forceRefresh) FlowDataSourceRequest.Type.REFRESH_CACHE else FlowDataSourceRequest.Type.USE_CACHE
-    )
+private fun ProjectsQuery.request(forceRefresh: Boolean = true) = ApolloGraphQLDataSourceRequest(
+    query = this,
+    serializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::toJson,
+    deSerializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::fromJson,
+    cacheableId = this.id(),
+    requestType = if (forceRefresh) FlowDataSourceRequest.Type.REFRESH_CACHE else FlowDataSourceRequest.Type.USE_CACHE
+)

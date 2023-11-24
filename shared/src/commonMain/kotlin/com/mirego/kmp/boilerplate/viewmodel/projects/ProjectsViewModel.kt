@@ -11,7 +11,6 @@ import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDLifecycleViewModel
 interface ProjectsViewModel : VMDLifecycleViewModel {
     @Published
     val rootContent: ProjectsRootContent?
-
 }
 
 sealed interface ProjectsRootContent {

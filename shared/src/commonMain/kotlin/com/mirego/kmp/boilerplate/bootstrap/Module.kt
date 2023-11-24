@@ -40,9 +40,10 @@ fun generalModule(bootstrap: Bootstrap): Module {
     }
 }
 
-private fun createApolloClientBuilder(appEnvironment: AppEnvironment): ApolloClient.Builder = ApolloClient.Builder()
-    .serverUrl(appEnvironment.graphQlApiUrl)
-    .autoPersistedQueries()
+private fun createApolloClientBuilder(appEnvironment: AppEnvironment): ApolloClient.Builder =
+    ApolloClient.Builder()
+        .serverUrl(appEnvironment.graphQlApiUrl)
+        .autoPersistedQueries()
 
 object ModuleQualifier {
     const val DISK_CACHE_PATH = "diskCachePath"

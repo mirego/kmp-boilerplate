@@ -1,0 +1,6 @@
+[*.{kt,kts}]
+max_line_length = off
+ij_kotlin_allow_trailing_comma_on_call_site = false
+ij_kotlin_allow_trailing_comma = false
+ktlint_code_style = ktlint_official
+ktlint_disabled_rules=no-enum-name-in-uppercase,enum-entry-name-case,filename
