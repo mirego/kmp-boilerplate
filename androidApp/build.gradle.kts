@@ -61,6 +61,10 @@ android {
         }
     }
 
+    lint {
+        lintConfig = file("$rootDir/androidApp/android_picasso_lint.xml")
+    }
+
     flavorDimensions += "environment"
 
     productFlavors {

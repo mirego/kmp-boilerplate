@@ -23,11 +23,7 @@ class AndroidBootstrap(context: Context) : Bootstrap {
     }
 
     init {
-        if (Locale.getDefault().language.lowercase() == "fr") {
-            AndroidKWord.setCurrentLanguageCode("fr")
-        } else {
-            AndroidKWord.setCurrentLanguageCode("en")
-        }
+        AndroidKWord.setCurrentLanguageCode(LocaleUtils.supportedLanguageCode())
 
         TrikotViewModelDeclarative.initialize(
             imageProvider = AndroidImageProvider(),

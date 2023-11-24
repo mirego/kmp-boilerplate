@@ -19,6 +19,7 @@ content=$(find . -type f \( \
   -name "*.plist" -or \
   -name "*.pbxproj" \
 \) \
+  -and ! -path "./build/*" \
   -and ! -path "./boilerplate-setup.sh" \
   -and ! -path "./.idea/*" \
   -and ! -path "./.git/*" \
@@ -95,7 +96,9 @@ success "Done!\n"
 header "Updating iOS Framework name..."
 frameworkName="Shared"
 for file in $content; do
-  run "/usr/bin/sed -i .bak s/$frameworkName/$FRAMEWORK_NAME/g $file"
+  if [[ $file != *.kt ]]; then
+    run "/usr/bin/sed -i .bak s/$frameworkName/$FRAMEWORK_NAME/g $file"
+  fi
 done
 mv shared/"${frameworkName}".podspec shared/"${FRAMEWORK_NAME}".podspec
 success "Done!\n"

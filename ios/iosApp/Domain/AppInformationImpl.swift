@@ -5,12 +5,12 @@ import Trikot
 class AppInformationImpl: AppInformation {
     private let flowProvider: FlowProvider<Shared.Locale> = FlowProvider()
     private lazy var localeStateFlow: ConcreteMutableStateFlow<Shared.Locale> = {
-        let language = Foundation.Locale.isPreferredLanguagesFrench ? Shared.Language.french : Shared.Language.english
+        let language = LocaleUtils().supportedLanguageCode() == "fr" ? Shared.Language.french : Shared.Language.english
         let regionCode = Foundation.Locale.current.regionCode
         let currentLocale = Shared.Locale(language: language, regionCode: regionCode)
         return flowProvider.mutableStateFlow(initialValue: currentLocale)
     }()
-    
+
     let versionNumber: String
     let diskCachePath: String
 
@@ -22,7 +22,7 @@ class AppInformationImpl: AppInformation {
         let cacheUrl = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
         diskCachePath = cacheUrl + "/\(environmentKey)/"
     }
-    
+
     func locale() -> ConcreteFlow<Shared.Locale> {
         localeStateFlow
     }
