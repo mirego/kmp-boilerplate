@@ -10,7 +10,9 @@ import org.koin.core.component.get
 import org.koin.core.context.startKoin
 import org.koin.core.parameter.parametersOf
 
-class Bootstrapper : KoinComponent {
+class Bootstrapper(
+    val bootstrap: Bootstrap
+) : KoinComponent {
     private val exceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
             println("Exception: $throwable")
@@ -19,7 +21,7 @@ class Bootstrapper : KoinComponent {
     private val rootCoroutineScope =
         CoroutineScope(Dispatchers.Main.immediate + SupervisorJob() + exceptionHandler)
 
-    fun initDependencies(bootstrap: Bootstrap) = startKoin {
+    fun initDependencies() = startKoin {
         configureKoin(bootstrap)
     }
 

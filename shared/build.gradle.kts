@@ -24,6 +24,7 @@ fun org.jetbrains.kotlin.gradle.plugin.mpp.Framework.configureFramework() {
     export(libs.trikot.kword)
     export(libs.trikot.datasources)
     export(libs.trikot.vmd.annotations)
+    export(libs.killswitch)
     binaryOption("bundleId", TRIKOT_FRAMEWORK_NAME)
 }
 
@@ -108,6 +109,7 @@ kotlin {
                 api(libs.trikot.datasources)
                 api(libs.trikot.kword)
                 api(libs.trikot.vmd)
+                api(libs.killswitch)
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
             kotlin.srcDir(kword.generatedDir)
@@ -128,7 +130,6 @@ kotlin {
                 implementation(libs.mockk)
             }
         }
-
 
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -170,6 +171,8 @@ ktlint {
     enableExperimentalRules.set(true)
     filter {
         exclude { element -> element.file.path.contains("generated/") }
+        exclude { element -> element.file.path.contains("viewmodel/SharedImageResource") }
+        exclude { element -> element.file.path.contains("analytics/Analytics") }
     }
 }
 
@@ -179,4 +182,14 @@ tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
     } else {
         dependsOn(tasks.withType<com.mirego.kword.KWordEnumGenerate>())
     }
+}
+
+tasks["runKtlintFormatOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
+tasks["runKtlintCheckOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
+
+val checkCommon: Task by tasks.creating {
+    group = "verification"
+    description = "Like check, but only with android target for common unit tests"
+    dependsOn("ktlintCheck")
+    dependsOn("testReleaseUnitTest")
 }

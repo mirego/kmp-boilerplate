@@ -32,7 +32,7 @@ fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemU
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(viewModel.backgroundColor.toColor()),
+            .background(viewModel.backgroundColor.toColor())
     ) {
         ContentView(viewModel = viewModel)
 
@@ -57,7 +57,7 @@ fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemU
 @Composable
 private fun ContentView(viewModel: ProjectDetailsViewModel) {
     viewModel.rootContent?.let { content ->
-        when(content) {
+        when (content) {
             is ProjectDetailsRoot.Content -> ProjectDetailsContentView(content = content)
             is ProjectDetailsRoot.Error -> ErrorView(errorViewModel = content.errorViewModel)
         }

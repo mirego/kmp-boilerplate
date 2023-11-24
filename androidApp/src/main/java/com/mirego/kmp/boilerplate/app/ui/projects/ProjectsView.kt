@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -27,7 +26,7 @@ fun ProjectsView(projectsViewModel: ProjectsViewModel) {
             modifier = Modifier
                 .fillMaxSize()
                 .navigationBarsPadding()
-                .background(Color.PrimaryBlack),
+                .background(Color.PrimaryBlack)
         ) {
             ContentView(viewModel = viewModel)
         }
@@ -37,7 +36,7 @@ fun ProjectsView(projectsViewModel: ProjectsViewModel) {
 @Composable
 private fun ContentView(viewModel: ProjectsViewModel) {
     viewModel.rootContent?.let { content ->
-        when(content) {
+        when (content) {
             is ProjectsRoot.Content -> ProjectsContentView(listViewModel = content.sections)
             is ProjectsRoot.Error -> ErrorView(errorViewModel = content.errorViewModel)
         }

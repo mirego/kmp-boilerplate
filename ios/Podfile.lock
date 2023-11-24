@@ -1,4 +1,7 @@
 PODS:
+  - AppCenter/Core (5.0.4)
+  - AppCenter/Distribute (5.0.4):
+    - AppCenter/Core
   - FirebaseAnalytics (10.16.0):
     - FirebaseAnalytics/AdIdSupport (= 10.16.0)
     - FirebaseCore (~> 10.0)
@@ -88,6 +91,7 @@ PODS:
     - Trikot/viewmodels.declarative.flow
 
 DEPENDENCIES:
+  - AppCenter/Distribute
   - FirebaseAnalytics
   - FirebaseCore
   - Shared (from `../shared`)
@@ -97,6 +101,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppCenter
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseCoreInternal
@@ -122,6 +127,7 @@ CHECKOUT OPTIONS:
     :tag: 5.2.0
 
 SPEC CHECKSUMS:
+  AppCenter: 85c92db0759d2792a65eb61d6842d2e86611a49a
   FirebaseAnalytics: 7b41efc4eba5ff841cc94d5994b5f339361258f4
   FirebaseCore: 65a801af84cca84361ef9eac3fd868656968a53b
   FirebaseCoreInternal: 26233f705cc4531236818a07ac84d20c333e505a
@@ -136,6 +142,6 @@ SPEC CHECKSUMS:
   SwiftUIIntrospect: 53b6a16734c822804ff82c35d9073d8d8edfb085
   Trikot: ca201c8ae67ff21f35a60a0bda6c600fbe51b282
 
-PODFILE CHECKSUM: 8c6a75418b236f7d0081b7844d58c4e6b129cedb
+PODFILE CHECKSUM: 85b292e2fef97a1359500ae62489551542a67efb
 
 COCOAPODS: 1.13.0

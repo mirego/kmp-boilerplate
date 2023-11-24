@@ -12,7 +12,6 @@ interface ProjectsViewModel : NavigationViewModel {
 
     @Published
     val rootContent: ProjectsRoot?
-
 }
 
 sealed interface ProjectsRoot {

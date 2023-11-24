@@ -9,11 +9,11 @@ import com.mirego.kmp.boilerplate.utils.stateDataData
 import com.mirego.kmp.boilerplate.utils.stateDataError
 import com.mirego.kmp.boilerplate.utils.stateDataPending
 import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
-import kotlin.time.Duration.Companion.seconds
 
 class ProjectsUseCasePreview(
     previewState: PreviewState
