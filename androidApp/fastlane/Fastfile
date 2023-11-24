@@ -1,0 +1,112 @@
+require_relative '../../fastlane/utils.rb'
+default_platform(:android)
+
+platform :android do
+  lane :build_app do |options|
+    env = options[:env]
+    load_environment_variables(env)
+
+    # replace repoName with the name of your repository
+    remove_unused_resources("/home/runner/work/repoName/repoName")
+    if is_store(env)
+      build_store()
+    else
+      build_appcenter()
+    end
+  end
+
+  lane :build_app_ci do |options|
+    env = options[:env]
+    load_environment_variables(env)
+    ensure_env_vars(
+      env_vars: ['FLAVOR']
+    )
+    build_apk()
+  end
+
+  private_lane :build_appcenter do
+      ensure_env_vars(
+        env_vars: [
+          'APP_CENTER_ORGANIZATION',
+          'APP_CENTER_APP_NAME',
+          'APP_CENTER_APP_SECRET',
+          'APP_CENTER_API_TOKEN',
+          'APP_CENTER_DISTRIBUTION_GROUPS',
+          'FLAVOR'
+        ]
+      )
+
+      appcenter_secret = ENV["APP_CENTER_APP_SECRET"]
+      unless appcenter_secret.nil? || appcenter_secret.empty?
+        xml_editor(
+          path_to_xml_file: 'src/main/res/values/config.xml',
+          xml_path: '//resources//string[@name=\'appcenter_app_secret\']',
+          new_value: appcenter_secret
+        )
+      end
+
+      build_apk()
+
+      appcenter_upload(
+        api_token: ENV["APP_CENTER_API_TOKEN"],
+        owner_type: "organization",
+        owner_name: ENV["APP_CENTER_ORGANIZATION"],
+        app_name: ENV["APP_CENTER_APP_NAME"],
+        destinations: ENV['APP_CENTER_DISTRIBUTION_GROUPS'],
+        destination_type: "group"
+      )
+  end
+
+  private_lane :build_store do
+      ensure_env_vars(
+        env_vars: [
+          'PACKAGE_NAME',
+          'FLAVOR',
+          'GOOGLE_PLAY_STORE_JSON_KEY'
+        ]
+      )
+
+      validate_play_store_json_key(
+        json_key_data: ENV["GOOGLE_PLAY_STORE_JSON_KEY"]
+      )
+
+      build_aab()
+
+      upload_to_play_store(
+        root_url: "https://androidpublisher.googleapis.com/",
+        aab: Actions.lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+        package_name: ENV["PACKAGE_NAME"],
+        track: 'internal',
+        release_status: 'draft',
+        json_key_data: ENV["GOOGLE_PLAY_STORE_JSON_KEY"]
+      )
+  end
+
+  private_lane :build_apk do
+      gradle_path = "../gradlew"
+      gradle(
+        task: "clean",
+        gradle_path: gradle_path
+      )
+      gradle(
+        task: 'assemble',
+        flavor: ENV["FLAVOR"],
+        build_type: 'Release',
+        gradle_path: gradle_path
+      )
+  end
+
+  private_lane :build_aab do
+      gradle_path = "../gradlew"
+      gradle(
+        task: "clean",
+        gradle_path: gradle_path
+      )
+      gradle(
+        task: 'bundle',
+        flavor: ENV["FLAVOR"],
+        build_type: 'Upload',
+        gradle_path: gradle_path
+      )
+  end
+end
