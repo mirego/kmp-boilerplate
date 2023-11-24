@@ -22,20 +22,19 @@ class ProjectsRepositoryImpl(
     private val localeRepository: LocaleRepository,
     private val dataSource: ProjectsDataSource
 ) : ProjectsRepository {
-    override fun projects(): Flow<StateData<List<ProjectsQuery.Data.PagePage.ProjectsListBlock.Projects.Entry>>> =
-        localeRepository.locale()
-            .flatMapLatest { locale ->
-                dataSource.read(
-                    buildQuery(language = locale.language)
-                        .request(forceRefresh = false)
-                ).mapValue {
-                    it.value.page
-                        ?.asPage()
-                        ?.blocks?.firstNotNullOfOrNull {
-                            it.asProjectsList()?.projects?.entries
-                        }.orEmpty()
-                }
+    override fun projects(): Flow<StateData<List<ProjectsQuery.Data.PagePage.ProjectsListBlock.Projects.Entry>>> = localeRepository.locale()
+        .flatMapLatest { locale ->
+            dataSource.read(
+                buildQuery(language = locale.language)
+                    .request(forceRefresh = false)
+            ).mapValue {
+                it.value.page
+                    ?.asPage()
+                    ?.blocks?.firstNotNullOfOrNull {
+                        it.asProjectsList()?.projects?.entries
+                    }.orEmpty()
             }
+        }
 
     override suspend fun refreshProjects() {
         val locale = localeRepository.locale().first()
@@ -53,11 +52,10 @@ class ProjectsRepositoryImpl(
     )
 }
 
-private fun ProjectsQuery.request(forceRefresh: Boolean = true) =
-    ApolloGraphQLDataSourceRequest(
-        query = this,
-        serializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::toJson,
-        deSerializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::fromJson,
-        cacheableId = id() + projectsSlug.toString(),
-        requestType = if (forceRefresh) FlowDataSourceRequest.Type.REFRESH_CACHE else FlowDataSourceRequest.Type.USE_CACHE
-    )
+private fun ProjectsQuery.request(forceRefresh: Boolean = true) = ApolloGraphQLDataSourceRequest(
+    query = this,
+    serializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::toJson,
+    deSerializeJsonMethod = ProjectsQuery_ResponseAdapter.Data::fromJson,
+    cacheableId = id() + projectsSlug.toString(),
+    requestType = if (forceRefresh) FlowDataSourceRequest.Type.REFRESH_CACHE else FlowDataSourceRequest.Type.USE_CACHE
+)

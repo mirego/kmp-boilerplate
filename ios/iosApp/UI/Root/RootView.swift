@@ -15,6 +15,7 @@ struct RootView: View {
 
     var body: some View {
         ProjectsView(viewModel: viewModel.projectsViewModel)
+            .embedInNavigationView()
     }
 }
 

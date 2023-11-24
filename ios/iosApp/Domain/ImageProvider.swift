@@ -12,6 +12,8 @@ final class ImageProvider: VMDImageProvider {
             return Image(systemName: "exclamationmark.triangle.fill")
         case .imageplaceholder:
             return Image(systemName: "photo")
+        case .closeicon:
+            return Image(systemName: "xmark.circle.fill")
         }
     }
 }

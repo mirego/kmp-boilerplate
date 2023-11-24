@@ -37,11 +37,9 @@ fun generalModule(bootstrap: Bootstrap): Module {
     }
 }
 
-private fun createApolloClientBuilder(bootstrap: Bootstrap): ApolloClient.Builder =
-    ApolloClient.Builder()
-        .serverUrl(bootstrap.environment.graphQlApiUrl)
-        .addHttpInterceptor(LocaleHeaderInterceptor())
-
+private fun createApolloClientBuilder(bootstrap: Bootstrap): ApolloClient.Builder = ApolloClient.Builder()
+    .serverUrl(bootstrap.environment.graphQlApiUrl)
+    .addHttpInterceptor(LocaleHeaderInterceptor())
 
 object ModuleQualifier {
     const val DISK_CACHE_PATH = "diskCachePath"

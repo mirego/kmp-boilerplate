@@ -2,18 +2,16 @@ package com.mirego.kmp.boilerplate.viewmodel.projects
 
 import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModel
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModel
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModel
 import com.mirego.trikot.viewmodels.declarative.Published
 import com.mirego.trikot.viewmodels.declarative.components.VMDImageViewModel
 import com.mirego.trikot.viewmodels.declarative.components.VMDListViewModel
 import com.mirego.trikot.viewmodels.declarative.content.VMDIdentifiableContent
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDLifecycleViewModel
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModel
 
-interface ProjectsViewModel : VMDViewModel, VMDLifecycleViewModel {
+interface ProjectsViewModel : NavigationViewModel {
 
     @Published
     val rootContent: ProjectsRoot?
-
 }
 
 sealed interface ProjectsRoot {
@@ -53,5 +51,6 @@ data class ProjectItem(
     val subtitle: String,
     val description: String,
     val image: VMDImageViewModel,
+    val tapAction: () -> Unit,
     val isLoading: Boolean
 ) : VMDIdentifiableContent

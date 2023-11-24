@@ -67,11 +67,11 @@ enum TextStyle: String {
 
     var fontName: String {
         switch self {
-            case .light: return "SFPro-Light"
-            case .regular: return "SFPro-Regular"
-            case .medium: return "SFPro-Medium"
-            case .semiBold: return "SFPro-Semibold"
-            case .bold: return "SFPro-Bold"
+        case .light: return "HelveticaNeue-Light"
+            case .regular: return "HelveticaNeue"
+            case .medium: return "HelveticaNeue-Medium"
+            case .semiBold: return "HelveticaNeue-Bold"
+            case .bold: return "HelveticaNeue-CondensedBold"
         }
     }
 }

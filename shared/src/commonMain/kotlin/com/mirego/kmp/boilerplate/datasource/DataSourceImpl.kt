@@ -1,6 +1,7 @@
 package com.mirego.kmp.boilerplate.datasource
 
 import com.apollographql.apollo3.ApolloClient
+import com.mirego.kmp.boilerplate.ProjectDetailsQuery
 import com.mirego.kmp.boilerplate.ProjectsQuery
 import com.mirego.kmp.boilerplate.bootstrap.ModuleQualifier
 import com.mirego.kmp.boilerplate.datasource.apollo.ApolloGraphQLDataSource
@@ -14,4 +15,13 @@ class ProjectsDataSource(
 ) : ApolloGraphQLDataSource<ProjectsQuery.Data>(
     apolloClient = apolloClient,
     diskCachePath = "$diskCachePath/projects"
+)
+
+@Single
+class ProjectDetailsDataSource(
+    apolloClient: ApolloClient,
+    @Named(ModuleQualifier.DISK_CACHE_PATH) private val diskCachePath: String
+) : ApolloGraphQLDataSource<ProjectDetailsQuery.Data>(
+    apolloClient = apolloClient,
+    diskCachePath = "$diskCachePath/projectDetails"
 )

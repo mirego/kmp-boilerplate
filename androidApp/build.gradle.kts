@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.crashlyticsPlugin)
 }
 
 kotlin {
@@ -77,9 +79,11 @@ dependencies {
     implementation(project(":shared"))
 
     implementation(libs.android.splash)
+    implementation(libs.android.firebase.analytics)
+    implementation(libs.android.firebase.crashlytics)
+    implementation(platform(libs.android.firebase.bom))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
-
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.placeholder.material)
@@ -91,4 +95,6 @@ dependencies {
     implementation(libs.koin.androidx.compose.navigation)
     implementation(libs.trikot.viewmodels.databinding)
     implementation(libs.trikot.vmd.compose)
+    "ciImplementation"(libs.appcenter)
+    "storeImplementation"(libs.appcenter.play)
 }

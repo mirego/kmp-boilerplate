@@ -49,8 +49,12 @@ struct ProjectsContentView: View {
     private func projectListView(viewModel: VMDListViewModel<ProjectItem>, itemSize: CGFloat) -> some View {
         VStack(spacing: 16) {
             ForEach(viewModel.elements, id: \.identifier) { item in
-                itemView(viewModel: item)
-                    .frame(width: itemSize)
+                Button {
+                    item.tapAction()
+                } label: {
+                    itemView(viewModel: item)
+                        .frame(width: itemSize)
+                }
             }
         }
     }
@@ -66,6 +70,7 @@ struct ProjectsContentView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)
+                            .foregroundStyle(Color.black)
                     }
                 }
                 .resizable()
@@ -82,12 +87,14 @@ struct ProjectsContentView: View {
                 Text(viewModel.subtitle)
                     .textStyle(.title1, .regular, .white)
                     .lineLimit(2)
+                    .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, 4)
                 
                 Text(viewModel.description_)
                     .textStyle(.caption1, .regular, Color(.accentOrange))
                     .lineLimit(2)
+                    .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, padding)
             }

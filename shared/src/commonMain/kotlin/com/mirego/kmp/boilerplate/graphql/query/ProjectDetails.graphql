@@ -1,0 +1,22 @@
+query ProjectDetails($projectId: PageSlug!) {
+    page(slug: $projectId) {
+        ... on Page {
+            blocks {
+                blockType
+                ...on ProjectHeader {
+                    entity {
+                        mainImageUrl(width: 1200, height: 1200)
+                        name
+                        projectType
+                        year
+                        mainColor
+                        textColor
+                        client {
+                            name
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

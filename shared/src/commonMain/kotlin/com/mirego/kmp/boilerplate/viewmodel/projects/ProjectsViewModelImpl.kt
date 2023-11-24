@@ -1,5 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel.projects
 
+import com.mirego.kmp.boilerplate.analytics.Analytics
+import com.mirego.kmp.boilerplate.analytics.ScreenName
 import com.mirego.kmp.boilerplate.extension.prioritiseData
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectsUseCasePreview
@@ -10,10 +12,11 @@ import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
 import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDLifecycleViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.list
 import com.mirego.trikot.viewmodels.declarative.viewmodel.remoteImage
 import kotlinx.coroutines.CoroutineScope
@@ -22,13 +25,17 @@ import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 
 @Factory
-@PublishedSubClass(superClass = VMDLifecycleViewModelImpl::class)
+@PublishedSubClass(superClass = NavigationViewModelImpl::class)
 class ProjectsViewModelImpl(
     private val projectsUseCase: ProjectsUseCase,
     private val i18N: I18N,
     viewModelFactory: ViewModelFactory,
     coroutineScope: CoroutineScope
 ) : ProjectsViewModel, BaseProjectsViewModelImpl(
+    onTrackScreenView = {
+        Analytics.trackScreenView(ScreenName.projects)
+    },
+    viewModelFactory = viewModelFactory,
     coroutineScope = coroutineScope
 ) {
 
@@ -88,6 +95,16 @@ class ProjectsViewModelImpl(
             imageUrl = imageUrl,
             placeholderImageResource = SharedImageResource.imagePlaceholder
         ),
+        tapAction = {
+            Analytics.trackViewProject(projectId = id)
+            navigateToProjectDetails(
+                ProjectDetailsNavigationData(
+                    id = id,
+                    backgroundColor = backgroundColor,
+                    textColor = textColor
+                )
+            )
+        },
         isLoading = isLoading
     )
 

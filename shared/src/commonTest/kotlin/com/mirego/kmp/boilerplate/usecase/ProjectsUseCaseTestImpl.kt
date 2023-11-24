@@ -9,11 +9,11 @@ import com.mirego.kmp.boilerplate.utils.stateDataData
 import com.mirego.trikot.datasources.extensions.value
 import io.mockk.every
 import io.mockk.mockk
+import kotlin.test.Test
+import kotlin.test.assertTrue
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertTrue
 
 class ProjectsUseCaseTestImpl : BaseTest() {
     private val repository = mockk<ProjectsRepository>()
@@ -74,6 +74,8 @@ class ProjectsUseCaseTestImpl : BaseTest() {
         listImageUrl = "https://miregologo.com",
         client = ProjectsQuery.Data.PagePage.ProjectsListBlock.Projects.Entry.Client(
             name = "Mirego"
-        )
+        ),
+        "000000",
+        "FFFFFF"
     )
 }
