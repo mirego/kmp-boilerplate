@@ -40,21 +40,8 @@ enum AppInitializer {
         AppCenter.start(withAppSecret: appCenterSecret, services: [Distribute.self])
     }
 
-    private static func initializeFirebase() {
-        FirebaseApp.configure()
-
-        let firebaseAnalyticsService = AnalyticsServiceImpl()
-        #if DEBUG
-            firebaseAnalyticsService.isEnabled = false
-        #else
-            firebaseAnalyticsService.isEnabled = true
-        #endif
-
-        SharedAnalyticsConfiguration().analyticsManager = firebaseAnalyticsService
-    }
-
     private static func initializeCommon() {
-        TrikotKword.shared.setCurrentLanguage(Foundation.Locale.isPreferredLanguagesFrench ? "fr" : "en")
+        TrikotKword.shared.setCurrentLanguage(LocaleUtils().supportedLanguageCode())
         TrikotViewModelDeclarative.shared.initialize(
             imageProvider: ImageProvider(),
             spanStyleProvider: DefaultSpanStyleProvider()
