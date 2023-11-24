@@ -16,19 +16,18 @@ class ProjectDetailsUseCaseImpl(
         private val defaultTextColor = VMDColor(255, 255, 255, 1f)
     }
 
-    override fun projectsDetails(id: String): Flow<StateData<ProjectDetailsViewData>> =
-        repository.projectDetails(id = id)
-            .mapValue { entity ->
-                ProjectDetailsViewData(
-                    imageUrl = entity.mainImageUrl.toString(),
-                    title = entity.client.name,
-                    subtitle = entity.name,
-                    projectType = entity.projectType,
-                    releaseYear = entity.year.toString(),
-                    backgroundColor = entity.mainColor?.toVMDColor() ?: defaultBackgroundColor,
-                    textColor = entity.textColor?.toVMDColor() ?: defaultTextColor
-                )
-            }
+    override fun projectsDetails(id: String): Flow<StateData<ProjectDetailsViewData>> = repository.projectDetails(id = id)
+        .mapValue { entity ->
+            ProjectDetailsViewData(
+                imageUrl = entity.mainImageUrl.toString(),
+                title = entity.client.name,
+                subtitle = entity.name,
+                projectType = entity.projectType,
+                releaseYear = entity.year.toString(),
+                backgroundColor = entity.mainColor?.toVMDColor() ?: defaultBackgroundColor,
+                textColor = entity.textColor?.toVMDColor() ?: defaultTextColor
+            )
+        }
 }
 
 fun String.toVMDColor(): VMDColor? {

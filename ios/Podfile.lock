@@ -1,5 +1,82 @@
 PODS:
+  - AppCenter/Core (5.0.4)
+  - AppCenter/Distribute (5.0.4):
+    - AppCenter/Core
+  - FirebaseAnalytics (10.16.0):
+    - FirebaseAnalytics/AdIdSupport (= 10.16.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (10.16.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleAppMeasurement (= 10.16.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseCore (10.16.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Logger (~> 7.8)
+  - FirebaseCoreInternal (10.16.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseInstallations (10.16.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
+  - GoogleAppMeasurement (10.16.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.16.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (10.16.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.16.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.16.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.5):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.11.5):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.5):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (7.11.5):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (7.11.5):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.11.5)"
+  - GoogleUtilities/Reachability (7.11.5):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.11.5):
+    - GoogleUtilities/Logger
   - Kingfisher (7.8.1)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
+  - PromisesObjC (2.3.1)
   - Shared (0.1)
   - SwiftLint (0.53.0)
   - SwiftUIIntrospect (1.1.0)
@@ -14,6 +91,9 @@ PODS:
     - Trikot/viewmodels.declarative.flow
 
 DEPENDENCIES:
+  - AppCenter/Distribute
+  - FirebaseAnalytics
+  - FirebaseCore
   - Shared (from `../shared`)
   - SwiftLint
   - "Trikot/kword (from `git@github.com:mirego/trikot.git`, tag `5.2.0`)"
@@ -21,7 +101,16 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppCenter
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - FirebaseInstallations
+    - GoogleAppMeasurement
+    - GoogleUtilities
     - Kingfisher
+    - nanopb
+    - PromisesObjC
     - SwiftLint
     - SwiftUIIntrospect
 
@@ -38,12 +127,21 @@ CHECKOUT OPTIONS:
     :tag: 5.2.0
 
 SPEC CHECKSUMS:
+  AppCenter: 85c92db0759d2792a65eb61d6842d2e86611a49a
+  FirebaseAnalytics: 7b41efc4eba5ff841cc94d5994b5f339361258f4
+  FirebaseCore: 65a801af84cca84361ef9eac3fd868656968a53b
+  FirebaseCoreInternal: 26233f705cc4531236818a07ac84d20c333e505a
+  FirebaseInstallations: b822f91a61f7d1ba763e5ccc9d4f2e6f2ed3b3ee
+  GoogleAppMeasurement: 079d7632810e9d9704a99932547ba1554acc4342
+  GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   Shared: 185e58fd174d1d4b955d7581bc1bacb9810272fa
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
   SwiftUIIntrospect: 53b6a16734c822804ff82c35d9073d8d8edfb085
   Trikot: ca201c8ae67ff21f35a60a0bda6c600fbe51b282
 
-PODFILE CHECKSUM: a8e15659553c290a2147c108f4746a4431cf7594
+PODFILE CHECKSUM: 85b292e2fef97a1359500ae62489551542a67efb
 
 COCOAPODS: 1.13.0

@@ -36,5 +36,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew check
+      - name: Run common tests and lint
+        run: ./gradlew clean shared:checkCommon --parallel --stacktrace -Pskip_gitversion --info
+
+      - name: Run Android lint
+        run: ./gradlew androidApp:ktlintCheck --stacktrace -Pskip_gitversion

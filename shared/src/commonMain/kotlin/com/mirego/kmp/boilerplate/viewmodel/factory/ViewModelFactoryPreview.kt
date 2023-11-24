@@ -47,8 +47,7 @@ class ViewModelFactoryPreview(
         coroutineScope = createCoroutineScope()
     )
 
-    override fun createProjectDetails(navigationData: ProjectDetailsNavigationData, closeAction: () -> Unit, coroutineScope: CoroutineScope) =
-        createProjectDetails()
+    override fun createProjectDetails(navigationData: ProjectDetailsNavigationData, closeAction: () -> Unit, coroutineScope: CoroutineScope) = createProjectDetails()
 
     fun createProjectDetails(previewState: PreviewState = PreviewState.Data.Content) = ProjectDetailsViewModelImpl(
         navigationData = ProjectDetailsNavigationData("", "000000".toVMDColor() ?: VMDColor.None, "ffffff".toVMDColor() ?: VMDColor.None),

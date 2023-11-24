@@ -24,14 +24,11 @@ class ProjectDetailsUseCasePreview(private val previewState: PreviewState) : Pro
         )
     }
 
-    override fun projectsDetails(id: String): Flow<StateData<ProjectDetailsViewData>> =
-        flowOf(
-            when (previewState) {
-                is PreviewState.Data -> stateDataData(buildPreviewViewData())
-                PreviewState.Loading -> stateDataPending()
-                PreviewState.Error -> stateDataError(Throwable())
-            }
-        )
+    override fun projectsDetails(id: String): Flow<StateData<ProjectDetailsViewData>> = flowOf(
+        when (previewState) {
+            is PreviewState.Data -> stateDataData(buildPreviewViewData())
+            PreviewState.Loading -> stateDataPending()
+            PreviewState.Error -> stateDataError(Throwable())
+        }
+    )
 }
-
-

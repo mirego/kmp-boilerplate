@@ -36,6 +36,7 @@ struct ProjectDetailsView: View {
                 }
             }
         }
+        .handleNavigation(viewModel, route: viewModel.navigationRoute)
     }
 
     @ViewBuilder private var contentView: some View {

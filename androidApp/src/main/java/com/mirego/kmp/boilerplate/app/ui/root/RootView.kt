@@ -25,7 +25,7 @@ fun RootView(rootViewModel: RootViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Color.White)
     ) {
         ProjectsView(projectsViewModel = viewModel.projectsViewModel)
     }

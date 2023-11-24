@@ -76,7 +76,7 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
                 .clip(RoundedCornerShape(percent = 50))
                 .background(Color.Red)
                 .padding(vertical = 12.dp),
-            viewModel = viewModel.retryButton,
+            viewModel = viewModel.retryButton
         ) { content ->
             Text(
                 modifier = Modifier,
