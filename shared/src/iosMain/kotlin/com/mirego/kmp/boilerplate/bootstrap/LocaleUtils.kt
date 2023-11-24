@@ -6,7 +6,6 @@ import platform.Foundation.preferredLanguages
 actual object LocaleUtils {
     actual fun supportedLanguageCode(): String {
         val preferredLanguage: String? = NSLocale.preferredLanguages.firstOrNull() as? String
-        println("SDET: preferredLanguage: $preferredLanguage")
         return if (preferredLanguage?.contains("fr") == true) {
             "fr"
         } else {

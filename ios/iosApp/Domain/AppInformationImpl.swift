@@ -14,7 +14,7 @@ class AppInformationImpl: AppInformation {
         let cacheUrl = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
         diskCachePath = cacheUrl + "/\(environmentKey)/"
         
-        let language = Foundation.Locale.isPreferredLanguagesFrench ? Shared.Language.french : Shared.Language.english
+        let language = LocaleUtils().supportedLanguageCode() == "fr" ? Shared.Language.french : Shared.Language.english
         let regionCode = Foundation.Locale.current.regionCode
         locale = Shared.Locale(language: language, regionCode: regionCode)
     }
