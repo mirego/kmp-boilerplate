@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ktlint)
     alias(libs.plugins.crashlyticsPlugin)
 }
 
@@ -94,4 +95,6 @@ dependencies {
     implementation(libs.koin.androidx.compose.navigation)
     implementation(libs.trikot.viewmodels.databinding)
     implementation(libs.trikot.vmd.compose)
+    "ciImplementation"(libs.appcenter)
+    "storeImplementation"(libs.appcenter.play)
 }

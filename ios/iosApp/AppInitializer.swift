@@ -1,3 +1,5 @@
+import AppCenter
+import AppCenterDistribute
 import FirebaseCore
 import Foundation
 import Kingfisher
@@ -7,6 +9,7 @@ import Trikot
 enum AppInitializer {
     static func initializeComponents(environment _: AppEnvironment) {
         initializeFirebase()
+        initializeAppCenter()
         initializeCommon()
         initializeKingfisher()
         inititalizeKillSwitch()
@@ -29,6 +32,12 @@ enum AppInitializer {
         #endif
 
         SharedAnalyticsConfiguration().analyticsManager = firebaseAnalyticsService
+    }
+    
+    private static func initializeAppCenter() {
+        guard let appCenterSecret = Bundle.main.object(forInfoDictionaryKey: "APP_CENTER_APP_SECRET") as? String, !appCenterSecret.isEmpty else { return }
+        Distribute.updateTrack = .private
+        AppCenter.start(withAppSecret: appCenterSecret, services: [Distribute.self])
     }
 
     private static func initializeCommon() {

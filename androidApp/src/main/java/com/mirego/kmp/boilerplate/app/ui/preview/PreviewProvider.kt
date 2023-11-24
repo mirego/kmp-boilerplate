@@ -13,6 +13,6 @@ fun PreviewProvider(content: @Composable (ViewModelFactoryPreview) -> Unit) {
     val viewModelFactoryPreview = ViewModelFactoryPreview(
         i18N = PreviewI18N(BuildConfig.KWORD_TRANSLATION_FILE_PATH)
     )
-    
+
     content(viewModelFactoryPreview)
 }

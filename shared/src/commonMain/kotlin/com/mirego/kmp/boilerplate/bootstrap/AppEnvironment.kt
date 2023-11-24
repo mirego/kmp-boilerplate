@@ -4,7 +4,7 @@ enum class AppEnvironment(
     val key: String,
     val graphQlApiUrl: String,
     val iOSSpecific: PlatformSpecific,
-    val androidSpecific: PlatformSpecific,
+    val androidSpecific: PlatformSpecific
 ) {
     DEV(
         key = "dev",

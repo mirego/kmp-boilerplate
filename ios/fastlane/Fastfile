@@ -1,0 +1,212 @@
+import_from_git(url: 'git@github.com:mirego/fastlane-toolkit.git', branch: 'feature/export-options-thinning')
+require_relative '../../fastlane/utils.rb'
+default_platform(:ios)
+
+ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "600"
+
+platform :ios do
+
+  lane :build_app do |options|
+    env = options[:env]
+    load_environment_variables(env)
+    if is_store(env)
+      build_store()
+    else
+      build_appcenter()
+    end
+  end
+
+  private_lane :build_appcenter do
+    ensure_env_vars(
+      env_vars: [
+        'APP_CENTER_ORGANIZATION',
+        'APP_CENTER_APP_NAME',
+        'APP_CENTER_APP_SECRET',
+        'APP_CENTER_API_TOKEN',
+        'APP_CENTER_DISTRIBUTION_GROUPS',
+        'BUNDLE_IDENTIFIER',
+        'BUILD_CONFIGURATION',
+        'TARGET',
+        'INFO_PLIST_PATH',
+	    'PROVISIONING_PROFILE_PATH',
+	    'APP_GROUP_ID',
+        'ENVIRONMENT'
+      ]
+    )
+
+    enterprise_config = enterprise_configuration()
+
+    provisioning_profile = Model::ProvisioningProfile.new(
+      path: ENV["PROVISIONING_PROFILE_PATH"]
+    )
+
+    build_configuration = Model::Configuration.new(
+      certificate: enterprise_config.certificate,
+      provisioningProfile: provisioning_profile,
+      buildConfiguration: enterprise_config,
+      exportMethod: enterprise_config.exportMethod
+    )
+
+    build_configuration.bundleIdentifierOverride = ENV["BUNDLE_IDENTIFIER"]
+    build_configuration.buildConfiguration = ENV["BUILD_CONFIGURATION"]
+
+    do_build_app(build_configuration: build_configuration)
+
+    appcenter_upload(
+      api_token: ENV["APP_CENTER_API_TOKEN"],
+      owner_type: "organization",
+      owner_name: ENV["APP_CENTER_ORGANIZATION"],
+      app_name:  ENV["APP_CENTER_APP_NAME"],
+      ipa: "../ios/#{ENV["TARGET"]}.ipa",
+      destinations: ENV['APP_CENTER_DISTRIBUTION_GROUPS'],
+      destination_type: "group"
+    )
+
+    upload_symbols()
+  end
+
+  private_lane :build_store do
+    ensure_env_vars(
+      env_vars: [
+        'APP_STORE_CERTIFICATE_PATH',
+        'APP_STORE_CERTIFICATE_PASSWORD',
+        'APP_STORE_PROVISIONING_PROFILE_NAME',
+        'APP_STORE_CONNECT_API_KEY_ID',
+        'APP_STORE_CONNECT_API_KEY_ISSUER_ID',
+        'APP_STORE_CONNECT_API_KEY_FILE_PATH',
+        'PROVISIONING_PROFILE_PATH',
+	'PROVISIONING_PROFILE_WIDGET_PATH',
+	'APP_GROUP_ID',
+        'BUNDLE_IDENTIFIER',
+        'BUNDLE_IDENTIFIER_WIDGET',
+        'BUILD_CONFIGURATION',
+        'TARGET',
+        'INFO_PLIST_PATH',
+        'ENVIRONMENT',
+        'GOOGLE_SIGN_IN_URL_SCHEME',
+        'GOOGLE_SIGN_IN_CLIENT_ID'
+      ]
+    )
+
+    app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
+      key_filepath: File.expand_path(ENV["APP_STORE_CONNECT_API_KEY_FILE_PATH"]),
+      in_house: false
+    )
+
+    appStoreProvisioningProfile = Model::ProvisioningProfile.new(
+      path: ENV["PROVISIONING_PROFILE_PATH"]
+    )
+
+    appStoreCertificate = Model::Certificate.new(
+      path: ENV["APP_STORE_CERTIFICATE_PATH"],
+      name: ENV["APP_STORE_PROVISIONING_PROFILE_NAME"],
+      password: ENV["APP_STORE_CERTIFICATE_PASSWORD"]
+    )
+
+    appStoreConfiguration = Model::Configuration.new(
+      certificate: appStoreCertificate,
+      provisioningProfile: appStoreProvisioningProfile,
+      buildConfiguration: ENV["BUILD_CONFIGURATION"],
+      exportMethod: "app-store"
+    )
+
+    do_build_app(build_configuration: appStoreConfiguration)
+
+    upload_to_testflight(
+      skip_submission: true,
+      skip_waiting_for_build_processing: true,
+      notify_external_testers: false
+    )
+
+    upload_symbols()
+  end
+
+  private_lane :do_build_app do |options|
+    build_configuration = options[:build_configuration]
+
+    info_plist_path = ENV["INFO_PLIST_PATH"]
+    target = ENV["TARGET"]
+    bundle_identifier = ENV["BUNDLE_IDENTIFIER"]
+
+    project = Model::Project.new(
+      workspacePath: "iosApp.xcworkspace",
+      projectPath: "iosApp.xcodeproj",
+      infoPlistPath: info_plist_path,
+      scheme: target,
+      target: target,
+      bundleIdentifier: bundle_identifier
+    )
+
+    setup_app_extensions(build_configuration: build_configuration, project: project)
+
+    app_center_app_secret = ENV["APP_CENTER_APP_SECRET"]
+    unless app_center_app_secret.nil? || app_center_app_secret.empty?
+      update_info_plist(
+        xcodeproj: project.projectPath,
+        plist_path: project.infoPlistPath,
+        block: proc do |plist|
+          plist["APP_CENTER_APP_SECRET"] = app_center_app_secret
+          urlScheme = plist["CFBundleURLTypes"].find{|scheme| scheme["CFBundleURLName"] == "AppCenterURL"}
+          urlScheme[:CFBundleURLSchemes] = ["appcenter-#{app_center_app_secret}"]
+        end
+      )
+    end
+
+    google_sign_in_client_id = ENV["GOOGLE_SIGN_IN_CLIENT_ID"]
+    google_sign_in_url_scheme = ENV["GOOGLE_SIGN_IN_URL_SCHEME"]
+    unless google_sign_in_client_id.nil? || google_sign_in_url_scheme.nil?
+      update_info_plist(
+        xcodeproj: project.projectPath,
+        plist_path: project.infoPlistPath,
+        block: proc do |plist|
+          plist["GIDClientID"] = google_sign_in_client_id
+          urlScheme = plist["CFBundleURLTypes"].find{|scheme| scheme["CFBundleURLName"] == "GoogleSignIn"}
+          urlScheme[:CFBundleURLSchemes] = ["#{google_sign_in_url_scheme}"]
+        end
+      )
+    end
+
+    replace_app_icons()
+
+    set_info_plist_value(path: info_plist_path, key: "Environment", value: ENV["ENVIRONMENT"])
+
+    gradle(
+      task: "updatePList",
+      flags: "-PpListPath=#{info_plist_path}",
+      gradle_path: "../gradlew"
+    )
+
+    buildNumber = get_info_plist_value(path: project.infoPlistPath, key: "CFBundleVersion")
+    increment_build_number(build_number: buildNumber, xcodeproj: "./iosApp.xcodeproj")
+
+    cocoapods(
+      use_bundle_exec: true,
+      try_repo_update_on_error: true,
+      verbose: false
+    )
+
+    build_ios_app_with_toolkit(
+      project: project,
+      configuration: build_configuration,
+      include_bitcode: false
+    )
+  end
+
+  private_lane :upload_symbols do
+       upload_symbols_to_crashlytics(
+         dsym_paths: [
+           "./#{ENV["TARGET"]}.app.dSYM.zip",
+           '../common/build/cocoapods/framework/Common.framework.dSYM'
+         ],
+         gsp_path: "./#{ENV["TARGET"]}/SupportingFiles/GoogleService-Info.plist"
+       )
+  end
+
+  private_lane :replace_app_icons do
+    app_icons_path = File.expand_path(File.join("../", "#{ENV["TARGET"]}", "Resources", "Assets.xcassets", "Icons"))
+    icons_overwrite_path = File.expand_path(File.join("overwrites", "#{ENV["OVERWRITE_NAME"]}.overwrite", "AppIcon.appiconset"))
+    FileUtils.cp_r(icons_overwrite_path, app_icons_path)
+  end
+end

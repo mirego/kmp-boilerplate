@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.sp
 fun style(size: TextSize, weight: TextWeight) = TextStyle(
     fontSize = size.fontSize(),
     fontStyle = FontStyle.Normal,
-    fontWeight = weight.fontName(),
+    fontWeight = weight.fontName()
 )
 
 enum class TextSize {

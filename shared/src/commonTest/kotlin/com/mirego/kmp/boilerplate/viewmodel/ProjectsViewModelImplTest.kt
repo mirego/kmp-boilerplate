@@ -1,6 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel
 
 import com.mirego.kmp.boilerplate.testutils.BaseTest
+import com.mirego.kmp.boilerplate.usecase.projectdetails.toVMDColor
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectItemViewData
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsUseCase
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsViewData
@@ -9,14 +10,15 @@ import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsContentSection
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsRoot
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsViewModelImpl
+import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runTest
 
-class ProjectsViewModelImplTestTest : BaseTest() {
+class ProjectsViewModelImplTest : BaseTest() {
     private val useCase = mockk<ProjectsUseCase>()
     private val viewModelFactory = mockk<ViewModelFactory>()
 
@@ -48,7 +50,9 @@ class ProjectsViewModelImplTestTest : BaseTest() {
                     title = "title",
                     subtitle = "subtitle",
                     description = "description",
-                    imageUrl = "imageUrl"
+                    imageUrl = "imageUrl",
+                    backgroundColor = "000000".toVMDColor() ?: VMDColor.None,
+                    textColor = "FFFFFF".toVMDColor() ?: VMDColor.None
                 )
             )
         )
