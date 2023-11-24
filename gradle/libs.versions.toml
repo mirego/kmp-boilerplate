@@ -5,6 +5,7 @@ android-splash = "1.0.1"
 androidxActivityCompose = "1.8.0"
 androidxAppcompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
+apollo = "3.7.4"
 koin = "3.5.0"
 koin-android = "3.5.0"
 koin-androidx-compose = "3.5.0"
@@ -15,6 +16,7 @@ kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.6.0"
 kword-plugin = "4.0.0"
 ktlint = "11.6.1"
+okio = "3.6.0"
 owasp = "8.4.2"
 trikot = "5.2.0"
 
@@ -26,6 +28,7 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+apollo-runtime = { group = "com.apollographql.apollo3", name = "apollo-runtime" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin_ksp" }
 ksp-koinCompiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin_ksp" }
@@ -35,6 +38,8 @@ koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-comp
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 
 trikot-vmd = { module = "com.mirego.trikot:viewmodels-declarative-flow", version.ref = "trikot" }
 trikot-kword = { module = "com.mirego.trikot:kword", version.ref = "trikot" }
@@ -47,6 +52,7 @@ trikot-vmd-annotations-compiler = { module = "com.mirego.trikot:viewmodels-decla
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+apollo-graphql = { id = "com.apollographql.apollo3", version.ref = "apollo" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-native-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }

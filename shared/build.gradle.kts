@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.kspPlugin)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.mirego.kwordPlugin)
+    alias(libs.plugins.apollo.graphql)
 }
 
 version = "0.1"
@@ -28,6 +29,24 @@ kword {
     translationFile = file("src/commonMain/resources/translations/translation.en.json")
     enumClassName = "com.mirego.kmp.boilerplate.localization.KWordTranslation"
     generatedDir = file("src/commonMain/generated")
+}
+
+apollo {
+    val file = File("src/commonMain/kotlin/com/mirego/kmp/boilerplate/graphql/schema.graphqls")
+    packageName.set("com.mirego.kmp.boilerplate")
+    srcDir("src/commonMain/kotlin/com/mirego/kmp/boilerplate/graphql")
+    schemaFile.set(file)
+    codegenModels.set("responseBased")
+
+    introspection {
+        endpointUrl.set("https://api.mirego.com/graphql")
+        schemaFile.set(file)
+    }
+}
+
+val updateGraphQLSchema: Task by tasks.creating {
+    group = "apollo"
+    dependsOn("downloadServiceApolloSchemaFromIntrospection")
 }
 
 kotlin {
@@ -69,14 +88,16 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                api(libs.trikot.vmd)
-                api(libs.trikot.kword)
-                api(libs.trikot.datasources)
-                api(libs.trikot.vmd.annotations)
+                implementation(libs.apollo.runtime)
+                api(libs.koin.annotations)
                 api(libs.kotlinx.coroutines.core)
                 api(libs.kotlinx.serialization.json)
                 api(libs.koin.core)
-                api(libs.koin.annotations)
+                implementation(libs.okio)
+                api(libs.trikot.vmd.annotations)
+                api(libs.trikot.datasources)
+                api(libs.trikot.kword)
+                api(libs.trikot.vmd)
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
             kotlin.srcDir(kword.generatedDir)

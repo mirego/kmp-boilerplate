@@ -1,2 +1,7 @@
 {
+    "generic_empty_content_title": "Rien ici...",
+    "generic_error_message": "Une erreur s'est malheureusement produite",
+    "generic_error_title": "Oops...",
+    "generic_retry": "Réessayer",
+    "projects_empty_content_message": "Il n'y a aucun projets de disponible"
 }
