@@ -3,5 +3,9 @@
     "generic_error_message": "Une erreur s'est malheureusement produite",
     "generic_error_title": "Oops...",
     "generic_retry": "Réessayer",
-    "projects_empty_content_message": "Il n'y a aucun projets de disponible"
+    "projects_header_title": "Nos projets",
+    "projects_header_description": "Au fil des ans, nous avons bâti plus de 300 produits numériques utilisés chaque jour par des millions d'utilisateurs sur téléphones, navigateurs Web, tablettes, montres connectées, télévisions, bornes interactives et assistants vocaux. En voici quelques-uns.",
+    "projects_empty_content_message": "Il n'y a aucun projets de disponible",
+    "project_details_project_type": "Type",
+    "project_details_release_year": "Année de lancement"
 }

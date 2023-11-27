@@ -4,6 +4,7 @@ pluginManagement {
     repositories {
         google()
         gradlePluginPortal()
+        mavenLocal()
         mavenCentral()
         maven("https://s3.amazonaws.com/mirego-maven/public")
         resolutionStrategy {
@@ -19,6 +20,7 @@ pluginManagement {
 dependencyResolutionManagement {
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
         maven("https://s3.amazonaws.com/mirego-maven/public")
     }

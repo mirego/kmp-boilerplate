@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.mirego.kwordPlugin)
     alias(libs.plugins.apollo.graphql)
+    alias(libs.plugins.skie.plugin)
 }
 
 version = "0.1"
@@ -18,10 +19,12 @@ val TRIKOT_FRAMEWORK_NAME = "Shared"
 fun org.jetbrains.kotlin.gradle.plugin.mpp.Framework.configureFramework() {
     baseName = TRIKOT_FRAMEWORK_NAME
     isStatic = false
+    export(libs.trikot.analytics)
     export(libs.trikot.vmd)
     export(libs.trikot.kword)
     export(libs.trikot.datasources)
     export(libs.trikot.vmd.annotations)
+    export(libs.killswitch)
     binaryOption("bundleId", TRIKOT_FRAMEWORK_NAME)
 }
 
@@ -29,6 +32,12 @@ kword {
     translationFile = file("src/commonMain/resources/translations/translation.en.json")
     enumClassName = "com.mirego.kmp.boilerplate.localization.KWordTranslation"
     generatedDir = file("src/commonMain/generated")
+}
+
+skie {
+    analytics {
+        disableUpload.set(true)
+    }
 }
 
 apollo {
@@ -94,10 +103,13 @@ kotlin {
                 api(libs.kotlinx.serialization.json)
                 api(libs.koin.core)
                 implementation(libs.okio)
+                implementation(libs.skie)
+                api(libs.trikot.analytics)
                 api(libs.trikot.vmd.annotations)
                 api(libs.trikot.datasources)
                 api(libs.trikot.kword)
                 api(libs.trikot.vmd)
+                api(libs.killswitch)
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
             kotlin.srcDir(kword.generatedDir)
@@ -106,10 +118,18 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.mockk.common)
             }
         }
         val androidMain by getting
-        val androidUnitTest by getting
+
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlin.test.junit)
+                implementation(libs.mockk)
+            }
+        }
 
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -151,7 +171,27 @@ ktlint {
     enableExperimentalRules.set(true)
     filter {
         exclude { element -> element.file.path.contains("generated/") }
+        exclude { element -> element.file.path.contains("viewmodel/SharedImageResource") }
+        exclude { element -> element.file.path.contains("analytics/Analytics") }
     }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    } else {
+        dependsOn(tasks.withType<com.mirego.kword.KWordEnumGenerate>())
+    }
+}
+
+tasks["runKtlintFormatOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
+tasks["runKtlintCheckOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
+
+val checkCommon: Task by tasks.creating {
+    group = "verification"
+    description = "Like check, but only with android target for common unit tests"
+    dependsOn("ktlintCheck")
+    dependsOn("testReleaseUnitTest")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {

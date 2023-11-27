@@ -28,24 +28,19 @@ fun buildJson() = Json {
 
 fun generalModule(bootstrap: Bootstrap): Module {
     return module {
-        val environment = bootstrap.environment
-        single { createApolloClientBuilder(environment).build() }
+        single { createApolloClientBuilder(bootstrap).build() }
         single<I18N> { KWord }
         single { bootstrap.environment }
         single { bootstrap.appInformation }
-        single { bootstrap.appInformation.locale.language }
-        single(StringQualifier(ModuleQualifier.REGION_CODE)) { bootstrap.appInformation.locale.regionCode }
-        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath + "/${bootstrap.appInformation.locale.language.toLangCode()}" }
+        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath }
         single { buildJson() }
     }
 }
 
-private fun createApolloClientBuilder(appEnvironment: AppEnvironment): ApolloClient.Builder =
-    ApolloClient.Builder()
-        .serverUrl(appEnvironment.graphQlApiUrl)
-        .autoPersistedQueries()
+private fun createApolloClientBuilder(bootstrap: Bootstrap): ApolloClient.Builder = ApolloClient.Builder()
+    .serverUrl(bootstrap.environment.graphQlApiUrl)
+    .addHttpInterceptor(LocaleHeaderInterceptor())
 
 object ModuleQualifier {
     const val DISK_CACHE_PATH = "diskCachePath"
-    const val REGION_CODE = "regionCode"
 }

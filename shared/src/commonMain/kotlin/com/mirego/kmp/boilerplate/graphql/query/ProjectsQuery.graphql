@@ -7,8 +7,13 @@ query Projects($projectsSlug: PageSlug!) {
                         entries {
                             pageSlug
                             name
-                            introductionText
+                            projectType
                             listImageUrl(width: 1200, height: 1200)
+                            client {
+                                name
+                            }
+                            mainColor
+                            textColor
                         }
                     }
                 }

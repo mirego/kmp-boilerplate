@@ -1,5 +1,6 @@
 package com.mirego.kmp.boilerplate.usecase.preview
 
+import com.mirego.kmp.boilerplate.usecase.projectdetails.toVMDColor
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectItemViewData
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsUseCase
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsViewData
@@ -7,6 +8,7 @@ import com.mirego.kmp.boilerplate.utils.StateData
 import com.mirego.kmp.boilerplate.utils.stateDataData
 import com.mirego.kmp.boilerplate.utils.stateDataError
 import com.mirego.kmp.boilerplate.utils.stateDataPending
+import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -21,8 +23,11 @@ class ProjectsUseCasePreview(
             ProjectItemViewData(
                 id = it.toString(),
                 title = "Project #$it",
-                description = "A small project description #$it",
-                imageUrl = ""
+                subtitle = "A small project description #$it",
+                description = "iOS & Android applications",
+                imageUrl = "",
+                backgroundColor = "000000".toVMDColor() ?: VMDColor.None,
+                textColor = "FFFFFF".toVMDColor() ?: VMDColor.None
             )
         }
     }

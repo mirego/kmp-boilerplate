@@ -7,6 +7,12 @@ inhibit_all_warnings!
 target 'iosApp' do
   use_frameworks!
   platform :ios, $deploymentTarget
+    # Third-party
+    pod 'AppCenter/Distribute'
+    pod 'FirebaseCore'
+    pod 'FirebaseAnalytics'
+
+    #  Multiplatform
     pod 'Shared', :path => '../shared'
 
     ENV['TRIKOT_FRAMEWORK_NAME']='Shared'

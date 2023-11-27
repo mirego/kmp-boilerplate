@@ -10,14 +10,9 @@ typealias StateData<V> = DataState<V, Throwable>
 
 fun <V> stateDataPending(value: V? = null): StateData<V> = DataState.pending(value)
 fun <V> stateDataData(value: V): StateData<V> = DataState.data(value)
-fun <V> stateDataError(error: Throwable, value: V? = null): StateData<V> = DataState.error(
-    error,
-    value
-)
+fun <V> stateDataError(error: Throwable, value: V? = null): StateData<V> = DataState.error(error, value)
 
-fun <T, R> Flow<StateData<out T>>.flatMapLatestStateData(
-    getValueTransform: suspend (data: T) -> Flow<StateData<R>>
-): Flow<StateData<R>> {
+fun <T, R> Flow<StateData<out T>>.flatMapLatestStateData(getValueTransform: suspend (data: T) -> Flow<StateData<R>>): Flow<StateData<R>> {
     return flatMapLatest {
         when (val prioritiseData = it.prioritiseData()) {
             is DataState.Data -> getValueTransform(prioritiseData.value)

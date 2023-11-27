@@ -15,11 +15,7 @@ open class GenericDataSource<T>(
 ) : BaseExpiringExecutableFlowDataSource<GenericDataSourceRequest<T>, T>(
     diskCachePath?.let { GenericDiskDataSource(json, dataSerializer, diskCachePath) }
 ) {
-    override suspend fun internalRead(request: GenericDataSourceRequest<T>) =
-        DataSourceUtils.buildExpiringValue(
-            request.block(),
-            request
-        )
+    override suspend fun internalRead(request: GenericDataSourceRequest<T>) = DataSourceUtils.buildExpiringValue(request.block(), request)
 }
 
 data class GenericDataSourceRequest<T>(
