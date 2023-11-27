@@ -44,7 +44,7 @@ There are 2 ways to use this boilerplate:
 
 ### With GitHub template
 
-1. Make sure you choose the correct branch
+1. Pick your preferred branch (`main` or `main-full`)
 2. Click on the [**Use this template**](https://github.com/mirego/kmp-boilerplate/generate)
    button to create a new repository
 3. Clone your newly created project (`git clone https://github.com/you/repo.git`)
