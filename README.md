@@ -54,7 +54,7 @@ There are 2 ways to use this boilerplate:
 ### Without GitHub template
 
 1. Clone this project (`git clone https://github.com/mirego/kmp-boilerplate.git`)
-2. Make sure you choose the correct branch (`git checkout main` or `git checkout main-full`)
+2. Pick your preferred branch (`git checkout main` or `git checkout main-full`)
 3. Delete the internal Git directory (`rm -rf .git`)
 4. Run the boilerplate setup script (`./boilerplate-setup.sh`)
 5. Create a new Git repository (`git init`)
