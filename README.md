@@ -40,7 +40,7 @@ There are 2 ways to use this boilerplate:
    libraries or tools. It is a good starting point if you want to build your own boilerplate.
 2. From the `main-full` branch: This branch contains all the opinionated libraries and tools
    described in the [Preferred libraries](#preferred-libraries) section. It is a good starting
-   point if you want to start building your app right away.
+   point if you want to quickly start building your app the _Mirego way_.
 
 ### With GitHub template
 
