@@ -35,21 +35,30 @@ This boilerplate comes with batteries included, you’ll find:
 
 ## Usage
 
+There are 2 ways to use this boilerplate:
+1. From the `main` branch: This branch is the "lean" version, it does not contain any strongly opinionated
+   libraries or tools. It is a good starting point if you want to build your own boilerplate.
+2. From the `main-full` branch: This branch contains all the opinionated libraries and tools
+   described in the [Preferred libraries](#preferred-libraries) section. It is a good starting
+   point if you want to quickly start building your app the _Mirego way_.
+
 ### With GitHub template
 
-1. Click on the [**Use this template**](https://github.com/mirego/kmp-boilerplate/generate)
+1. Pick your preferred branch (`main` or `main-full`)
+2. Click on the [**Use this template**](https://github.com/mirego/kmp-boilerplate/generate)
    button to create a new repository
-2. Clone your newly created project (`git clone https://github.com/you/repo.git`)
-3. Run the boilerplate setup script (`./boilerplate-setup.sh`)
-4. Commit the changes (`git commit -a -m "Rename kmp-boilerplate parts"`)
+3. Clone your newly created project (`git clone https://github.com/you/repo.git`)
+4. Run the boilerplate setup script (`./boilerplate-setup.sh`)
+5. Commit the changes (`git commit -a -m "Rename kmp-boilerplate parts"`)
 
 ### Without GitHub template
 
 1. Clone this project (`git clone https://github.com/mirego/kmp-boilerplate.git`)
-2. Delete the internal Git directory (`rm -rf .git`)
-3. Run the boilerplate setup script (`./boilerplate-setup.sh`)
-4. Create a new Git repository (`git init`)
-5. Create the initial Git commit (`git commit -a -m "Initial commit using kmp-boilerplate"`)
+2. Pick your preferred branch (`git checkout main` or `git checkout main-full`)
+3. Delete the internal Git directory (`rm -rf .git`)
+4. Run the boilerplate setup script (`./boilerplate-setup.sh`)
+5. Create a new Git repository (`git init`)
+6. Create the initial Git commit (`git commit -a -m "Initial commit using kmp-boilerplate"`)
 
 ### Building the project
 
