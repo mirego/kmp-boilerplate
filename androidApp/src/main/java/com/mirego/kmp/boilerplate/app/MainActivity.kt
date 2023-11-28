@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     viewData = AndroidKillswitch.engage(
                         key = bootstrapper.bootstrap.environment.androidSpecific.killSwitchAPIKey,
                         context = this@MainActivity,
-                        url = bootstrapper.bootstrap.environment.androidSpecific.killSwitchAPIKey
+                        url = bootstrapper.bootstrap.environment.androidSpecific.killSwitchUrl
                     ),
                     activity = this@MainActivity,
                     themeResId = android.R.style.Theme_DeviceDefault_Light_Dialog_Alert
