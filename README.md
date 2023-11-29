@@ -36,9 +36,9 @@ This boilerplate comes with batteries included, you’ll find:
 ## Usage
 
 There are 2 ways to use this boilerplate:
-1. From the `main` branch: This branch is the "lean" version, it does not contain any strongly opinionated
+1. From the [`main` branch](https://github.com/mirego/kmp-boilerplate/tree/main) — This branch is the "lean" version, it does not contain any strongly opinionated
    libraries or tools. It is a good starting point if you want to build your own boilerplate.
-2. From the `main-full` branch: This branch contains all the opinionated libraries and tools
+2. From the [`main-full` branch](https://github.com/mirego/kmp-boilerplate/tree/main-full) — This branch contains all the opinionated libraries and tools
    described in the [Preferred libraries](#preferred-libraries) section. It is a good starting
    point if you want to quickly start building your app the _Mirego way_.
 
