@@ -14,7 +14,24 @@ struct ApplicationView: View {
     }
 
     var body: some View {
-        RootView(viewModel: viewModel.rootViewModel)
+        TabView {
+            Tab1View(viewModel: viewModel.tab1ViewModel)
+                .tabItem {
+                    Label(
+                        title: { Text("Tab 1") },
+                        icon: { Image(systemName: "house") }
+                    )
+                }
+
+            Tab2View(viewModel: viewModel.tab2ViewModel)
+                .tabItem {
+                    Label(
+                        title: { Text("Tab 2") },
+                        icon: { Image(systemName: "person") }
+                    )
+                }
+        }
+        .navigationRouter(viewModel.navigationManager)
     }
 }
 

@@ -1,6 +1,6 @@
 package com.mirego.kmp.boilerplate.model
 
-data class Locale(
+data class LocaleData(
     val language: Language,
     val regionCode: String?
 )

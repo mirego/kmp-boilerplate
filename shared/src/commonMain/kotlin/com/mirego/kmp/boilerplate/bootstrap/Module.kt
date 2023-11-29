@@ -33,9 +33,9 @@ fun generalModule(bootstrap: Bootstrap): Module {
         single<I18N> { KWord }
         single { bootstrap.environment }
         single { bootstrap.appInformation }
-        single { bootstrap.appInformation.locale.language }
-        single(StringQualifier(ModuleQualifier.REGION_CODE)) { bootstrap.appInformation.locale.regionCode }
-        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath + "/${bootstrap.appInformation.locale.language.toLangCode()}" }
+        single { bootstrap.appInformation.localeData.language }
+        single(StringQualifier(ModuleQualifier.REGION_CODE)) { bootstrap.appInformation.localeData.regionCode }
+        single(StringQualifier(ModuleQualifier.DISK_CACHE_PATH)) { bootstrap.appInformation.diskCachePath + "/${bootstrap.appInformation.localeData.language.toLangCode()}" }
         single { buildJson() }
     }
 }

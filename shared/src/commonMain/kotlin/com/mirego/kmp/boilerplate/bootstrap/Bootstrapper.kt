@@ -1,6 +1,9 @@
 package com.mirego.kmp.boilerplate.bootstrap
 
 import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModel
+import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
+import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManagerImpl
+import com.mirego.kmp.boilerplate.viewmodel.navigation.vmd.CoroutineScopeManagerImpl
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,19 +14,13 @@ import org.koin.core.context.startKoin
 import org.koin.core.parameter.parametersOf
 
 class Bootstrapper : KoinComponent {
-    private val exceptionHandler: CoroutineExceptionHandler =
-        CoroutineExceptionHandler { _, throwable ->
-            println("Exception: $throwable")
-        }
-
-    private val rootCoroutineScope =
-        CoroutineScope(Dispatchers.Main.immediate + SupervisorJob() + exceptionHandler)
+    private val coroutineScopeManager = CoroutineScopeManagerImpl()
 
     fun initDependencies(bootstrap: Bootstrap) = startKoin {
         configureKoin(bootstrap)
     }
 
     fun applicationViewModel(): ApplicationViewModel = get {
-        parametersOf(rootCoroutineScope)
+        parametersOf(coroutineScopeManager, coroutineScopeManager.createCoroutineScope(), DemoNavigationManagerImpl(coroutineScopeManager))
     }
 }

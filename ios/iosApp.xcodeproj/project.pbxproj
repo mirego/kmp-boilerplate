@@ -19,8 +19,14 @@
 		89011D542AE9A8150073544B /* LocaleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D522AE9A8150073544B /* LocaleExtensions.swift */; };
 		89011D552AE9A8150073544B /* AppInformationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D532AE9A8150073544B /* AppInformationImpl.swift */; };
 		89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89011D5A2AE9B0310073544B /* PreviewHelpers.swift */; };
-		895BECFB2AEAB3DC005B1212 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BECFA2AEAB3DC005B1212 /* RootView.swift */; };
 		9B8ACFDB4E332DFCA8B97CBB /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4E1328B104D05A50A097EE /* Pods_iosApp.framework */; };
+		E193C5602B16600000803102 /* Tab1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C55F2B16600000803102 /* Tab1View.swift */; };
+		E193C5622B1660AC00803102 /* Tab2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5612B1660AC00803102 /* Tab2View.swift */; };
+		E193C5652B16683C00803102 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5642B16683C00803102 /* Navigation.swift */; };
+		E193C5672B16748D00803102 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5662B16748D00803102 /* NavigationRouter.swift */; };
+		E193C56A2B1681D800803102 /* Screen1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5692B1681D800803102 /* Screen1View.swift */; };
+		E193C56E2B179B8B00803102 /* Screen2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C56D2B179B8B00803102 /* Screen2View.swift */; };
+		E193C5702B179BE400803102 /* Screen3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C56F2B179BE400803102 /* Screen3View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +46,13 @@
 		89011D522AE9A8150073544B /* LocaleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocaleExtensions.swift; sourceTree = "<group>"; };
 		89011D532AE9A8150073544B /* AppInformationImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationImpl.swift; sourceTree = "<group>"; };
 		89011D5A2AE9B0310073544B /* PreviewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelpers.swift; sourceTree = "<group>"; };
-		895BECFA2AEAB3DC005B1212 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		E193C55F2B16600000803102 /* Tab1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab1View.swift; sourceTree = "<group>"; };
+		E193C5612B1660AC00803102 /* Tab2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2View.swift; sourceTree = "<group>"; };
+		E193C5642B16683C00803102 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		E193C5662B16748D00803102 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		E193C5692B1681D800803102 /* Screen1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen1View.swift; sourceTree = "<group>"; };
+		E193C56D2B179B8B00803102 /* Screen2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen2View.swift; sourceTree = "<group>"; };
+		E193C56F2B179BE400803102 /* Screen3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen3View.swift; sourceTree = "<group>"; };
 		E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,8 +125,10 @@
 			isa = PBXGroup;
 			children = (
 				89011D582AE9B00F0073544B /* Application */,
-				895BECF92AEAB3D1005B1212 /* Root */,
+				E193C5632B16682F00803102 /* Navigation */,
 				89011D592AE9B0160073544B /* Previews */,
+				E193C5682B1681BE00803102 /* Screen */,
+				E193C55E2B165B3A00803102 /* Tab */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -143,14 +157,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		895BECF92AEAB3D1005B1212 /* Root */ = {
-			isa = PBXGroup;
-			children = (
-				895BECFA2AEAB3DC005B1212 /* RootView.swift */,
-			);
-			path = Root;
-			sourceTree = "<group>";
-		};
 		C8C629BFDC2144230B71E3BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +172,34 @@
 				E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E193C55E2B165B3A00803102 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				E193C55F2B16600000803102 /* Tab1View.swift */,
+				E193C5612B1660AC00803102 /* Tab2View.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
+		E193C5632B16682F00803102 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				E193C5642B16683C00803102 /* Navigation.swift */,
+				E193C5662B16748D00803102 /* NavigationRouter.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		E193C5682B1681BE00803102 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				E193C5692B1681D800803102 /* Screen1View.swift */,
+				E193C56D2B179B8B00803102 /* Screen2View.swift */,
+				E193C56F2B179BE400803102 /* Screen3View.swift */,
+			);
+			path = Screen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,14 +355,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				89011D492AE9A3690073544B /* AppDelegate.swift in Sources */,
+				E193C5622B1660AC00803102 /* Tab2View.swift in Sources */,
 				89011D4D2AE9A4FC0073544B /* AppEnvironment+iOS.swift in Sources */,
+				E193C56A2B1681D800803102 /* Screen1View.swift in Sources */,
 				89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */,
 				89011D4F2AE9A7340073544B /* AppInitializer.swift in Sources */,
 				89011D542AE9A8150073544B /* LocaleExtensions.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				89011D512AE9A7750073544B /* ImageProvider.swift in Sources */,
+				E193C56E2B179B8B00803102 /* Screen2View.swift in Sources */,
+				E193C5672B16748D00803102 /* NavigationRouter.swift in Sources */,
 				89011D4B2AE9A4CD0073544B /* BootstrapImpl.swift in Sources */,
-				895BECFB2AEAB3DC005B1212 /* RootView.swift in Sources */,
+				E193C5652B16683C00803102 /* Navigation.swift in Sources */,
+				E193C5702B179BE400803102 /* Screen3View.swift in Sources */,
+				E193C5602B16600000803102 /* Tab1View.swift in Sources */,
 				7555FF83242A565900829871 /* ApplicationView.swift in Sources */,
 				89011D552AE9A8150073544B /* AppInformationImpl.swift in Sources */,
 			);

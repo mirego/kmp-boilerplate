@@ -2,7 +2,7 @@ import Foundation
 import Shared
 
 class AppInformationImpl: AppInformation {
-    let locale: Shared.Locale
+    let localeData: LocaleData
     let versionNumber: String
     let diskCachePath: String
 
@@ -16,6 +16,6 @@ class AppInformationImpl: AppInformation {
         
         let language = Foundation.Locale.isPreferredLanguagesFrench ? Shared.Language.french : Shared.Language.english
         let regionCode = Foundation.Locale.current.regionCode
-        locale = Shared.Locale(language: language, regionCode: regionCode)
+        localeData = LocaleData(language: language, regionCode: regionCode)
     }
 }

@@ -19,6 +19,7 @@ ktlint = "11.6.1"
 okio = "3.6.0"
 owasp = "8.4.2"
 trikot = "5.2.0"
+skie = "0.5.5"
 
 [libraries]
 android-splash = { module = "androidx.core:core-splashscreen", version.ref = "android-splash" }
@@ -49,6 +50,8 @@ trikot-vmd-compose = { module = "com.mirego.trikot:viewmodels-declarative-compos
 trikot-vmd-annotations = { module = "com.mirego.trikot:viewmodels-annotations", version.ref = "trikot" }
 trikot-vmd-annotations-compiler = { module = "com.mirego.trikot:viewmodels-declarative-compiler-flow", version.ref = "trikot" }
 
+skie = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie"}
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
@@ -61,6 +64,7 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 mirego-kwordPlugin = { id = "mirego.kword", version.ref = "kword-plugin" }
 owasp-dependencycheck = { id = "org.owasp.dependencycheck", version.ref = "owasp" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+skiePlugin = { id = "co.touchlab.skie", version.ref = "skie"}
 
 [bundles]
 

@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.mirego.kwordPlugin)
     alias(libs.plugins.apollo.graphql)
+    alias(libs.plugins.skiePlugin)
 }
 
 version = "0.1"
@@ -41,6 +42,12 @@ apollo {
     introspection {
         endpointUrl.set("https://api.mirego.com/graphql")
         schemaFile.set(file)
+    }
+}
+
+skie {
+    analytics {
+        disableUpload.set(true)
     }
 }
 
@@ -98,6 +105,7 @@ kotlin {
                 api(libs.trikot.datasources)
                 api(libs.trikot.kword)
                 api(libs.trikot.vmd)
+                implementation(libs.skie)
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
             kotlin.srcDir(kword.generatedDir)

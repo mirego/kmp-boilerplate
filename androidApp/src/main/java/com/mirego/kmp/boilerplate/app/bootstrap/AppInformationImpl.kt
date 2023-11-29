@@ -4,10 +4,10 @@ import android.content.Context
 import com.mirego.kmp.boilerplate.BuildConfig
 import com.mirego.kmp.boilerplate.bootstrap.AppInformation
 import com.mirego.kmp.boilerplate.model.Language
-import com.mirego.kmp.boilerplate.model.Locale
+import com.mirego.kmp.boilerplate.model.LocaleData
 
 class AppInformationImpl(context: Context) : AppInformation {
-    override val locale: Locale = Locale(
+    override val localeData: LocaleData = LocaleData(
         if (java.util.Locale.getDefault().language.lowercase() == "fr") Language.FRENCH else Language.ENGLISH,
         java.util.Locale.getDefault().country
     )
