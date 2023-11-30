@@ -124,9 +124,6 @@ indirect enum Node<Screen, V: View>: View {
             return Binding(
                 get: {
                     if #available(iOS 17.0, *) {
-                        if index == 2 {
-                            print("isACtive \(allRoutes.wrappedValue.count != index + 1) Count: \(allRoutes.wrappedValue.count) index: \(index)")
-                        }
                         return allRoutes.wrappedValue.count != index + 1
                     } else {
                         return allRoutes.wrappedValue.count > index + 1

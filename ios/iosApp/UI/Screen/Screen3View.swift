@@ -14,6 +14,7 @@ struct Screen3View: View {
     }
 
     var body: some View {
+        let _ = Self._printChanges()
         VStack(spacing: 32) {
             Text(viewModel.title)
                 .padding(.top, 30)

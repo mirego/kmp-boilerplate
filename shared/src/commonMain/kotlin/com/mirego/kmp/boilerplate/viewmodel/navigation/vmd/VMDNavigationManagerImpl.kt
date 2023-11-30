@@ -70,29 +70,37 @@ abstract class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, RESULT : VMD
         }
     }
 
-    override fun popTo(route: ROUTE) {
+    override fun popTo(route: ROUTE, included: Boolean) {
+        internalPopTo(route, included = included, callListener = true)
+    }
+
+    private fun internalPopTo(route: ROUTE, included: Boolean, callListener: Boolean) {
+        println("HUGO DEBUG: internalPopTo start count: ${internalRouteList.value.size}")
         val index = internalRouteList.value.indexOfLast {
             it.route.name == route.name
         }
-
         if (index != -1 && internalRouteList.value.isNotEmpty()) {
-            (internalRouteList.value.lastIndex until index).forEach {
+            val effectiveIndex = index + if (included) 0 else 1
+            (effectiveIndex until internalRouteList.value.size).forEach {
                 val item = internalRouteList.value[it]
                 item.coroutineScope.cancel()
                 item.closeAction(null)
             }
 
-            internalRouteList.value = internalRouteList.value.slice(0..index).toMutableList()
-            listener?.popTo(route)
+            internalRouteList.value = internalRouteList.value.slice(0..< effectiveIndex).toMutableList()
+            println("HUGO DEBUG: internalPopTo final count: ${internalRouteList.value.size}")
+            if (callListener) {
+                listener?.popTo(route)
+            }
         }
     }
 
     override fun popped(route: ROUTE) {
-        internalRouteList.value.lastOrNull()?.let { item ->
-            if (item.route.uniqueId == route.uniqueId) {
-                println("HUGO DEBUG: natif popping ${route.name}")
-                internalPop(result = null, callListener = false)
-            }
+        val routeIndex = internalRouteList.value.indexOfFirst {
+            it.route.uniqueId == route.uniqueId
+        }
+        if (routeIndex != -1) {
+            internalPopTo(route, included = true, callListener = false)
         }
     }
 

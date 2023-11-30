@@ -10,7 +10,7 @@ abstract class VMDNavigationManager<ROUTE : VMDNavigationRoute, RESULT : VMDNavi
     abstract fun present(route: ROUTE, closeAction: (RESULT?) -> Unit = {})
     abstract fun push(route: ROUTE, closeAction: (RESULT?) -> Unit = {})
     abstract fun pop(result: RESULT? = null)
-    abstract fun popTo(route: ROUTE)
+    abstract fun popTo(route: ROUTE, included: Boolean)
 
     abstract fun popped(route: ROUTE)
 }

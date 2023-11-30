@@ -22,7 +22,7 @@ class Screen3ViewModelImpl(
 
     override val pushButton = buttonWithText("Push") {
         setAction {
-            navigationManager.push(DemoNavigationRoute.Screen1)
+            navigationManager.push(DemoNavigationRoute.Screen1())
         }
     }
 }

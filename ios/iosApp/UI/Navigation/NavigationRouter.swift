@@ -62,6 +62,10 @@ private class NavigationRouterHolder: VMDNavigationManagerListener<DemoNavigatio
 
     override func push(route: DemoNavigationRoute) {
         let newRoute: Route<DemoNavigationRoute>
+        let dismissCallback: () -> Void = { [weak self] in
+            self?.navigationRouter.popped(route: route)
+        }
+
         switch onEnum(of: route) {
         case .root:
             fatalError("Can't navigate to root")
@@ -71,24 +75,14 @@ private class NavigationRouterHolder: VMDNavigationManagerListener<DemoNavigatio
             fatalError("Can't navigate to tab2")
         case .screen1:
             newRoute = .push(route) { [weak self] in
-                print("OnDismiss PUSH")
                 self?.navigationRouter.popped(route: route)
             }
         case .screen2:
-            newRoute = .cover(route, embedInNavigationView: false) { [weak self] in
-                print("OnDismiss")
-                self?.navigationRouter.popped(route: route)
-            }
+            newRoute = .cover(route, embedInNavigationView: false, onDismiss: dismissCallback)
         case .screen3:
-            newRoute = .sheet(route, embedInNavigationView: true) { [weak self] in
-                print("OnDismiss")
-                self?.navigationRouter.popped(route: route)
-            }
+            newRoute = .sheet(route, embedInNavigationView: true, onDismiss: dismissCallback)
         case .dialog:
-            newRoute = .sheet(route, embedInNavigationView: false) { [weak self] in
-                print("OnDismiss")
-                self?.navigationRouter.popped(route: route)
-            }
+            newRoute = .sheet(route, embedInNavigationView: false, onDismiss: dismissCallback)
         case .externalUrl:
             fatalError("Can't navigate to externalUrl")
         }

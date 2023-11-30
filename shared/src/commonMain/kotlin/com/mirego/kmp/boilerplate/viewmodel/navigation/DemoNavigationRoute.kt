@@ -7,46 +7,54 @@ import com.mirego.trikot.foundation.concurrent.setOrThrow
 
 sealed interface DemoNavigationRoute : VMDNavigationRoute {
 
-    data object Root : DemoNavigationRoute {
+    data class Root(
+        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+    ) : DemoNavigationRoute {
         override val name: String = "Root"
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
     }
 
-    data object Tab1 : DemoNavigationRoute {
+    data class Tab1(
+        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+    ) : DemoNavigationRoute {
         override val name: String = "Tab1"
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
     }
 
-    data object Tab2 : DemoNavigationRoute {
+    data class Tab2(
+        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+    ) : DemoNavigationRoute {
         override val name: String = "Tab2"
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
     }
 
-    data object Screen1 : DemoNavigationRoute {
+    data class Screen1(
+        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+    ) : DemoNavigationRoute {
         override val name: String = "Screen1"
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
     }
 
-    data object Screen2 : DemoNavigationRoute {
+    data class Screen2(
+        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+    ) : DemoNavigationRoute {
         override val name: String = "Screen2"
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
     }
 
-    data object Screen3 : DemoNavigationRoute {
-        override val name: String = "Screen3"
+    data class Screen3(
         override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+    ) : DemoNavigationRoute {
+        override val name: String = "Screen3"
     }
 
     data class Dialog(
-        val navigationData: DialogNavigationData
+        val navigationData: DialogNavigationData,
+        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
     ) : DemoNavigationRoute {
         override val name: String = "Dialog"
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
     }
 
-    data class ExternalUrl(val url: String) : DemoNavigationRoute {
-        override val name: String = "ExternalUrl"
+    data class ExternalUrl(
+        val url: String,
         override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+    ) : DemoNavigationRoute {
+        override val name: String = "ExternalUrl"
     }
 }
 
