@@ -10,8 +10,6 @@ struct GreetingView: View {
 	}
 }
 
-struct GreetingView_Previews: PreviewProvider {
-	static var previews: some View {
-        GreetingView()
-	}
+#Preview {
+    GreetingView()
 }
