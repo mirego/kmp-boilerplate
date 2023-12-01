@@ -3,7 +3,6 @@ package com.mirego.kmp.boilerplate.viewmodel.tab
 import com.mirego.kmp.boilerplate.viewmodel.dialog.DialogButtonData
 import com.mirego.kmp.boilerplate.viewmodel.dialog.DialogNavigationData
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
-import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationResult
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationRoute
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithText
@@ -39,10 +38,7 @@ class Tab1ViewModelImpl(
 
     override val dialogButton = buttonWithText("Dialog") {
         setAction {
-            navigationManager.present(
-                route = DemoNavigationRoute.Dialog(buildDialogNavigationData()),
-                closeAction = ::handleDialogResult
-            )
+            navigationManager.present(DemoNavigationRoute.Dialog(buildDialogNavigationData()))
         }
     }
 
@@ -52,26 +48,18 @@ class Tab1ViewModelImpl(
         buttons = listOf(
             DialogButtonData(
                 id = dialogButton1Id,
-                title = "Choice 1"
+                title = "Choice 1",
+                action = {
+                    dialogResult.text = "Choice 1"
+                }
             ),
             DialogButtonData(
                 id = dialogButton2Id,
-                title = "Choice 2"
+                title = "Choice 2",
+                action = {
+                    dialogResult.text = "Choice 2"
+                }
             )
         )
     )
-
-    private fun handleDialogResult(result: DemoNavigationResult?) {
-        when (result) {
-            is DemoNavigationResult.DialogResult -> {
-                when (result.buttonIdTapped) {
-                    dialogButton1Id -> dialogResult.text = "Choice 1"
-                    dialogButton2Id -> dialogResult.text = "Choice 2"
-                    else -> Unit
-                }
-            }
-
-            else -> Unit
-        }
-    }
 }

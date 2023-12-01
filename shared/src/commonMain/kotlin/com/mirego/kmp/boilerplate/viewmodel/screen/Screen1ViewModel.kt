@@ -12,4 +12,10 @@ interface Screen1ViewModel: VMDViewModel {
     val pushButton: VMDButtonViewModel<VMDTextContent>
 
     val modalButton: VMDButtonViewModel<VMDTextContent>
+
+    val popToRoot: VMDButtonViewModel<VMDTextContent>
+
+    val popToScreen3Included: VMDButtonViewModel<VMDTextContent>
+
+    val popToScreen3Excluded: VMDButtonViewModel<VMDTextContent>
 }

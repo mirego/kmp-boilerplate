@@ -22,6 +22,7 @@
 		9B8ACFDB4E332DFCA8B97CBB /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4E1328B104D05A50A097EE /* Pods_iosApp.framework */; };
 		E129C80B2B192ED400429558 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C80A2B192ED400429558 /* Navigation.swift */; };
 		E129C80D2B1A0FB200429558 /* DemoNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C80C2B1A0FB200429558 /* DemoNavigation.swift */; };
+		E129C8102B1A322500429558 /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C80F2B1A322500429558 /* DialogView.swift */; };
 		E193C5602B16600000803102 /* Tab1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C55F2B16600000803102 /* Tab1View.swift */; };
 		E193C5622B1660AC00803102 /* Tab2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5612B1660AC00803102 /* Tab2View.swift */; };
 		E193C56A2B1681D800803102 /* Screen1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5692B1681D800803102 /* Screen1View.swift */; };
@@ -48,6 +49,7 @@
 		89011D5A2AE9B0310073544B /* PreviewHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelpers.swift; sourceTree = "<group>"; };
 		E129C80A2B192ED400429558 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		E129C80C2B1A0FB200429558 /* DemoNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigation.swift; sourceTree = "<group>"; };
+		E129C80F2B1A322500429558 /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		E193C55F2B16600000803102 /* Tab1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab1View.swift; sourceTree = "<group>"; };
 		E193C5612B1660AC00803102 /* Tab2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2View.swift; sourceTree = "<group>"; };
 		E193C5692B1681D800803102 /* Screen1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen1View.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				89011D582AE9B00F0073544B /* Application */,
+				E129C80E2B1A321500429558 /* Dialog */,
 				E193C5632B16682F00803102 /* Navigation */,
 				89011D592AE9B0160073544B /* Previews */,
 				E193C5682B1681BE00803102 /* Screen */,
@@ -172,6 +175,14 @@
 				E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E129C80E2B1A321500429558 /* Dialog */ = {
+			isa = PBXGroup;
+			children = (
+				E129C80F2B1A322500429558 /* DialogView.swift */,
+			);
+			path = Dialog;
 			sourceTree = "<group>";
 		};
 		E193C55E2B165B3A00803102 /* Tab */ = {
@@ -358,6 +369,7 @@
 				E193C5622B1660AC00803102 /* Tab2View.swift in Sources */,
 				89011D4D2AE9A4FC0073544B /* AppEnvironment+iOS.swift in Sources */,
 				E129C80D2B1A0FB200429558 /* DemoNavigation.swift in Sources */,
+				E129C8102B1A322500429558 /* DialogView.swift in Sources */,
 				E193C56A2B1681D800803102 /* Screen1View.swift in Sources */,
 				89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */,
 				89011D4F2AE9A7340073544B /* AppInitializer.swift in Sources */,

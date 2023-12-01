@@ -2,26 +2,32 @@ import SwiftUI
 import Shared
 import Trikot
 
-struct Screen2View: View {
-    @ObservedObject private var observableViewModel: ObservableViewModelAdapter<Screen2ViewModel>
+struct DialogView: View {
+    @ObservedObject private var observableViewModel: ObservableViewModelAdapter<DialogViewModel>
 
-    init(viewModel: Screen2ViewModel) {
+    init(viewModel: DialogViewModel) {
         observableViewModel = viewModel.asObservable()
     }
 
-    var viewModel: Screen2ViewModel {
+    var viewModel: DialogViewModel {
         observableViewModel.viewModel
     }
 
     var body: some View {
         VStack(spacing: 32) {
             Text(viewModel.title)
-                .padding(.top, 30)
+                .padding(.top, 32)
 
             Spacer()
 
             VMDButton(viewModel.closeButton) {
                 Text($0.text)
+            }
+
+            ForEach(viewModel.button.indices, id: \.self) { index in
+                VMDButton(viewModel.button[index]) {
+                    Text($0.text)
+                }
             }
 
             Spacer()
@@ -32,5 +38,5 @@ struct Screen2View: View {
 }
 
 #Preview {
-    Screen2View(viewModel: factoryPreview().createScreen2())
+    DialogView(viewModel: factoryPreview().createDialog())
 }

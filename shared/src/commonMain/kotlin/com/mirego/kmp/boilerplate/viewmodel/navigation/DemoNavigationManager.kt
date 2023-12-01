@@ -12,7 +12,7 @@ import com.mirego.kmp.boilerplate.viewmodel.tab.Tab2ViewModel
 abstract class DemoNavigationManager(
     coroutineScopeManager: CoroutineScopeManager,
     parentNavigationManager: DemoNavigationManager?
-) : VMDNavigationManagerImpl<DemoNavigationRoute, DemoNavigationResult>(coroutineScopeManager, parentNavigationManager) {
+) : VMDNavigationManagerImpl<DemoNavigationRoute>(coroutineScopeManager, parentNavigationManager) {
 
     abstract fun createTab1(route: DemoNavigationRoute.Tab1): Tab1ViewModel
 

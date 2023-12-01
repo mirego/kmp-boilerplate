@@ -67,11 +67,13 @@ class ViewModelFactoryPreview(
             buttons = listOf(
                 DialogButtonData(
                     id = "button1",
-                    title = "Button 1"
+                    title = "Button 1",
+                    action = {}
                 ),
                 DialogButtonData(
                     id = "button2",
-                    title = "Button 2"
+                    title = "Button 2",
+                    action = {}
                 )
             ),
         ),

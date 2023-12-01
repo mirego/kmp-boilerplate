@@ -7,7 +7,7 @@ extension View {
     }
 }
 
-private struct DemoNavigationModifier : ViewModifier {
+private struct DemoNavigationModifier: ViewModifier {
     let navigationManager: DemoNavigationManager
 
     func body(content: Content) -> some View {
@@ -26,16 +26,15 @@ private struct DemoNavigationModifier : ViewModifier {
                     Screen2View(viewModel: navigationManager.createScreen2(route: route))
                 case .screen3(let route):
                     Screen3View(viewModel: navigationManager.createScreen3(route: route))
-                case .dialog:
-                    Text("Dialog")
+                case .dialog(let route):
+                    DialogView(viewModel: navigationManager.createDialog(route: route))
                 case .externalUrl:
                     Text("ExternalUrl")
                 }
-            } buildNavigation: { route in
+            } buildNavigation: { _, route in
                 let dismissCallback: () -> Void = {
                     navigationManager.popped(route: route)
                 }
-
                 switch onEnum(of: route) {
                 case .root:
                     fatalError("Can't navigate to root")

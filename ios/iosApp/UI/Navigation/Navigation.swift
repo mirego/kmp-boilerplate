@@ -6,16 +6,25 @@ enum NavigationType<Screen> {
     case push(screen: Screen, onDismiss: (() -> Void))
     case sheet(screen: Screen, embedInNavigationView: Bool, onDismiss: (() -> Void))
     case fullScreenCover(screen: Screen, embedInNavigationView: Bool, onDismiss: (() -> Void))
+
+    var screen: Screen? {
+        switch self {
+        case .root:
+            return nil
+        case .push(let screen, _), .fullScreenCover(let screen, _, _), .sheet(let screen, _, _):
+            return screen
+        }
+    }
 }
 
 extension View {
-    func navigation<Screen: VMDNavigationRoute, ScreenView: View, Result: VMDNavigationResult>(
-        navigationManager: VMDNavigationManager<Screen, Result>,
+    func navigation<Screen: VMDNavigationRoute, ScreenView: View>(
+        navigationManager: VMDNavigationManager<Screen>,
         @ViewBuilder buildView: @escaping (Screen) -> ScreenView,
-        buildNavigation: @escaping (Screen) -> NavigationType<Screen>
+        buildNavigation: @escaping ([Screen], Screen) -> NavigationType<Screen>
     ) -> some View {
         modifier(
-            NavigationModifier<Screen, ScreenView, Result>(
+            NavigationModifier<Screen, ScreenView>(
                 buildView: buildView,
                 buildNavigation: buildNavigation,
                 navigationManager: navigationManager
@@ -24,18 +33,18 @@ extension View {
     }
 }
 
-private struct NavigationModifier<Screen: VMDNavigationRoute, ScreenView: View, Result: VMDNavigationResult>: ViewModifier {
-    @StateObject private var rootState: NavigationState<Screen, Result>
+private struct NavigationModifier<Screen: VMDNavigationRoute, ScreenView: View>: ViewModifier {
+    @StateObject private var rootState: NavigationState<Screen>
 
     @ViewBuilder private let buildView: (Screen) -> ScreenView
 
     init(
         buildView: @escaping (Screen) -> ScreenView,
-        buildNavigation: @escaping (Screen) -> NavigationType<Screen>,
-        navigationManager: VMDNavigationManager<Screen, Result>? = nil
+        buildNavigation: @escaping ([Screen], Screen) -> NavigationType<Screen>,
+        navigationManager: VMDNavigationManager<Screen>? = nil
     ) {
         self.buildView = buildView
-        let rootNavigationState = NavigationState<Screen, Result>(
+        let rootNavigationState = NavigationState<Screen>(
             navigation: NavigationType.root,
             buildNavigation: buildNavigation,
             navigationManager: navigationManager
@@ -55,18 +64,18 @@ private struct NavigationModifier<Screen: VMDNavigationRoute, ScreenView: View, 
     of VMDNavigationManagerListener to specific concrete types (VMDNavigationRoute).
     And this is why we have to cast the route to Screen in push and popTo methods
  */
-private class NavigationState<Screen: VMDNavigationRoute, Result: VMDNavigationResult>: VMDNavigationManagerListener<VMDNavigationRoute>, ObservableObject {
+private class NavigationState<Screen: VMDNavigationRoute>: VMDNavigationManagerListener<VMDNavigationRoute>, ObservableObject {
     let navigation: NavigationType<Screen>
 
-    @Published var child: NavigationState<Screen, Result>?
+    @Published var child: NavigationState<Screen>?
 
-    private let buildNavigation: ((Screen) -> NavigationType<Screen>)?
-    private let navigationManager: VMDNavigationManager<Screen, Result>?
+    private let buildNavigation: (([Screen], Screen) -> NavigationType<Screen>)?
+    private let navigationManager: VMDNavigationManager<Screen>?
 
     init(
         navigation: NavigationType<Screen>,
-        buildNavigation: ((Screen) -> NavigationType<Screen>)? = nil,
-        navigationManager: VMDNavigationManager<Screen, Result>? = nil
+        buildNavigation: (([Screen], Screen) -> NavigationType<Screen>)? = nil,
+        navigationManager: VMDNavigationManager<Screen>? = nil
     ) {
         self.navigation = navigation
         self.buildNavigation = buildNavigation
@@ -77,21 +86,29 @@ private class NavigationState<Screen: VMDNavigationRoute, Result: VMDNavigationR
     }
 
     override func push(route: VMDNavigationRoute) {
-        guard let buildNavigation = buildNavigation else { fatalError("buildNavigation not set")}
+        guard let buildNavigation else { fatalError("buildNavigation not set")}
         guard let route = route as? Screen else { fatalError("Invalid route type")}
 
-        top().child = NavigationState(navigation: buildNavigation(route))
+        top().child = NavigationState(navigation: buildNavigation(currentStack(), route))
     }
 
-    override func popTo(route: VMDNavigationRoute) {
-        // guard let route = route as? Screen else { fatalError("Invalid route type")}
+    override func popTo(route: VMDNavigationRoute, included: Bool) {
+        guard let route = route as? Screen else { fatalError("Invalid route type") }
+
+        if let routeNavigationState = findLast(route: route) {
+            if included {
+                findParent(state: routeNavigationState)?.child = nil
+            } else {
+                routeNavigationState.child = nil
+            }
+        }
     }
 
     override func pop() {
         topPresenter()?.child = nil
     }
 
-    private func top() -> NavigationState<Screen, Result> {
+    private func top() -> NavigationState<Screen> {
         var current = self
 
         while current.child != nil {
@@ -100,7 +117,7 @@ private class NavigationState<Screen: VMDNavigationRoute, Result: VMDNavigationR
         return current
     }
 
-    private func topPresenter() -> NavigationState<Screen, Result>? {
+    private func topPresenter() -> NavigationState<Screen>? {
         guard self.child != nil else { return nil }
 
         var current = self
@@ -109,10 +126,44 @@ private class NavigationState<Screen: VMDNavigationRoute, Result: VMDNavigationR
         }
         return current
     }
+
+    private func findLast(route: Screen) -> NavigationState<Screen>? {
+        var current: NavigationState<Screen>? = self
+        var result: NavigationState<Screen>?
+        repeat {
+            if current?.navigation.screen?.uniqueId == route.uniqueId {
+                result = current
+            }
+            current = current?.child
+        } while current != nil
+
+        return result
+    }
+
+    private func findParent(state: NavigationState<Screen>) -> NavigationState<Screen>? {
+        var current = self
+        while current.child != nil {
+            if state === current.child {
+                return current
+            }
+            current = current.child!
+        }
+        return nil
+    }
+
+    private func currentStack() -> [Screen] {
+        var stack: [NavigationType<Screen>] = []
+        var current: NavigationState<Screen>? = self
+        while current != nil {
+            stack.append(current!.navigation)
+            current = current?.child
+        }
+        return stack.compactMap { $0.screen }
+    }
 }
 
-private struct NavigationContainerView<Screen: VMDNavigationRoute, Content: View, ScreenView: View, Result: VMDNavigationResult>: View {
-    @ObservedObject var navigateState: NavigationState<Screen, Result>
+private struct NavigationContainerView<Screen: VMDNavigationRoute, Content: View, ScreenView: View>: View {
+    @ObservedObject var navigateState: NavigationState<Screen>
 
     @ViewBuilder let buildView: (Screen) -> ScreenView
     let content: () -> Content
@@ -167,7 +218,7 @@ private struct NavigationContainerView<Screen: VMDNavigationRoute, Content: View
             case .root:
                 EmptyView()
             case .push(let screen, _), .fullScreenCover(let screen, _, _), .sheet(let screen, _, _):
-                NavigationContainerView<Screen, ScreenView, ScreenView, Result>(navigateState: child, buildView: buildView) {
+                NavigationContainerView<Screen, ScreenView, ScreenView>(navigateState: child, buildView: buildView) {
                     buildView(screen)
                 }
             }

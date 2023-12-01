@@ -14,7 +14,6 @@ struct Screen1View: View {
     }
 
     var body: some View {
-        let _ = Self._printChanges()
         VStack(spacing: 32) {
             Text(viewModel.title)
 
@@ -29,6 +28,18 @@ struct Screen1View: View {
             }
 
             VMDButton(viewModel.pushButton) {
+                Text($0.text)
+            }
+
+            VMDButton(viewModel.popToRoot) {
+                Text($0.text)
+            }
+
+            VMDButton(viewModel.popToScreen3Included) {
+                Text($0.text)
+            }
+
+            VMDButton(viewModel.popToScreen3Excluded) {
                 Text($0.text)
             }
 
