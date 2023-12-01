@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'Shared'
-    spec.version                  = '0.1'
+    spec.version                  = '0.0.1'
     spec.homepage                 = 'https://github.com/mirego/your-project'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''

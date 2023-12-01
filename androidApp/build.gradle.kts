@@ -15,8 +15,8 @@ android {
         targetSdk = 34
 
         applicationId = "com.mirego.kmp.boilerplate"
-        versionCode = 1
-        versionName = "0.1"
+        versionCode = project.property("versionCode") as? Int
+        versionName = project.property("versionName") as? String
     }
     buildTypes {
         debug {
