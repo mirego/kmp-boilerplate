@@ -31,7 +31,7 @@ struct ApplicationView: View {
                     )
                 }
         }
-        .navigationRouter(viewModel.navigationManager)
+        .demoNavigation(navigationManager: viewModel.navigationManager)
     }
 }
 

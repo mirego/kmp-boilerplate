@@ -32,7 +32,7 @@ struct Tab2View: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.black.opacity(0.1))
-            .navigationRouter(viewModel.navigationManager)
+            .demoNavigation(navigationManager: viewModel.navigationManager)
         }
         .navigationViewStyle(.stack)
     }

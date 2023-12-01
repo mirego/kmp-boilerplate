@@ -2,8 +2,6 @@ package com.mirego.kmp.boilerplate.viewmodel.dialog
 
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationResult
-import com.mirego.trikot.viewmodels.declarative.components.VMDButtonViewModel
-import com.mirego.trikot.viewmodels.declarative.content.VMDTextContent
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithText
 import kotlinx.coroutines.CoroutineScope

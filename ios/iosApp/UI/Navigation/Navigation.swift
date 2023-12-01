@@ -1,164 +1,209 @@
 import SwiftUI
+import Shared
 
-fileprivate enum AllScreen<Screen> {
+enum NavigationType<Screen> {
     case root
-    case screen(Screen)
+    case push(screen: Screen, onDismiss: (() -> Void))
+    case sheet(screen: Screen, embedInNavigationView: Bool, onDismiss: (() -> Void))
+    case fullScreenCover(screen: Screen, embedInNavigationView: Bool, onDismiss: (() -> Void))
 }
 
 extension View {
-    func router<Screen, ScreenView: View>(_ routes: Binding<[Route<Screen>]>, embedInNavigationView: Bool = false, @ViewBuilder buildView: @escaping (Screen, Int) -> ScreenView) -> some View {
-        let allScreens = Binding<[Route<AllScreen<Screen>>]>(
-            get: {
-                let root: Route<AllScreen<Screen>> = .root(AllScreen.root, embedInNavigationView: embedInNavigationView)
-                let remainder = routes.wrappedValue.map { route in
-                    route.map(AllScreen<Screen>.screen)
-                }
-                return [root] + remainder
-            },
-            set: { allScreenRoutes in
-                let screenRoutes = allScreenRoutes[1...]
-                    .compactMap { (route: Route<AllScreen<Screen>>) -> Route<Screen> in
-                        route.map { (allScreen: AllScreen<Screen>) -> Screen in
-                            guard case .screen(let screen) = allScreen else {
-                                fatalError("Root screen in non-root position. This should not be possible.")
-                            }
-                            return screen
-                        }
-                    }
-                routes.wrappedValue = screenRoutes
-            }
+    func navigation<Screen: VMDNavigationRoute, ScreenView: View, Result: VMDNavigationResult>(
+        navigationManager: VMDNavigationManager<Screen, Result>,
+        @ViewBuilder buildView: @escaping (Screen) -> ScreenView,
+        buildNavigation: @escaping (Screen) -> NavigationType<Screen>
+    ) -> some View {
+        modifier(
+            NavigationModifier<Screen, ScreenView, Result>(
+                buildView: buildView,
+                buildNavigation: buildNavigation,
+                navigationManager: navigationManager
+            )
         )
-        return Router(routes: allScreens) { allScreen, index in
-            switch allScreen {
-            case .root:
-                self
-            case .screen(let screen):
-                buildView(screen, index - 1)
-            }
+    }
+}
+
+private struct NavigationModifier<Screen: VMDNavigationRoute, ScreenView: View, Result: VMDNavigationResult>: ViewModifier {
+    @StateObject private var rootState: NavigationState<Screen, Result>
+
+    @ViewBuilder private let buildView: (Screen) -> ScreenView
+
+    init(
+        buildView: @escaping (Screen) -> ScreenView,
+        buildNavigation: @escaping (Screen) -> NavigationType<Screen>,
+        navigationManager: VMDNavigationManager<Screen, Result>? = nil
+    ) {
+        self.buildView = buildView
+        let rootNavigationState = NavigationState<Screen, Result>(
+            navigation: NavigationType.root,
+            buildNavigation: buildNavigation,
+            navigationManager: navigationManager
+        )
+        _rootState = StateObject(wrappedValue: rootNavigationState)
+    }
+
+    func body(content: Content) -> some View {
+        NavigationContainerView(navigateState: rootState, buildView: buildView) {
+            content
         }
     }
 }
 
-struct Router<Screen, ScreenView: View>: View {
+/*
+    Since VMDNavigationManagerListener is a generic Objective-C class we must bind type parameters
+    of VMDNavigationManagerListener to specific concrete types (VMDNavigationRoute).
+    And this is why we have to cast the route to Screen in push and popTo methods
+ */
+private class NavigationState<Screen: VMDNavigationRoute, Result: VMDNavigationResult>: VMDNavigationManagerListener<VMDNavigationRoute>, ObservableObject {
+    let navigation: NavigationType<Screen>
 
-    @Binding var routes: [Route<Screen>]
+    @Published var child: NavigationState<Screen, Result>?
 
-    @ViewBuilder var buildView: (Screen, Int) -> ScreenView
+    private let buildNavigation: ((Screen) -> NavigationType<Screen>)?
+    private let navigationManager: VMDNavigationManager<Screen, Result>?
 
-    public var body: some View {
-        routes
-            .enumerated()
-            .reversed()
-            .reduce(Node<Screen, ScreenView>.end) { nextNode, new in
-                let (index, route) = new
-                return Node<Screen, ScreenView>.route(
-                    route,
-                    next: nextNode,
-                    allRoutes: $routes,
-                    index: index,
-                    buildView: { buildView($0, index) }
-                )
-            }
+    init(
+        navigation: NavigationType<Screen>,
+        buildNavigation: ((Screen) -> NavigationType<Screen>)? = nil,
+        navigationManager: VMDNavigationManager<Screen, Result>? = nil
+    ) {
+        self.navigation = navigation
+        self.buildNavigation = buildNavigation
+        self.navigationManager = navigationManager
+
+        super.init()
+        navigationManager?.listener = self as? VMDNavigationManagerListener<Screen>
+    }
+
+    override func push(route: VMDNavigationRoute) {
+        guard let buildNavigation = buildNavigation else { fatalError("buildNavigation not set")}
+        guard let route = route as? Screen else { fatalError("Invalid route type")}
+
+        top().child = NavigationState(navigation: buildNavigation(route))
+    }
+
+    override func popTo(route: VMDNavigationRoute) {
+        // guard let route = route as? Screen else { fatalError("Invalid route type")}
+    }
+
+    override func pop() {
+        topPresenter()?.child = nil
+    }
+
+    private func top() -> NavigationState<Screen, Result> {
+        var current = self
+
+        while current.child != nil {
+            current = current.child!
+        }
+        return current
+    }
+
+    private func topPresenter() -> NavigationState<Screen, Result>? {
+        guard self.child != nil else { return nil }
+
+        var current = self
+        while current.child?.child != nil {
+            current = current.child!
+        }
+        return current
     }
 }
 
-public enum Route<Screen> {
-    case sheet(Screen, embedInNavigationView: Bool, onDismiss: (() -> Void)? = nil)
-    case cover(Screen, embedInNavigationView: Bool, onDismiss: (() -> Void)? = nil)
-    case push(Screen, onDismiss: (() -> Void)? = nil)
+private struct NavigationContainerView<Screen: VMDNavigationRoute, Content: View, ScreenView: View, Result: VMDNavigationResult>: View {
+    @ObservedObject var navigateState: NavigationState<Screen, Result>
 
-    public static func root(_ screen: Screen, embedInNavigationView: Bool) -> Route {
-        .sheet(screen, embedInNavigationView: embedInNavigationView)
+    @ViewBuilder let buildView: (Screen) -> ScreenView
+    let content: () -> Content
+
+    var body: some View {
+        if embedInNavigationView {
+            NavigationView {
+                unwrappedBody
+            }
+            .navigationViewStyle(.stack)
+        } else {
+            unwrappedBody
+        }
     }
 
-    public var embedInNavigationView: Bool {
-        switch self {
+    @ViewBuilder
+    private var unwrappedBody: some View {
+        content()
+            .sheet(
+                isPresented: sheetBinding,
+                onDismiss: childOnDismiss,
+                content: { childView }
+            )
+            .fullScreenCover(
+                isPresented: fullScreenCoverBinding,
+                onDismiss: childOnDismiss,
+                content: { childView }
+            )
+            .background(
+                NavigationLink(destination: childView, isActive: pushBinding, label: EmptyView.init)
+                    .hidden()
+            )
+    }
+
+    private var embedInNavigationView: Bool {
+        switch navigateState.navigation {
+        case .root:
+            return false
         case .push:
             return false
-        case .sheet(_, let embedInNavigationView, _), .cover(_, let embedInNavigationView, _):
+        case .sheet(_, let embedInNavigationView, _):
+            return embedInNavigationView
+        case .fullScreenCover(_, let embedInNavigationView, _):
             return embedInNavigationView
         }
     }
 
-    public var screen: Screen {
-        get {
-            switch self {
-            case .sheet(let screen, _, _), .cover(let screen, _, _), .push(let screen, _):
-                return screen
+    @ViewBuilder
+    private var childView: some View {
+        if let child = navigateState.child {
+            switch child.navigation {
+            case .root:
+                EmptyView()
+            case .push(let screen, _), .fullScreenCover(let screen, _, _), .sheet(let screen, _, _):
+                NavigationContainerView<Screen, ScreenView, ScreenView, Result>(navigateState: child, buildView: buildView) {
+                    buildView(screen)
+                }
             }
-        }
-        set {
-            switch self {
-            case let .sheet(_, embedInNavigationView, onDismiss):
-                self = .sheet(newValue, embedInNavigationView: embedInNavigationView, onDismiss: onDismiss)
-            case let .push(_, onDismiss):
-                self = .push(newValue, onDismiss: onDismiss)
-            case let .cover(_, embedInNavigationView, onDismiss):
-                self = .cover(newValue, embedInNavigationView: embedInNavigationView, onDismiss: onDismiss)
-            }
+        } else {
+            EmptyView()
         }
     }
-
-    public func map<NewScreen>(_ transform: (Screen) -> NewScreen) -> Route<NewScreen> {
-        switch self {
-        case let .push(_, onDismiss):
-            return .push(transform(screen), onDismiss: onDismiss)
-        case let .sheet(_, embedInNavigationView, onDismiss):
-            return .sheet(transform(screen), embedInNavigationView: embedInNavigationView, onDismiss: onDismiss)
-        case let .cover(_, embedInNavigationView, onDismiss):
-            return .cover(transform(screen), embedInNavigationView: embedInNavigationView, onDismiss: onDismiss)
-        }
-    }
-}
-
-// swiftlint:disable enum_case_associated_values_count
-indirect enum Node<Screen, V: View>: View {
-    case route(Route<Screen>, next: Node<Screen, V>, allRoutes: Binding<[Route<Screen>]>, index: Int, buildView: (Screen) -> V)
-    case end
 
     private var isActiveBinding: Binding<Bool> {
-        switch self {
-        case .end, .route(_, .end, _, _, _):
-            return .constant(false)
-        case let .route(_, .route, allRoutes, index, _):
-            return Binding(
-                get: {
-                    if #available(iOS 17.0, *) {
-                        return allRoutes.wrappedValue.count != index + 1
-                    } else {
-                        return allRoutes.wrappedValue.count > index + 1
+        Binding(
+            get: { navigateState.child != nil },
+            set: { isShowing in
+                if !isShowing {
+                    if isChildPush {
+                        childOnDismiss?()
                     }
-                },
-                set: { isShowing in
-                    guard !isShowing else { return }
-                    guard allRoutes.wrappedValue.count != index + 1 else { return }
-                    let lastRoute = allRoutes.wrappedValue.last
-                    allRoutes.wrappedValue = Array(allRoutes.wrappedValue.prefix(index + 1))
-                    if let lastRoute {
-                        switch lastRoute {
-                        case .push(_, let onDismiss):
-                            onDismiss?()
-                        default:
-                            break
-                        }
-                    }
+                    navigateState.child = nil
                 }
-            )
-        }
+            }
+        )
     }
 
     private var sheetBinding: Binding<Bool> {
-        switch next {
-        case .route(.sheet, _, _, _, _):
+        guard let child = navigateState.child else { return .constant(false) }
+        switch child.navigation {
+        case .sheet:
             return isActiveBinding
         default:
             return .constant(false)
         }
     }
 
-    private var coverBinding: Binding<Bool> {
-        switch next {
-        case .route(.cover, _, _, _, _):
+    private var fullScreenCoverBinding: Binding<Bool> {
+        guard let child = navigateState.child else { return .constant(false) }
+        switch child.navigation {
+        case .fullScreenCover:
             return isActiveBinding
         default:
             return .constant(false)
@@ -166,78 +211,36 @@ indirect enum Node<Screen, V: View>: View {
     }
 
     private var pushBinding: Binding<Bool> {
-        switch next {
-        case .route(.push, _, _, _, _):
+        guard let child = navigateState.child else { return .constant(false) }
+        switch child.navigation {
+        case .push:
             return isActiveBinding
         default:
             return .constant(false)
         }
     }
 
-    private var onDismiss: (() -> Void)? {
-        switch next {
-        case .route(.sheet(_, _, let onDismiss), _, _, _, _), .route(.cover(_, _, let onDismiss), _, _, _, _), .route(.push(_, let onDismiss), _, _, _, _):
+    private var childOnDismiss: (() -> Void)? {
+        guard let child = navigateState.child else { return nil }
+        switch child.navigation {
+        case .root:
+            return nil
+        case .push(_, let onDismiss):
             return onDismiss
+        case .sheet(_, _, let onDismiss):
+            return onDismiss
+        case .fullScreenCover(_, _, let onDismiss):
+            return onDismiss
+        }
+    }
+
+    private var isChildPush: Bool {
+        guard let child = navigateState.child else { return false }
+        switch child.navigation {
+        case .push:
+            return true
         default:
-            return nil
-        }
-    }
-
-    private var route: Route<Screen>? {
-        switch self {
-        case .end:
-            return nil
-        case .route(let route, _, _, _, _):
-            return route
-        }
-    }
-
-    private var next: Node? {
-        switch self {
-        case .end:
-            return nil
-        case .route(_, let next, _, _, _):
-            return next
-        }
-    }
-
-    @ViewBuilder
-    private var screenView: some View {
-        switch self {
-        case .end:
-            EmptyView()
-        case let .route(route, _, _, _, buildView):
-            buildView(route.screen)
-        }
-    }
-
-    @ViewBuilder
-    private var unwrappedBody: some View {
-        screenView
-            .sheet(
-                isPresented: sheetBinding,
-                onDismiss: onDismiss,
-                content: { next }
-            )
-            .fullScreenCover(
-                isPresented: coverBinding,
-                onDismiss: onDismiss,
-                content: { next }
-            )
-            .background(
-                NavigationLink(destination: next, isActive: pushBinding, label: EmptyView.init)
-                    .hidden()
-            )
-    }
-
-    var body: some View {
-        if route?.embedInNavigationView ?? false {
-            NavigationView {
-                unwrappedBody
-            }
-            .navigationViewStyle(.stack)
-        } else {
-            unwrappedBody
+            return false
         }
     }
 }
