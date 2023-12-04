@@ -21,20 +21,12 @@ abstract class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
     override val navigationItemList: Flow<List<NavigationItem<ROUTE>>>
         get() = internalRouteList
 
-    override fun present(route: ROUTE) {
-        if (parentNavigationManager != null) {
-            parentNavigationManager.present(route)
+    override fun push(route: ROUTE, prioritizeParent: Boolean) {
+        if (prioritizeParent && parentNavigationManager != null) {
+            parentNavigationManager.push(route, prioritizeParent = prioritizeParent)
             return
         }
 
-        internalPush(route)
-    }
-
-    override fun push(route: ROUTE) {
-        internalPush(route)
-    }
-
-    private fun internalPush(route: ROUTE) {
         val newItem = NavigationItem(
             route = route,
             coroutineScope = coroutineScopeManager.createCoroutineScope()

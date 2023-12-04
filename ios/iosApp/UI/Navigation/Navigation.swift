@@ -1,7 +1,7 @@
 import SwiftUI
 import Shared
 
-enum NavigationType<Screen> {
+public enum NavigationType<Screen> {
     case root
     case push(screen: Screen, onDismiss: (() -> Void))
     case sheet(screen: Screen, embedInNavigationView: Bool, onDismiss: (() -> Void))
@@ -17,7 +17,7 @@ enum NavigationType<Screen> {
     }
 }
 
-extension View {
+public extension View {
     func navigation<Screen: VMDNavigationRoute, ScreenView: View>(
         navigationManager: VMDNavigationManager<Screen>,
         @ViewBuilder buildView: @escaping (Screen) -> ScreenView,
@@ -72,6 +72,8 @@ private class NavigationState<Screen: VMDNavigationRoute>: VMDNavigationManagerL
     private let buildNavigation: (([Screen], Screen) -> NavigationType<Screen>)?
     private let navigationManager: VMDNavigationManager<Screen>?
 
+    private var lastNavigationDate: Date?
+
     init(
         navigation: NavigationType<Screen>,
         buildNavigation: (([Screen], Screen) -> NavigationType<Screen>)? = nil,
@@ -89,23 +91,49 @@ private class NavigationState<Screen: VMDNavigationRoute>: VMDNavigationManagerL
         guard let buildNavigation else { fatalError("buildNavigation not set")}
         guard let route = route as? Screen else { fatalError("Invalid route type")}
 
-        top().child = NavigationState(navigation: buildNavigation(currentStack(), route))
+        dedounceNavigation { [weak self] in
+            guard let self else { return }
+            lastNavigationDate = Date()
+            top().child = NavigationState(navigation: buildNavigation(currentStack(), route))
+        }
     }
 
     override func popTo(route: VMDNavigationRoute, included: Bool) {
         guard let route = route as? Screen else { fatalError("Invalid route type") }
 
-        if let routeNavigationState = findLast(route: route) {
-            if included {
-                findParent(state: routeNavigationState)?.child = nil
-            } else {
-                routeNavigationState.child = nil
+        dedounceNavigation { [weak self] in
+            guard let self else { return }
+            if let routeNavigationState = findLast(route: route) {
+                if included {
+                    findParent(state: routeNavigationState)?.child = nil
+                } else {
+                    routeNavigationState.child = nil
+                }
             }
         }
     }
 
     override func pop() {
-        topPresenter()?.child = nil
+        dedounceNavigation { [weak self] in
+            self?.topPresenter()?.child = nil
+        }
+    }
+
+    private func dedounceNavigation(action: @escaping () -> Void) {
+        let navigationAnimationDuration = 0.55
+
+        if let lastNavigationDate {
+            let timeIntervalSinceNow = -lastNavigationDate.timeIntervalSinceNow
+            if timeIntervalSinceNow < navigationAnimationDuration {
+                DispatchQueue.main.asyncAfter(deadline: .now() + (navigationAnimationDuration - timeIntervalSinceNow)) {
+                    action()
+                }
+            } else {
+                action()
+            }
+        } else {
+            action()
+        }
     }
 
     private func top() -> NavigationState<Screen> {

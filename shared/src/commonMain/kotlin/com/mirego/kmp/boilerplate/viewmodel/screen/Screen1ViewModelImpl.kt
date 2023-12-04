@@ -30,7 +30,7 @@ class Screen1ViewModelImpl(
 
     override val modalButton = buttonWithText("Modal") {
         setAction {
-            navigationManager.present(DemoNavigationRoute.Screen3())
+            navigationManager.push(DemoNavigationRoute.Screen3(), prioritizeParent = true)
         }
     }
 

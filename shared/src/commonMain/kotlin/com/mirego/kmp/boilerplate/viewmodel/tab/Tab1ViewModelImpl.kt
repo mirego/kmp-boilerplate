@@ -32,13 +32,13 @@ class Tab1ViewModelImpl(
 
     override val modalButton = buttonWithText("Modal") {
         setAction {
-            navigationManager.present(DemoNavigationRoute.Screen2())
+            navigationManager.push(DemoNavigationRoute.Screen2(), prioritizeParent = true)
         }
     }
 
     override val dialogButton = buttonWithText("Dialog") {
         setAction {
-            navigationManager.present(DemoNavigationRoute.Dialog(buildDialogNavigationData()))
+            navigationManager.push(DemoNavigationRoute.Dialog(buildDialogNavigationData()), prioritizeParent = true)
         }
     }
 
