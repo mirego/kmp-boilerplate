@@ -4,33 +4,39 @@ import Shared
 /*
     Since VMDNavigationManagerListener is a generic Objective-C class we must bind type parameters
     of VMDNavigationManagerListener to specific concrete types (VMDNavigationRoute).
-    And this is why we have to cast the route to Screen in push and popTo methods
+    And this is why we have to cast the VMDNavigationRoute to Route in push and popTo methods
  */
-class NavigationState<ScreenData, Route: VMDNavigationRoute>: VMDNavigationManagerListener<VMDNavigationRoute>, ObservableObject {
+class NavigationState<ScreenData, Route: VMDNavigationRoute, Action: AnyObject>: VMDNavigationManagerListener<VMDNavigationRoute>, ObservableObject {
     let navigation: NavigationType<ScreenData>
     let route: Route?
 
-    @Published var child: NavigationState<ScreenData, Route>?
+    @Published var child: NavigationState<ScreenData, Route, Action>?
     @Published var navigationDismissTriggered = false
 
     private let buildNavigation: (([Route], Route) -> NavigationType<ScreenData>)?
-    private let navigationManager: VMDNavigationManager<Route>?
-
+    private let navigationManager: VMDNavigationManager<Route, Action>?
+    private let actionListener: ActionListener<Route, Action>
     private var lastNavigationDate: Date?
 
     init(
         navigation: NavigationType<ScreenData>,
         route: Route?,
         buildNavigation: (([Route], Route) -> NavigationType<ScreenData>)? = nil,
-        navigationManager: VMDNavigationManager<Route>? = nil
+        handleAction: ((Action) -> Void)? = nil,
+        navigationManager: VMDNavigationManager<Route, Action>? = nil
     ) {
         self.navigation = navigation
         self.route = route
         self.buildNavigation = buildNavigation
         self.navigationManager = navigationManager
+        actionListener = ActionListener(navigationManager: navigationManager, handleAction: handleAction)
 
         super.init()
+    }
+
+    func startListening() {
         navigationManager?.listener = self as? VMDNavigationManagerListener<Route>
+        actionListener.startListening()
     }
 
     override func push(route: VMDNavigationRoute) {
@@ -44,13 +50,13 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute>: VMDNavigationManag
         }
     }
 
-    override func popTo(route: VMDNavigationRoute, included: Bool) {
+    override func popTo(route: VMDNavigationRoute, inclusive: Bool) {
         guard let route = route as? Route else { fatalError("Invalid route type") }
 
         dedounceNavigation { [weak self] in
             guard let self else { return }
             if let routeNavigationState = findLast(route: route) {
-                if included {
+                if inclusive {
                     findParent(state: routeNavigationState)?.child = nil
                 } else {
                     routeNavigationState.child = nil
@@ -91,7 +97,7 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute>: VMDNavigationManag
         }
     }
 
-    private func top() -> NavigationState<ScreenData, Route> {
+    private func top() -> NavigationState<ScreenData, Route, Action> {
         var current = self
 
         while current.child != nil {
@@ -100,7 +106,7 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute>: VMDNavigationManag
         return current
     }
 
-    private func topPresenter() -> NavigationState<ScreenData, Route>? {
+    private func topPresenter() -> NavigationState<ScreenData, Route, Action>? {
         guard self.child != nil else { return nil }
 
         var current = self
@@ -110,9 +116,9 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute>: VMDNavigationManag
         return current
     }
 
-    private func findLast(route: Route) -> NavigationState<ScreenData, Route>? {
-        var current: NavigationState<ScreenData, Route>? = self
-        var result: NavigationState<ScreenData, Route>?
+    private func findLast(route: Route) -> NavigationState<ScreenData, Route, Action>? {
+        var current: NavigationState<ScreenData, Route, Action>? = self
+        var result: NavigationState<ScreenData, Route, Action>?
         repeat {
             if current?.route?.uniqueId == route.uniqueId {
                 result = current
@@ -123,7 +129,7 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute>: VMDNavigationManag
         return result
     }
 
-    private func findParent(state: NavigationState<ScreenData, Route>) -> NavigationState<ScreenData, Route>? {
+    private func findParent(state: NavigationState<ScreenData, Route, Action>) -> NavigationState<ScreenData, Route, Action>? {
         var current = self
         while current.child != nil {
             if state === current.child {
@@ -136,7 +142,7 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute>: VMDNavigationManag
 
     private func currentStack() -> [Route] {
         var stack: [Route] = []
-        var current: NavigationState<ScreenData, Route>? = self
+        var current: NavigationState<ScreenData, Route, Action>? = self
         while current != nil {
             if let route = current?.route {
                 stack.append(route)
@@ -144,5 +150,34 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute>: VMDNavigationManag
             current = current?.child
         }
         return stack
+    }
+}
+
+/*
+    Since VMDActionNavigationListener is a generic Objective-C class we must bind type parameters
+    of VMDActionNavigationListener to specific concrete types (AnyObject).
+    And this is why we have to cast the AnyObject to Action
+ */
+
+private class ActionListener<Route: VMDNavigationRoute, Action: AnyObject>: VMDActionNavigationListener<AnyObject> {
+    private let navigationManager: VMDNavigationManager<Route, Action>?
+    private let handleAction: ((Action) -> Void)?
+
+    init(
+        navigationManager: VMDNavigationManager<Route, Action>? = nil,
+        handleAction: ((Action) -> Void)?
+    ) {
+        self.navigationManager = navigationManager
+        self.handleAction = handleAction
+        super.init()
+    }
+
+    func startListening() {
+        navigationManager?.actionListener = self as? VMDActionNavigationListener<Action>
+    }
+
+    override func handleAction(action: AnyObject?) {
+        guard let action = action as? Action else { fatalError("invalid action type") }
+        handleAction?(action)
     }
 }

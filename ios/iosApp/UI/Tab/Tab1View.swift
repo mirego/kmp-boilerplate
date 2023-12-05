@@ -32,6 +32,10 @@ struct Tab1View: View {
 
             Spacer()
 
+            VMDButton(viewModel.openExternalUrl) {
+                Text($0.text)
+            }
+
             VMDButton(viewModel.pushButton) {
                 Text($0.text)
             }

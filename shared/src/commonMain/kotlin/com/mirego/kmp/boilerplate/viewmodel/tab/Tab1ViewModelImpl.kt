@@ -4,6 +4,7 @@ import com.mirego.kmp.boilerplate.viewmodel.dialog.DialogButtonData
 import com.mirego.kmp.boilerplate.viewmodel.dialog.DialogNavigationData
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationRoute
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationAction
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithText
 import com.mirego.trikot.viewmodels.declarative.viewmodel.text
@@ -39,6 +40,12 @@ class Tab1ViewModelImpl(
     override val dialogButton = buttonWithText("Dialog") {
         setAction {
             navigationManager.push(DemoNavigationRoute.Dialog(buildDialogNavigationData()), prioritizeParent = true)
+        }
+    }
+
+    override val openExternalUrl = buttonWithText("External url") {
+        setAction {
+            navigationManager.handleAction(NavigationAction.ExternalUrl("https://www.mirego.com"))
         }
     }
 

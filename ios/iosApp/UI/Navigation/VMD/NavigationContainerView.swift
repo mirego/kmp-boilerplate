@@ -1,8 +1,8 @@
 import SwiftUI
 import Shared
 
-struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Content: View, ScreenView: View>: View {
-    @ObservedObject var navigateState: NavigationState<ScreenData, Route>
+struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Action: AnyObject, Content: View, ScreenView: View>: View {
+    @ObservedObject var navigateState: NavigationState<ScreenData, Route, Action>
 
     @ViewBuilder let buildView: (ScreenData) -> ScreenView
     let content: () -> Content
@@ -68,7 +68,7 @@ struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Content: V
     @ViewBuilder
     private var childView: some View {
         if let child = navigateState.child, let screen = child.navigation.screen {
-            NavigationContainerView<ScreenData, Route, ScreenView, ScreenView>(navigateState: child, buildView: buildView) {
+            NavigationContainerView<ScreenData, Route, Action, ScreenView, ScreenView>(navigateState: child, buildView: buildView) {
                 buildView(screen)
             }
         } else {
@@ -78,7 +78,9 @@ struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Content: V
 
     private var isActiveBinding: Binding<Bool> {
         Binding(
-            get: { navigateState.child != nil },
+            get: {
+                navigateState.child != nil
+            },
             set: { isShowing in
                 if !isShowing {
                     if isChildPush {

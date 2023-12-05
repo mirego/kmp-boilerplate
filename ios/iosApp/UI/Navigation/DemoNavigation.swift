@@ -10,6 +10,8 @@ extension View {
 private struct DemoNavigationModifier: ViewModifier {
     let navigationManager: DemoNavigationManager
 
+    @Environment(\.openURL) private var openURL
+
     func body(content: Content) -> some View {
         content
             .navigation(navigationManager: navigationManager) { (viewModelHolder: ViewModelHolder) in
@@ -40,6 +42,17 @@ private struct DemoNavigationModifier: ViewModifier {
                     return .sheet(screen: ViewModelHolder.screen3(navigationManager.createScreen3(route: route)), embedInNavigationView: true, onDismiss: dismissCallback)
                 case .dialog(let route):
                     return .fullScreenNotAnimated(screen: ViewModelHolder.dialog(navigationManager.createDialog(route: route)), embedInNavigationView: false, onDismiss: dismissCallback, popDelayInSeconds: 0.5)
+                }
+            } handleAction: { action in
+                switch onEnum(of: action) {
+                case .externalUrl(let action):
+                    if let url = URL(string: action.url) {
+                        openURL(url)
+                    }
+                case .openSetting:
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        openURL(url)
+                    }
                 }
             }
     }

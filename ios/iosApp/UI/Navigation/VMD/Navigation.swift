@@ -2,36 +2,40 @@ import SwiftUI
 import Shared
 
 public extension View {
-    func navigation<ScreenData, Route: VMDNavigationRoute, ScreenView: View>(
-        navigationManager: VMDNavigationManager<Route>,
+    func navigation<ScreenData, Route: VMDNavigationRoute, Action: AnyObject, ScreenView: View>(
+        navigationManager: VMDNavigationManager<Route, Action>,
         @ViewBuilder buildView: @escaping (ScreenData) -> ScreenView,
-        buildNavigation: @escaping ([Route], Route) -> NavigationType<ScreenData>
+        buildNavigation: @escaping ([Route], Route) -> NavigationType<ScreenData>,
+        handleAction: ((Action) -> Void)? = nil
     ) -> some View {
         modifier(
-            NavigationModifier<ScreenData, Route, ScreenView>(
+            NavigationModifier<ScreenData, Route, Action, ScreenView>(
                 buildView: buildView,
                 buildNavigation: buildNavigation,
+                handleAction: handleAction,
                 navigationManager: navigationManager
             )
         )
     }
 }
 
-private struct NavigationModifier<ScreenData, Route: VMDNavigationRoute, ScreenView: View>: ViewModifier {
-    @StateObject private var rootState: NavigationState<ScreenData, Route>
+private struct NavigationModifier<ScreenData, Route: VMDNavigationRoute, Action: AnyObject, ScreenView: View>: ViewModifier {
+    @StateObject private var rootState: NavigationState<ScreenData, Route, Action>
 
     @ViewBuilder private let buildView: (ScreenData) -> ScreenView
 
     init(
         buildView: @escaping (ScreenData) -> ScreenView,
         buildNavigation: @escaping ([Route], Route) -> NavigationType<ScreenData>,
-        navigationManager: VMDNavigationManager<Route>? = nil
+        handleAction: ((Action) -> Void)? = nil,
+        navigationManager: VMDNavigationManager<Route, Action>? = nil
     ) {
         self.buildView = buildView
-        let rootNavigationState = NavigationState<ScreenData, Route>(
+        let rootNavigationState = NavigationState<ScreenData, Route, Action>(
             navigation: NavigationType.root,
             route: nil,
             buildNavigation: buildNavigation,
+            handleAction: handleAction,
             navigationManager: navigationManager
         )
         _rootState = StateObject(wrappedValue: rootNavigationState)
@@ -40,6 +44,9 @@ private struct NavigationModifier<ScreenData, Route: VMDNavigationRoute, ScreenV
     func body(content: Content) -> some View {
         NavigationContainerView(navigateState: rootState, buildView: buildView) {
             content
+        }
+        .onAppear {
+            rootState.startListening()
         }
     }
 }

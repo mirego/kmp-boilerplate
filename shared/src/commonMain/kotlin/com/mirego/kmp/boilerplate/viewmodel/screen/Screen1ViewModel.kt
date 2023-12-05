@@ -15,7 +15,7 @@ interface Screen1ViewModel: VMDViewModel {
 
     val popToRoot: VMDButtonViewModel<VMDTextContent>
 
-    val popToScreen3Included: VMDButtonViewModel<VMDTextContent>
+    val popToScreen3Inclusive: VMDButtonViewModel<VMDTextContent>
 
-    val popToScreen3Excluded: VMDButtonViewModel<VMDTextContent>
+    val popToScreen3Exclusive: VMDButtonViewModel<VMDTextContent>
 }

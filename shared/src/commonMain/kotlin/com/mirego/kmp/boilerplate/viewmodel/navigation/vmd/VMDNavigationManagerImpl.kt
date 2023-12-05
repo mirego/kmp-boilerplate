@@ -10,10 +10,10 @@ data class NavigationItem<ROUTE : VMDNavigationRoute>(
     val coroutineScope: CoroutineScope
 )
 
-open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
+open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
     private val coroutineScopeManager: CoroutineScopeManager,
-    private val parentNavigationManager: VMDNavigationManager<ROUTE>? = null
-) : VMDNavigationManager<ROUTE>() {
+    private val parentNavigationManager: VMDNavigationManager<ROUTE, ACTION>? = null
+) : VMDNavigationManager<ROUTE, ACTION>() {
 
     private val internalRouteList: MutableStateFlow<List<NavigationItem<ROUTE>>> =
         MutableStateFlow(emptyList())
@@ -55,20 +55,20 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
         }
     }
 
-    override fun popToId(uniqueId: String, included: Boolean) {
-        internalPopTo(popType = PopType.ById(uniqueId), included = included, callListener = true)
+    override fun popToId(uniqueId: String, inclusive: Boolean) {
+        internalPopTo(popType = PopType.ById(uniqueId), inclusive = inclusive, callListener = true)
     }
 
-    override fun popToName(name: String, included: Boolean) {
-        internalPopTo(popType = PopType.ByName(name), included = included, callListener = true)
+    override fun popToName(name: String, inclusive: Boolean) {
+        internalPopTo(popType = PopType.ByName(name), inclusive = inclusive, callListener = true)
     }
 
     override fun popToRoot() {
         val firstItem = internalRouteList.value.firstOrNull() ?: return
-        internalPopTo(popType = PopType.ById(firstItem.route.uniqueId), included = true, callListener = true)
+        internalPopTo(popType = PopType.ById(firstItem.route.uniqueId), inclusive = true, callListener = true)
     }
 
-    private fun internalPopTo(popType: PopType, included: Boolean, callListener: Boolean) {
+    private fun internalPopTo(popType: PopType, inclusive: Boolean, callListener: Boolean) {
         println("HUGO DEBUG: internalPopTo start count: ${internalRouteList.value.size}")
         val navigationItem = internalRouteList.value
             .lastOrNull { item ->
@@ -80,7 +80,7 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
         val index = internalRouteList.value.indexOf(navigationItem)
 
         if (index != -1 && internalRouteList.value.isNotEmpty()) {
-            val effectiveIndex = index + if (included) 0 else 1
+            val effectiveIndex = index + if (inclusive) 0 else 1
             (effectiveIndex until internalRouteList.value.size).forEach {
                 val item = internalRouteList.value[it]
                 item.coroutineScope.cancel()
@@ -89,7 +89,7 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
             internalRouteList.value = internalRouteList.value.slice(0..< effectiveIndex).toMutableList()
             println("HUGO DEBUG: internalPopTo final count: ${internalRouteList.value.size}")
             if (callListener) {
-                listener?.popTo(navigationItem.route, included = included)
+                listener?.popTo(navigationItem.route, inclusive = inclusive)
             }
         }
     }
@@ -98,12 +98,16 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
         internalPop(callListener = false)
     }
 
+    override fun handleAction(action: ACTION) {
+        parentNavigationManager?.handleAction(action) ?: actionListener?.handleAction(action)
+    }
+
     override fun poppedFrom(route: ROUTE) {
         val routeIndex = internalRouteList.value.indexOfFirst {
             it.route.uniqueId == route.uniqueId
         }
         if (routeIndex != -1) {
-            internalPopTo(popType = PopType.ById(route.uniqueId), included = true, callListener = false)
+            internalPopTo(popType = PopType.ById(route.uniqueId), inclusive = true, callListener = false)
         }
     }
 

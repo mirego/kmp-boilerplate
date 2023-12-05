@@ -2,8 +2,6 @@ package com.mirego.kmp.boilerplate.viewmodel.screen
 
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationRoute
-import com.mirego.trikot.viewmodels.declarative.components.VMDButtonViewModel
-import com.mirego.trikot.viewmodels.declarative.content.VMDTextContent
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithText
 import kotlinx.coroutines.CoroutineScope
@@ -40,15 +38,15 @@ class Screen1ViewModelImpl(
         }
     }
 
-    override val popToScreen3Included = buttonWithText("Pop to screen 3 included") {
+    override val popToScreen3Inclusive = buttonWithText("Pop to screen 3 inclusive") {
         setAction {
-            navigationManager.popToName(DemoNavigationRoute.Screen3().name, included = true)
+            navigationManager.popToName(DemoNavigationRoute.Screen3().name, inclusive = true)
         }
     }
 
-    override val popToScreen3Excluded = buttonWithText("Pop to screen 3 excluded") {
+    override val popToScreen3Exclusive = buttonWithText("Pop to screen 3 exclusive") {
         setAction {
-            navigationManager.popToName(DemoNavigationRoute.Screen3().name, included = false)
+            navigationManager.popToName(DemoNavigationRoute.Screen3().name, inclusive = false)
         }
     }
 }

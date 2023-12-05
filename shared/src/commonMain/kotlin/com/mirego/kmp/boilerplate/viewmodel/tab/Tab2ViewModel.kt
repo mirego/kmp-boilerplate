@@ -11,4 +11,5 @@ interface Tab2ViewModel: VMDViewModel {
     val title: String
     val pushButton: VMDButtonViewModel<VMDTextContent>
     val modalButton: VMDButtonViewModel<VMDTextContent>
+    val openSettings: VMDButtonViewModel<VMDTextContent>
 }

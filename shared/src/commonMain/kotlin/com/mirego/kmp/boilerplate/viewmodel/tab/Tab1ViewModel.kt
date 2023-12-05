@@ -15,4 +15,5 @@ interface Tab1ViewModel: VMDViewModel {
     val pushButton: VMDButtonViewModel<VMDTextContent>
     val modalButton: VMDButtonViewModel<VMDTextContent>
     val dialogButton: VMDButtonViewModel<VMDTextContent>
+    val openExternalUrl: VMDButtonViewModel<VMDTextContent>
 }

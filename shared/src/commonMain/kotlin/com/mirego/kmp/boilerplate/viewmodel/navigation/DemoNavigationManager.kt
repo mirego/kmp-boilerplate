@@ -6,13 +6,11 @@ import com.mirego.kmp.boilerplate.viewmodel.navigation.vmd.VMDNavigationManagerI
 import com.mirego.kmp.boilerplate.viewmodel.screen.Screen1ViewModel
 import com.mirego.kmp.boilerplate.viewmodel.screen.Screen2ViewModel
 import com.mirego.kmp.boilerplate.viewmodel.screen.Screen3ViewModel
-import com.mirego.kmp.boilerplate.viewmodel.tab.Tab1ViewModel
-import com.mirego.kmp.boilerplate.viewmodel.tab.Tab2ViewModel
 
 abstract class DemoNavigationManager(
     coroutineScopeManager: CoroutineScopeManager,
     parentNavigationManager: DemoNavigationManager?
-) : VMDNavigationManagerImpl<DemoNavigationRoute>(coroutineScopeManager, parentNavigationManager) {
+) : VMDNavigationManagerImpl<DemoNavigationRoute, NavigationAction>(coroutineScopeManager, parentNavigationManager) {
 
     abstract fun createScreen1(route: DemoNavigationRoute.Screen1): Screen1ViewModel
 

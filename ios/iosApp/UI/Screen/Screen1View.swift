@@ -35,11 +35,11 @@ struct Screen1View: View {
                 Text($0.text)
             }
 
-            VMDButton(viewModel.popToScreen3Included) {
+            VMDButton(viewModel.popToScreen3Inclusive) {
                 Text($0.text)
             }
 
-            VMDButton(viewModel.popToScreen3Excluded) {
+            VMDButton(viewModel.popToScreen3Exclusive) {
                 Text($0.text)
             }
 

@@ -31,11 +31,16 @@ struct Tab2View: View {
             Text(viewModel.title)
 
             Spacer()
+
             VMDButton(viewModel.pushButton) {
                 Text($0.text)
             }
 
             VMDButton(viewModel.modalButton) {
+                Text($0.text)
+            }
+
+            VMDButton(viewModel.openSettings) {
                 Text($0.text)
             }
 
