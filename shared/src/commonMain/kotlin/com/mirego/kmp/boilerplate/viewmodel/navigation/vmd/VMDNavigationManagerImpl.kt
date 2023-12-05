@@ -10,7 +10,7 @@ data class NavigationItem<ROUTE : VMDNavigationRoute>(
     val coroutineScope: CoroutineScope
 )
 
-abstract class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
+open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
     private val coroutineScopeManager: CoroutineScopeManager,
     private val parentNavigationManager: VMDNavigationManager<ROUTE>? = null
 ) : VMDNavigationManager<ROUTE>() {
@@ -94,7 +94,11 @@ abstract class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute>(
         }
     }
 
-    override fun popped(route: ROUTE) {
+    override fun popped() {
+        internalPop(callListener = false)
+    }
+
+    override fun poppedFrom(route: ROUTE) {
         val routeIndex = internalRouteList.value.indexOfFirst {
             it.route.uniqueId == route.uniqueId
         }

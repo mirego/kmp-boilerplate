@@ -23,6 +23,12 @@
 		E129C80B2B192ED400429558 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C80A2B192ED400429558 /* Navigation.swift */; };
 		E129C80D2B1A0FB200429558 /* DemoNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C80C2B1A0FB200429558 /* DemoNavigation.swift */; };
 		E129C8102B1A322500429558 /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C80F2B1A322500429558 /* DialogView.swift */; };
+		E129C8162B1E4ED600429558 /* FullScreenNotAnimatedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C8142B1E4ED600429558 /* FullScreenNotAnimatedPresenter.swift */; };
+		E129C8192B1F52FD00429558 /* DialogTransitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C8182B1F52FD00429558 /* DialogTransitionView.swift */; };
+		E129C81C2B1F65C600429558 /* NavigationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C81B2B1F65C600429558 /* NavigationType.swift */; };
+		E129C81E2B1F65EB00429558 /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C81D2B1F65EB00429558 /* NavigationState.swift */; };
+		E129C8202B1F665200429558 /* NavigationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C81F2B1F665200429558 /* NavigationContainerView.swift */; };
+		E129C8222B1F66B700429558 /* NavigationDismissTriggeredKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C8212B1F66B700429558 /* NavigationDismissTriggeredKey.swift */; };
 		E193C5602B16600000803102 /* Tab1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C55F2B16600000803102 /* Tab1View.swift */; };
 		E193C5622B1660AC00803102 /* Tab2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5612B1660AC00803102 /* Tab2View.swift */; };
 		E193C56A2B1681D800803102 /* Screen1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5692B1681D800803102 /* Screen1View.swift */; };
@@ -50,6 +56,12 @@
 		E129C80A2B192ED400429558 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		E129C80C2B1A0FB200429558 /* DemoNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNavigation.swift; sourceTree = "<group>"; };
 		E129C80F2B1A322500429558 /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
+		E129C8142B1E4ED600429558 /* FullScreenNotAnimatedPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenNotAnimatedPresenter.swift; sourceTree = "<group>"; };
+		E129C8182B1F52FD00429558 /* DialogTransitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogTransitionView.swift; sourceTree = "<group>"; };
+		E129C81B2B1F65C600429558 /* NavigationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationType.swift; sourceTree = "<group>"; };
+		E129C81D2B1F65EB00429558 /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationState.swift; sourceTree = "<group>"; };
+		E129C81F2B1F665200429558 /* NavigationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContainerView.swift; sourceTree = "<group>"; };
+		E129C8212B1F66B700429558 /* NavigationDismissTriggeredKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDismissTriggeredKey.swift; sourceTree = "<group>"; };
 		E193C55F2B16600000803102 /* Tab1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab1View.swift; sourceTree = "<group>"; };
 		E193C5612B1660AC00803102 /* Tab2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2View.swift; sourceTree = "<group>"; };
 		E193C5692B1681D800803102 /* Screen1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen1View.swift; sourceTree = "<group>"; };
@@ -185,6 +197,19 @@
 			path = Dialog;
 			sourceTree = "<group>";
 		};
+		E129C81A2B1F530500429558 /* VMD */ = {
+			isa = PBXGroup;
+			children = (
+				E129C8142B1E4ED600429558 /* FullScreenNotAnimatedPresenter.swift */,
+				E129C80A2B192ED400429558 /* Navigation.swift */,
+				E129C81F2B1F665200429558 /* NavigationContainerView.swift */,
+				E129C8212B1F66B700429558 /* NavigationDismissTriggeredKey.swift */,
+				E129C81D2B1F65EB00429558 /* NavigationState.swift */,
+				E129C81B2B1F65C600429558 /* NavigationType.swift */,
+			);
+			path = VMD;
+			sourceTree = "<group>";
+		};
 		E193C55E2B165B3A00803102 /* Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,8 +222,9 @@
 		E193C5632B16682F00803102 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				E129C81A2B1F530500429558 /* VMD */,
 				E129C80C2B1A0FB200429558 /* DemoNavigation.swift */,
-				E129C80A2B192ED400429558 /* Navigation.swift */,
+				E129C8182B1F52FD00429558 /* DialogTransitionView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -367,15 +393,21 @@
 			files = (
 				89011D492AE9A3690073544B /* AppDelegate.swift in Sources */,
 				E193C5622B1660AC00803102 /* Tab2View.swift in Sources */,
+				E129C8162B1E4ED600429558 /* FullScreenNotAnimatedPresenter.swift in Sources */,
 				89011D4D2AE9A4FC0073544B /* AppEnvironment+iOS.swift in Sources */,
 				E129C80D2B1A0FB200429558 /* DemoNavigation.swift in Sources */,
+				E129C81E2B1F65EB00429558 /* NavigationState.swift in Sources */,
 				E129C8102B1A322500429558 /* DialogView.swift in Sources */,
+				E129C8202B1F665200429558 /* NavigationContainerView.swift in Sources */,
 				E193C56A2B1681D800803102 /* Screen1View.swift in Sources */,
+				E129C8192B1F52FD00429558 /* DialogTransitionView.swift in Sources */,
 				89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */,
 				89011D4F2AE9A7340073544B /* AppInitializer.swift in Sources */,
 				89011D542AE9A8150073544B /* LocaleExtensions.swift in Sources */,
+				E129C81C2B1F65C600429558 /* NavigationType.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				89011D512AE9A7750073544B /* ImageProvider.swift in Sources */,
+				E129C8222B1F66B700429558 /* NavigationDismissTriggeredKey.swift in Sources */,
 				E193C56E2B179B8B00803102 /* Screen2View.swift in Sources */,
 				89011D4B2AE9A4CD0073544B /* BootstrapImpl.swift in Sources */,
 				E193C5702B179BE400803102 /* Screen3View.swift in Sources */,

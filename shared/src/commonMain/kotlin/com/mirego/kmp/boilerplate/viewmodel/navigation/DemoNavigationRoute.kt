@@ -6,55 +6,42 @@ import com.mirego.trikot.foundation.concurrent.AtomicReference
 import com.mirego.trikot.foundation.concurrent.setOrThrow
 
 sealed interface DemoNavigationRoute : VMDNavigationRoute {
+    class Screen1: DemoNavigationRoute {
+        companion object {
+            const val NAME = "Screen1"
+        }
 
-    data class Root(
+        override val name: String = NAME
         override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
-    ) : DemoNavigationRoute {
-        override val name: String = "Root"
     }
 
-    data class Tab1(
+    class Screen2 : DemoNavigationRoute {
+        companion object {
+            const val NAME = "Screen2"
+        }
+
+        override val name: String = NAME
         override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
-    ) : DemoNavigationRoute {
-        override val name: String = "Tab1"
     }
 
-    data class Tab2(
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
-    ) : DemoNavigationRoute {
-        override val name: String = "Tab2"
-    }
+    class Screen3: DemoNavigationRoute {
+        companion object {
+            const val NAME = "Screen3"
+        }
 
-    data class Screen1(
+        override val name: String = NAME
         override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
-    ) : DemoNavigationRoute {
-        override val name: String = "Screen1"
-    }
-
-    data class Screen2(
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
-    ) : DemoNavigationRoute {
-        override val name: String = "Screen2"
-    }
-
-    data class Screen3(
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
-    ) : DemoNavigationRoute {
-        override val name: String = "Screen3"
     }
 
     data class Dialog(
-        val navigationData: DialogNavigationData,
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+        val navigationData: DialogNavigationData
     ) : DemoNavigationRoute {
-        override val name: String = "Dialog"
-    }
+        companion object {
+            const val NAME = "Dialog"
+        }
 
-    data class ExternalUrl(
-        val url: String,
+        override val name: String = NAME
         override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
-    ) : DemoNavigationRoute {
-        override val name: String = "ExternalUrl"
     }
 }
 

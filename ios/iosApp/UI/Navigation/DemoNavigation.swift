@@ -12,47 +12,42 @@ private struct DemoNavigationModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .navigation(navigationManager: navigationManager) { route in
-                switch onEnum(of: route) {
-                case .root:
-                    fatalError("Can't nativate to root")
-                case .tab1:
-                    fatalError("Can't nativate to tab1")
-                case .tab2:
-                    fatalError("Can't nativate to tab2")
-                case .screen1(let route):
-                    Screen1View(viewModel: navigationManager.createScreen1(route: route))
-                case .screen2(let route):
-                    Screen2View(viewModel: navigationManager.createScreen2(route: route))
-                case .screen3(let route):
-                    Screen3View(viewModel: navigationManager.createScreen3(route: route))
-                case .dialog(let route):
-                    DialogView(viewModel: navigationManager.createDialog(route: route))
-                case .externalUrl:
-                    Text("ExternalUrl")
+            .navigation(navigationManager: navigationManager) { (viewModelHolder: ViewModelHolder) in
+                switch viewModelHolder {
+                case .screen1(let viewModel):
+                    Screen1View(viewModel: viewModel)
+                case .screen2(let viewModel):
+                    Screen2View(viewModel: viewModel)
+                case .screen3(let viewModel):
+                    Screen3View(viewModel: viewModel)
+                case .dialog(let viewModel):
+                    DialogTransitionView {
+                        DialogView(viewModel: viewModel)
+                    } tapAround: {
+                        viewModel.closeButton.actionBlock()
+                    }
                 }
             } buildNavigation: { _, route in
                 let dismissCallback: () -> Void = {
-                    navigationManager.popped(route: route)
+                    navigationManager.poppedFrom(route: route)
                 }
                 switch onEnum(of: route) {
-                case .root:
-                    fatalError("Can't navigate to root")
-                case .tab1:
-                    fatalError("Can't navigate to tab1")
-                case .tab2:
-                    fatalError("Can't navigate to tab2")
-                case .screen1:
-                    return .push(screen: route, onDismiss: dismissCallback)
-                case .screen2:
-                    return .fullScreenCover(screen: route, embedInNavigationView: false, onDismiss: dismissCallback)
-                case .screen3:
-                    return .sheet(screen: route, embedInNavigationView: true, onDismiss: dismissCallback)
-                case .dialog:
-                    return .sheet(screen: route, embedInNavigationView: false, onDismiss: dismissCallback)
-                case .externalUrl:
-                    fatalError("Can't navigate to externalUrl")
+                case .screen1(let route):
+                    return .push(screen: ViewModelHolder.screen1(navigationManager.createScreen1(route: route)), onDismiss: dismissCallback)
+                case .screen2(let route):
+                    return .fullScreenCover(screen: ViewModelHolder.screen2(navigationManager.createScreen2(route: route)), embedInNavigationView: false, onDismiss: dismissCallback)
+                case .screen3(let route):
+                    return .sheet(screen: ViewModelHolder.screen3(navigationManager.createScreen3(route: route)), embedInNavigationView: true, onDismiss: dismissCallback)
+                case .dialog(let route):
+                    return .fullScreenNotAnimated(screen: ViewModelHolder.dialog(navigationManager.createDialog(route: route)), embedInNavigationView: false, onDismiss: dismissCallback, popDelayInSeconds: 0.5)
                 }
             }
     }
+}
+
+enum ViewModelHolder {
+    case screen1(Screen1ViewModel)
+    case screen2(Screen2ViewModel)
+    case screen3(Screen3ViewModel)
+    case dialog(DialogViewModel)
 }

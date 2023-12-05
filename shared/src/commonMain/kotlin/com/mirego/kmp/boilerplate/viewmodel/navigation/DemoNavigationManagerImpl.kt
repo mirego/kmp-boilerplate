@@ -15,12 +15,6 @@ class DemoNavigationManagerImpl(
 
     private val viewModelFactory: ViewModelFactory by inject()
 
-    override fun createTab1(route: DemoNavigationRoute.Tab1) =
-        viewModelFactory.createTab1(this, getCoroutineScope(route))
-
-    override fun createTab2(route: DemoNavigationRoute.Tab2) =
-        viewModelFactory.createTab2(this, getCoroutineScope(route))
-
     override fun createScreen1(route: DemoNavigationRoute.Screen1) =
         viewModelFactory.createScreen1(this, getCoroutineScope(route))
 

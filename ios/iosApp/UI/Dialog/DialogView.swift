@@ -16,9 +16,6 @@ struct DialogView: View {
     var body: some View {
         VStack(spacing: 32) {
             Text(viewModel.title)
-                .padding(.top, 32)
-
-            Spacer()
 
             VMDButton(viewModel.closeButton) {
                 Text($0.text)
@@ -29,11 +26,11 @@ struct DialogView: View {
                     Text($0.text)
                 }
             }
-
-            Spacer()
         }
         .frame(maxWidth: .infinity)
-        .background(Color.black.opacity(0.1))
+        .padding(.all, 32)
+        .background(RoundedRectangle(cornerRadius: 16).fill(.white).shadow(color: .black.opacity(0.1), radius: 4))
+        .padding(.horizontal, 32)
     }
 }
 

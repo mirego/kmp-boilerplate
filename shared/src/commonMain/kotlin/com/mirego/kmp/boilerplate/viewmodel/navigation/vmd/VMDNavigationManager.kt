@@ -8,13 +8,13 @@ abstract class VMDNavigationManager<ROUTE : VMDNavigationRoute> {
     var listener: VMDNavigationManagerListener<ROUTE>? = null
 
     abstract fun push(route: ROUTE, prioritizeParent: Boolean = false)
-
     abstract fun pop()
     abstract fun popToId(uniqueId: String, included: Boolean)
     abstract fun popToName(name: String, included: Boolean)
     abstract fun popToRoot()
 
-    abstract fun popped(route: ROUTE)
+    abstract fun popped()
+    abstract fun poppedFrom(route: ROUTE)
 }
 
 abstract class VMDNavigationManagerListener<ROUTE : VMDNavigationRoute> {

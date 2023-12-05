@@ -14,10 +14,6 @@ abstract class DemoNavigationManager(
     parentNavigationManager: DemoNavigationManager?
 ) : VMDNavigationManagerImpl<DemoNavigationRoute>(coroutineScopeManager, parentNavigationManager) {
 
-    abstract fun createTab1(route: DemoNavigationRoute.Tab1): Tab1ViewModel
-
-    abstract fun createTab2(route: DemoNavigationRoute.Tab2): Tab2ViewModel
-
     abstract fun createScreen1(route: DemoNavigationRoute.Screen1): Screen1ViewModel
 
     abstract fun createScreen2(route: DemoNavigationRoute.Screen2): Screen2ViewModel
