@@ -28,6 +28,10 @@ struct Screen3View: View {
                 Text($0.text)
             }
 
+            VMDButton(viewModel.dialogButton) {
+                Text($0.text)
+            }
+
             Spacer()
         }
         .frame(maxWidth: .infinity)

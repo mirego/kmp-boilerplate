@@ -16,10 +16,6 @@ class Tab1ViewModelImpl(
     override val navigationManager: DemoNavigationManager,
     coroutineScope: CoroutineScope
 ) : Tab1ViewModel, VMDViewModelImpl(coroutineScope) {
-    companion object {
-        private const val dialogButton1Id = "dialogButton1Id"
-        private const val dialogButton2Id = "dialogButton2Id"
-    }
 
     override val title = "Tab 1"
 
@@ -54,14 +50,12 @@ class Tab1ViewModelImpl(
         message = "Pick a choice",
         buttons = listOf(
             DialogButtonData(
-                id = dialogButton1Id,
                 title = "Choice 1",
                 action = {
                     dialogResult.text = "Choice 1"
                 }
             ),
             DialogButtonData(
-                id = dialogButton2Id,
                 title = "Choice 2",
                 action = {
                     dialogResult.text = "Choice 2"

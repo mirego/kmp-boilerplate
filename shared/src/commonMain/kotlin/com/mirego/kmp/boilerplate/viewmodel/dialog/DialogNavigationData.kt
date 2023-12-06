@@ -11,7 +11,6 @@ data class DialogNavigationData(
 
 @Serializable
 data class DialogButtonData(
-    val id: String,
     val title: String,
     val action: () -> Unit
 )
