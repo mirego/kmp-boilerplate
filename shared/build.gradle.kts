@@ -1,5 +1,7 @@
 @file:Suppress("UNUSED_VARIABLE")
 
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.native.cocoapods)
@@ -16,7 +18,8 @@ kotlin {
     androidTarget {
         publishAllLibraryVariants()
     }
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     cocoapods {
@@ -38,33 +41,24 @@ kotlin {
             }
         }
 
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
             }
         }
-        val commonTest by getting {
+
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotlinx.coroutines.test)
             }
         }
-        val androidMain by getting
-        val androidUnitTest by getting
+    }
 
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by getting {
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by getting {
-            iosSimulatorArm64Test.dependsOn(this)
-        }
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 
@@ -76,7 +70,6 @@ android {
     defaultConfig {
         minSdk = 21
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
