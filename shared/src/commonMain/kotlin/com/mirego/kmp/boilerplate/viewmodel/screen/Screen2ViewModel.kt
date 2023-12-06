@@ -8,4 +8,6 @@ interface Screen2ViewModel: VMDViewModel {
     val title: String
 
     val closeButton: VMDButtonViewModel<VMDTextContent>
+
+    val modalButton: VMDButtonViewModel<VMDTextContent>
 }

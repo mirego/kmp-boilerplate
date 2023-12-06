@@ -1,6 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel.screen
 
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
+import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationRoute
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithText
 import kotlinx.coroutines.CoroutineScope
@@ -16,6 +17,12 @@ class Screen2ViewModelImpl(
     override val closeButton = buttonWithText("Close") {
         setAction {
             navigationManager.pop()
+        }
+    }
+
+    override val modalButton = buttonWithText("Modal") {
+        setAction {
+            navigationManager.push(DemoNavigationRoute.Screen3(), prioritizeParent = true)
         }
     }
 }

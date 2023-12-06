@@ -33,10 +33,6 @@ struct Screen2View: View {
                     )
                     .clipped()
                     .allowsHitTesting(false)
-                    .offset(
-                        x: 0,
-                        y: displayContent ? 0 : fromRect.minY
-                    )
                     .zIndex(2)
 
                 VMDButton(viewModel.closeButton) {
@@ -45,21 +41,30 @@ struct Screen2View: View {
                 .opacity(displayContent ? 1 : 0)
                 .zIndex(1)
 
+                VMDButton(viewModel.modalButton) {
+                    Text($0.text)
+                        .zIndex(1)
+                }
+
                 Spacer()
             }
+            .offset(
+                x: 0,
+                y: displayContent ? 0 : fromRect.minY
+            )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
             .background(displayContent ? Color.white : Color.clear)
-        }
-        .onAppear {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                displayContent = true
-            }
-        }
-        .onChange(of: navigationDismissTriggered) { newValue in
-            if newValue {
+            .onAppear {
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    displayContent = false
+                    displayContent = true
+                }
+            }
+            .onChange(of: navigationDismissTriggered) { newValue in
+                if newValue {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        displayContent = false
+                    }
                 }
             }
         }

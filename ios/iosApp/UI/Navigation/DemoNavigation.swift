@@ -31,7 +31,7 @@ private struct DemoNavigationModifier: ViewModifier {
                         viewModel.closeButton.actionBlock()
                     }
                 }
-            } buildNavigation: { _, route in
+            } buildNavigation: { routes, route in
                 let dismissCallback: () -> Void = {
                     navigationManager.poppedFrom(route: route)
                 }
@@ -41,7 +41,12 @@ private struct DemoNavigationModifier: ViewModifier {
                 case .screen2(let route):
                     return .fullScreenNotAnimated(screen: ViewModelHolder.screen2(navigationManager.createScreen2(route: route)), embedInNavigationView: false, onDismiss: dismissCallback, popDelayInSeconds: 0.3)
                 case .screen3(let route):
-                    return .sheet(screen: ViewModelHolder.screen3(navigationManager.createScreen3(route: route)), embedInNavigationView: true, onDismiss: dismissCallback)
+                    let viewModelHolder = ViewModelHolder.screen3(navigationManager.createScreen3(route: route))
+                    if routes.last?.name == DemoNavigationRouteScreen2.Companion().NAME {
+                        return .fullScreenCover(screen: viewModelHolder, embedInNavigationView: true, onDismiss: dismissCallback)
+                    } else {
+                        return .sheet(screen: viewModelHolder, embedInNavigationView: true, onDismiss: dismissCallback)
+                    }
                 case .dialog(let route):
                     return .fullScreenNotAnimated(screen: ViewModelHolder.dialog(navigationManager.createDialog(route: route)), embedInNavigationView: false, onDismiss: dismissCallback, popDelayInSeconds: 0.5)
                 }
