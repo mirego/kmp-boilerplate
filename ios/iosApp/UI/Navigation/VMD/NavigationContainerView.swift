@@ -8,33 +8,24 @@ struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Action: An
     let content: () -> Content
 
     var body: some View {
-        bodyContentWithNavigation
-            .fullScreenCoverNoAnimation(
-                isPresented: fullScreenNotAnimatedBinding,
-                content: { childView }
-            )
-    }
-
-    @ViewBuilder
-    private var bodyContentWithNavigation: some View {
         if embedInNavigationView {
             if #available(iOS 16, *) {
                 NavigationStack {
-                    bodyContent
+                    unwrappedBody
                 }
             } else {
                 NavigationView {
-                    bodyContent
+                    unwrappedBody
                 }
                 .navigationViewStyle(.stack)
             }
         } else {
-            bodyContent
+            unwrappedBody
         }
     }
 
     @ViewBuilder
-    private var bodyContent: some View {
+    private var unwrappedBody: some View {
         content()
             .sheet(
                 isPresented: sheetBinding,
@@ -49,6 +40,13 @@ struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Action: An
             .backportNavigationLink(isPresented: pushBinding) {
                 childView
             }
+            .background(
+                FullScreenNotAnimatedPresenter(
+                    isPresented: fullScreenNotAnimatedBinding,
+                    onDismiss: childOnDismiss,
+                    content: { childView }
+                )
+            )
             .environment(\.navigationDismissTriggered, navigateState.navigationDismissTriggered)
             .environment(\.presentedRouteName, navigateState.child?.route?.name)
     }
@@ -172,20 +170,6 @@ private extension View {
                 NavigationLink(destination: destination(), isActive: isPresented, label: EmptyView.init)
                     .hidden()
             )
-        }
-    }
-}
-
-private extension View {
-    func fullScreenCoverNoAnimation<Content>(
-        isPresented: Binding<Bool>,
-        @ViewBuilder content: @escaping () -> Content
-    ) -> some View where Content: View {
-        ZStack {
-            self
-            if isPresented.wrappedValue {
-                content()
-            }
         }
     }
 }

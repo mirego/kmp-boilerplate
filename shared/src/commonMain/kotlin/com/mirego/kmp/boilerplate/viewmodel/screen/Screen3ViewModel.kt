@@ -10,6 +10,4 @@ interface Screen3ViewModel: VMDViewModel {
     val closeButton: VMDButtonViewModel<VMDTextContent>
 
     val pushButton: VMDButtonViewModel<VMDTextContent>
-
-    val dialogButton: VMDButtonViewModel<VMDTextContent>
 }

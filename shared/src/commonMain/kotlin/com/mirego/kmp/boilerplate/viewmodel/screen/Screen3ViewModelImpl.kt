@@ -1,10 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel.screen
 
-import com.mirego.kmp.boilerplate.viewmodel.dialog.DialogButtonData
-import com.mirego.kmp.boilerplate.viewmodel.dialog.DialogNavigationData
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationRoute
-import com.mirego.kmp.boilerplate.viewmodel.tab.Tab1ViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithText
 import kotlinx.coroutines.CoroutineScope
@@ -28,27 +25,4 @@ class Screen3ViewModelImpl(
             navigationManager.push(DemoNavigationRoute.Screen1())
         }
     }
-
-    override val dialogButton = buttonWithText("Dialog") {
-        setAction {
-            navigationManager.push(DemoNavigationRoute.Dialog(buildDialogNavigationData()))
-        }
-    }
-
-    private fun buildDialogNavigationData() = DialogNavigationData(
-        title = "Test Dialog",
-        message = "Pick a choice",
-        buttons = listOf(
-            DialogButtonData(
-                id = "",
-                title = "Choice 1",
-                action = {}
-            ),
-            DialogButtonData(
-                id = "",
-                title = "Choice 2",
-                action = {}
-            )
-        )
-    )
 }
