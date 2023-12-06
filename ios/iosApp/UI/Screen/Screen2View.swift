@@ -43,8 +43,9 @@ struct Screen2View: View {
 
                 VMDButton(viewModel.modalButton) {
                     Text($0.text)
-                        .zIndex(1)
                 }
+                .opacity(displayContent ? 1 : 0)
+                .zIndex(1)
 
                 Spacer()
             }
