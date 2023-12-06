@@ -6,7 +6,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun Greeting(textFlow: Flow<String>) {
@@ -15,9 +14,8 @@ fun Greeting(textFlow: Flow<String>) {
     Text(text = text)
 }
 
-@Preview
+@Preview(showSystemUi = true)
 @Composable
 fun PreviewGreeting() {
-    val textFlow = flowOf("Hello, Android 31")
-    Greeting(textFlow)
+    Greeting(Greeting().greeting())
 }

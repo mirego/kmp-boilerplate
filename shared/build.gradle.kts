@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
-version = "0.1"
+version = project.property("versionName") as String
 
 kotlin {
     jvmToolchain(17)
@@ -69,10 +69,16 @@ android {
     compileSdk = 34
     defaultConfig {
         minSdk = 21
+
+        buildConfigField("Integer", "VERSION_CODE", "${project.property("versionCode")}")
+        buildConfigField("String", "VERSION_NAME", "\"$version\"")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 

@@ -1,5 +1,5 @@
 PODS:
-  - Shared (0.1)
+  - Shared (0.0.1)
   - SwiftLint (0.52.4)
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../shared"
 
 SPEC CHECKSUMS:
-  Shared: 9cee99d7ec6f327294a149403bec06a18fc5db29
+  Shared: 4d22deb908e7a9ed9a64ea2d3fcc53255a207993
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
 PODFILE CHECKSUM: 83ebf5d7b61ce65029f18160027c7392430ee27f
