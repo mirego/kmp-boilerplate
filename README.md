@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/5982196/202266973-6cec2e9e-627d-4a97-a664-eef04d1e07d3.png" width="600" />
   <p><br />This repository is the stable base upon which we build our Kotlin Multiplatform projects at Mirego.<br />We want to share it with the world so you can build awesome multiplatform applications too.</p>
   <a href="https://github.com/mirego/kmp-boilerplate/actions/workflows/ci.yml"><img src="https://github.com/mirego/kmp-boilerplate/actions/workflows/ci.yaml/badge.svg"/></a>
-  <a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-1.9.10-blue.svg?logo=kotlin"/></a>
+  <a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-1.9.20-blue.svg?logo=kotlin"/></a>
   <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg"/></a>
 </div>
 
@@ -16,7 +16,7 @@ our [blog post](https://shift.mirego.com/en/boilerplate-projects).
 This boilerplate comes with batteries included, you’ll find:
 
 - A brand new [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) project using
-  [Kotlin 1.9.10](https://github.com/JetBrains/kotlin/releases/tag/v1.9.10) and
+  [Kotlin 1.9.21](https://github.com/JetBrains/kotlin/releases/tag/v1.9.21) and
   the [Cocoapods Plugin](https://kotlinlang.org/docs/native-cocoapods.html)
 - An Android app using [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - An iOS app using [SwiftUI](https://developer.apple.com/xcode/swiftui)
@@ -36,9 +36,12 @@ This boilerplate comes with batteries included, you’ll find:
 ## Usage
 
 There are 2 ways to use this boilerplate:
-1. From the [`main` branch](https://github.com/mirego/kmp-boilerplate/tree/main) — This branch is the "lean" version, it does not contain any strongly opinionated
+
+1. From the [`main` branch](https://github.com/mirego/kmp-boilerplate/tree/main) — This branch is
+   the "lean" version, it does not contain any strongly opinionated
    libraries or tools. It is a good starting point if you want to build your own boilerplate.
-2. From the [`main-full` branch](https://github.com/mirego/kmp-boilerplate/tree/main-full) — This branch contains all the opinionated libraries and tools
+2. From the [`main-full` branch](https://github.com/mirego/kmp-boilerplate/tree/main-full) — This
+   branch contains all the opinionated libraries and tools
    described in the [Preferred libraries](#preferred-libraries) section. It is a good starting
    point if you want to quickly start building your app the _Mirego way_.
 
@@ -97,7 +100,12 @@ started:
 
 ## OWASP Dependency-Check
 
-[OWASP Dependency-Check](http://jeremylong.github.io/DependencyCheck/index.html) is installed as a Gradle plugin to scan your project to identify the use of known vulnerable components. It mainly checks for vulnerabilities in Gradle dependencies, but if [bundle-audit](https://github.com/rubysec/bundler-audit) is present on the system, it will also scan the Ruby Gems dependencies. It also has the capability to scan for Cocoapods/Swift Package Manager dependencies if executed on a macOS system.
+[OWASP Dependency-Check](http://jeremylong.github.io/DependencyCheck/index.html) is installed as a
+Gradle plugin to scan your project to identify the use of known vulnerable components. It mainly
+checks for vulnerabilities in Gradle dependencies, but
+if [bundle-audit](https://github.com/rubysec/bundler-audit) is present on the system, it will also
+scan the Ruby Gems dependencies. It also has the capability to scan for Cocoapods/Swift Package
+Manager dependencies if executed on a macOS system.
 
 ## License
 
