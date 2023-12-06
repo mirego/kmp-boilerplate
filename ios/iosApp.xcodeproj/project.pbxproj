@@ -29,6 +29,8 @@
 		E129C81E2B1F65EB00429558 /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C81D2B1F65EB00429558 /* NavigationState.swift */; };
 		E129C8202B1F665200429558 /* NavigationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C81F2B1F665200429558 /* NavigationContainerView.swift */; };
 		E129C8222B1F66B700429558 /* NavigationDismissTriggeredKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C8212B1F66B700429558 /* NavigationDismissTriggeredKey.swift */; };
+		E129C8292B1FC61B00429558 /* SwiftUIUtils in Frameworks */ = {isa = PBXBuildFile; productRef = E129C8282B1FC61B00429558 /* SwiftUIUtils */; };
+		E129C82B2B20B9A900429558 /* NavigationTransitionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E129C82A2B20B9A900429558 /* NavigationTransitionData.swift */; };
 		E193C5602B16600000803102 /* Tab1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C55F2B16600000803102 /* Tab1View.swift */; };
 		E193C5622B1660AC00803102 /* Tab2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5612B1660AC00803102 /* Tab2View.swift */; };
 		E193C56A2B1681D800803102 /* Screen1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5692B1681D800803102 /* Screen1View.swift */; };
@@ -62,6 +64,7 @@
 		E129C81D2B1F65EB00429558 /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationState.swift; sourceTree = "<group>"; };
 		E129C81F2B1F665200429558 /* NavigationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContainerView.swift; sourceTree = "<group>"; };
 		E129C8212B1F66B700429558 /* NavigationDismissTriggeredKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDismissTriggeredKey.swift; sourceTree = "<group>"; };
+		E129C82A2B20B9A900429558 /* NavigationTransitionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTransitionData.swift; sourceTree = "<group>"; };
 		E193C55F2B16600000803102 /* Tab1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab1View.swift; sourceTree = "<group>"; };
 		E193C5612B1660AC00803102 /* Tab2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab2View.swift; sourceTree = "<group>"; };
 		E193C5692B1681D800803102 /* Screen1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen1View.swift; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E129C8292B1FC61B00429558 /* SwiftUIUtils in Frameworks */,
 				9B8ACFDB4E332DFCA8B97CBB /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,6 +229,7 @@
 				E129C81A2B1F530500429558 /* VMD */,
 				E129C80C2B1A0FB200429558 /* DemoNavigation.swift */,
 				E129C8182B1F52FD00429558 /* DialogTransitionView.swift */,
+				E129C82A2B20B9A900429558 /* NavigationTransitionData.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -259,6 +264,9 @@
 			dependencies = (
 			);
 			name = iosApp;
+			packageProductDependencies = (
+				E129C8282B1FC61B00429558 /* SwiftUIUtils */,
+			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
 			productType = "com.apple.product-type.application";
@@ -287,6 +295,9 @@
 				Base,
 			);
 			mainGroup = 7555FF72242A565900829871;
+			packageReferences = (
+				E129C8272B1FC61B00429558 /* XCRemoteSwiftPackageReference "swiftui-utils" */,
+			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -400,6 +411,7 @@
 				E129C8102B1A322500429558 /* DialogView.swift in Sources */,
 				E129C8202B1F665200429558 /* NavigationContainerView.swift in Sources */,
 				E193C56A2B1681D800803102 /* Screen1View.swift in Sources */,
+				E129C82B2B20B9A900429558 /* NavigationTransitionData.swift in Sources */,
 				E129C8192B1F52FD00429558 /* DialogTransitionView.swift in Sources */,
 				89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */,
 				89011D4F2AE9A7340073544B /* AppInitializer.swift in Sources */,
@@ -603,6 +615,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E129C8272B1FC61B00429558 /* XCRemoteSwiftPackageReference "swiftui-utils" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mirego/swiftui-utils";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E129C8282B1FC61B00429558 /* SwiftUIUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E129C8272B1FC61B00429558 /* XCRemoteSwiftPackageReference "swiftui-utils" */;
+			productName = SwiftUIUtils;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7555FF73242A565900829871 /* Project object */;
 }

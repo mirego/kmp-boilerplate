@@ -48,6 +48,7 @@ struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Action: An
                 )
             )
             .environment(\.navigationDismissTriggered, navigateState.navigationDismissTriggered)
+            .environment(\.presentedRouteName, navigateState.child?.route?.name)
     }
 
     private var embedInNavigationView: Bool {

@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftui-utils",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mirego/swiftui-utils",
+      "state" : {
+        "revision" : "6922edd4e45f861914565f5292e10065db10f2d9",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}

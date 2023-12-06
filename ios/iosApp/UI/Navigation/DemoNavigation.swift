@@ -10,6 +10,8 @@ extension View {
 private struct DemoNavigationModifier: ViewModifier {
     let navigationManager: DemoNavigationManager
 
+    @EnvironmentObject private var navigationTransitionState: NavigationTransitionDataState
+
     @Environment(\.openURL) private var openURL
 
     func body(content: Content) -> some View {
@@ -19,7 +21,7 @@ private struct DemoNavigationModifier: ViewModifier {
                 case .screen1(let viewModel):
                     Screen1View(viewModel: viewModel)
                 case .screen2(let viewModel):
-                    Screen2View(viewModel: viewModel)
+                    Screen2View(viewModel: viewModel, fromRect: navigationTransitionState.screen2Data() ?? .zero)
                 case .screen3(let viewModel):
                     Screen3View(viewModel: viewModel)
                 case .dialog(let viewModel):
@@ -37,7 +39,7 @@ private struct DemoNavigationModifier: ViewModifier {
                 case .screen1(let route):
                     return .push(screen: ViewModelHolder.screen1(navigationManager.createScreen1(route: route)), onDismiss: dismissCallback)
                 case .screen2(let route):
-                    return .fullScreenCover(screen: ViewModelHolder.screen2(navigationManager.createScreen2(route: route)), embedInNavigationView: false, onDismiss: dismissCallback)
+                    return .fullScreenNotAnimated(screen: ViewModelHolder.screen2(navigationManager.createScreen2(route: route)), embedInNavigationView: false, onDismiss: dismissCallback, popDelayInSeconds: 0.3)
                 case .screen3(let route):
                     return .sheet(screen: ViewModelHolder.screen3(navigationManager.createScreen3(route: route)), embedInNavigationView: true, onDismiss: dismissCallback)
                 case .dialog(let route):
