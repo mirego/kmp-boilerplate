@@ -10,15 +10,15 @@ interface Platform {
 
 data class Locale(
     val languageCode: String,
-    val regionCode: String?
+    val regionCode: String?,
 )
 
 data class System(
     val name: String,
-    val version: String
+    val version: String,
 )
 
 data class Version(
     val name: String,
-    val code: Int
+    val code: Int,
 )

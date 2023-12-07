@@ -1,5 +1,11 @@
 @file:Suppress("UNUSED_VARIABLE")
 
+import co.touchlab.skie.configuration.DefaultArgumentInterop
+import co.touchlab.skie.configuration.EnumInterop
+import co.touchlab.skie.configuration.ExperimentalFeatures
+import co.touchlab.skie.configuration.FlowInterop
+import co.touchlab.skie.configuration.SealedInterop
+import co.touchlab.skie.configuration.SuspendInterop
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
@@ -8,6 +14,7 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.android.library)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.skie)
 }
 
 version = project.property("versionName") as String
@@ -48,6 +55,7 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.skie.configuration.annotations)
                 api(libs.konnectivity)
             }
         }
@@ -62,6 +70,8 @@ kotlin {
         androidMain {
             dependencies {
                 implementation(libs.androidx.startup.runtime)
+                api(libs.androidx.lifecycle.runtime.ktx)
+                api(libs.androidx.lifecycle.viewmodel.compose)
             }
         }
     }
@@ -97,5 +107,27 @@ ktlint {
     enableExperimentalRules.set(true)
     filter {
         exclude { element -> element.file.path.contains("generated/") }
+    }
+}
+
+skie {
+    analytics {
+        enabled.set(false)
+    }
+    features {
+        group {
+            DefaultArgumentInterop.Enabled(false)
+            EnumInterop.Enabled(false)
+            ExperimentalFeatures.Enabled(false)
+            FlowInterop.Enabled(false)
+            SealedInterop.Enabled(false)
+            SuspendInterop.Enabled(false)
+        }
+        group("com.mirego.kmp.boilerplate.viewmodels") {
+            EnumInterop.Enabled(true)
+            FlowInterop.Enabled(true)
+            SealedInterop.Enabled(true)
+            SuspendInterop.Enabled(true)
+        }
     }
 }

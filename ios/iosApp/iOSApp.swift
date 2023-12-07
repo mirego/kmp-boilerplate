@@ -1,10 +1,15 @@
+import Shared
 import SwiftUI
 
 @main
 struct IOSApp: App {
-	var body: some Scene {
-		WindowGroup {
-			GreetingView()
-		}
-	}
+    let viewModelFactory = ViewModelFactory()
+
+    var body: some Scene {
+        WindowGroup {
+            ExampleView(
+                viewModel: viewModelFactory.example()
+            )
+        }
+    }
 }

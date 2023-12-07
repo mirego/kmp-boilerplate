@@ -59,5 +59,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.material)
 
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.startup.runtime)
 }

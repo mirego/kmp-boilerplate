@@ -5,8 +5,9 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.native.cocoapods) apply false
-    alias(libs.plugins.serialization) apply false
     alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.serialization) apply false
+    alias(libs.plugins.skie) apply false
 
     alias(libs.plugins.owasp.dependencycheck)
 }
