@@ -81,9 +81,10 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
-    implementation(libs.koin.androidx.compose.navigation)
     implementation(libs.trikot.viewmodels.databinding)
     implementation(libs.trikot.vmd.compose)
+    implementation(libs.compose.utils)
 }

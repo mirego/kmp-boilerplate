@@ -15,7 +15,7 @@ struct Screen1View: View {
 
     var body: some View {
         VStack(spacing: 32) {
-            Text(viewModel.title)
+            VMDText(viewModel.title)
 
             Spacer()
             

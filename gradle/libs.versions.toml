@@ -20,6 +20,9 @@ okio = "3.6.0"
 owasp = "8.4.2"
 trikot = "5.2.0"
 skie = "0.5.5"
+androidx-navigation = "2.7.5"
+androidx-lifecycle = "2.6.2"
+compose-utils = "1.0.1-dev47"
 
 [libraries]
 android-splash = { module = "androidx.core:core-splashscreen", version.ref = "android-splash" }
@@ -29,13 +32,15 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle"}
 apollo-runtime = { group = "com.apollographql.apollo3", name = "apollo-runtime" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin_ksp" }
 ksp-koinCompiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin_ksp" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-androidx-compose" }
-koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin-androidx-compose" }
+#koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-androidx-compose" }
+#koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin-androidx-compose" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
@@ -51,6 +56,7 @@ trikot-vmd-annotations = { module = "com.mirego.trikot:viewmodels-annotations", 
 trikot-vmd-annotations-compiler = { module = "com.mirego.trikot:viewmodels-declarative-compiler-flow", version.ref = "trikot" }
 
 skie = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie"}
+compose-utils = { module = "com.mirego.compose:utils", version.ref = "compose-utils" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

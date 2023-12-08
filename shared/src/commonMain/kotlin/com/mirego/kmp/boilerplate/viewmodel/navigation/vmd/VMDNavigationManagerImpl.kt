@@ -21,6 +21,10 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
     override val navigationItemList: Flow<List<NavigationItem<ROUTE>>>
         get() = internalRouteList
 
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ROUTE> findRoute(uniqueId: String): T? =
+        internalRouteList.value.firstOrNull { it.route.uniqueId == uniqueId }?.route as? T
+
     override fun push(route: ROUTE, prioritizeParent: Boolean) {
         if (prioritizeParent && parentNavigationManager != null) {
             parentNavigationManager.push(route, prioritizeParent = prioritizeParent)
@@ -36,7 +40,7 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
         }
         internalRouteList.value = newList
         listener?.push(route)
-        println("HUGO DEBUG: pushing ${route.name} count: ${internalRouteList.value.size}")
+        println("DEBUG: pushing ${route.name} id:${route.uniqueId} count: ${internalRouteList.value.size}")
     }
 
     override fun pop() {
@@ -45,10 +49,13 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
 
     private fun internalPop(callListener: Boolean) {
         val newList = internalRouteList.value.toMutableList().apply {
-            removeLastOrNull()?.coroutineScope?.cancel()
+            removeLastOrNull()?.coroutineScope?.let {
+                println("Cancelling $it")
+                it.cancel()
+            }
         }
         internalRouteList.value = newList
-        println("HUGO DEBUG: popping new count: ${internalRouteList.value.size}")
+        println("DEBUG: popping new count: ${internalRouteList.value.size}")
 
         if (callListener) {
             listener?.pop()
@@ -65,11 +72,15 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
 
     override fun popToRoot() {
         val firstItem = internalRouteList.value.firstOrNull() ?: return
-        internalPopTo(popType = PopType.ById(firstItem.route.uniqueId), inclusive = true, callListener = true)
+        internalPopTo(
+            popType = PopType.ById(firstItem.route.uniqueId),
+            inclusive = true,
+            callListener = true
+        )
     }
 
     private fun internalPopTo(popType: PopType, inclusive: Boolean, callListener: Boolean) {
-        println("HUGO DEBUG: internalPopTo start count: ${internalRouteList.value.size}")
+        println("DEBUG: internalPopTo start count: ${internalRouteList.value.size}")
         val navigationItem = internalRouteList.value
             .lastOrNull { item ->
                 when (popType) {
@@ -86,8 +97,9 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
                 item.coroutineScope.cancel()
             }
 
-            internalRouteList.value = internalRouteList.value.slice(0..< effectiveIndex).toMutableList()
-            println("HUGO DEBUG: internalPopTo final count: ${internalRouteList.value.size}")
+            internalRouteList.value =
+                internalRouteList.value.slice(0..<effectiveIndex).toMutableList()
+            println("DEBUG: internalPopTo final count: ${internalRouteList.value.size}")
             if (callListener) {
                 listener?.popTo(navigationItem.route, inclusive = inclusive)
             }
@@ -107,7 +119,11 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
             it.route.uniqueId == route.uniqueId
         }
         if (routeIndex != -1) {
-            internalPopTo(popType = PopType.ById(route.uniqueId), inclusive = true, callListener = false)
+            internalPopTo(
+                popType = PopType.ById(route.uniqueId),
+                inclusive = true,
+                callListener = false
+            )
         }
     }
 
@@ -117,6 +133,6 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
 }
 
 private sealed interface PopType {
-    data class ById(val id: String): PopType
-    data class ByName(val name: String): PopType
+    data class ById(val id: String) : PopType
+    data class ByName(val name: String) : PopType
 }

@@ -6,6 +6,7 @@ abstract class VMDNavigationManager<ROUTE : VMDNavigationRoute, ACTION> {
     abstract val navigationItemList: Flow<List<NavigationItem<ROUTE>>>
 
     var listener: VMDNavigationManagerListener<ROUTE>? = null
+    abstract fun <T : ROUTE> findRoute(uniqueId: String): T?
 
     abstract fun push(route: ROUTE, prioritizeParent: Boolean = false)
     abstract fun pop()

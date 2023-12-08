@@ -42,7 +42,7 @@ private struct DemoNavigationModifier: ViewModifier {
                     return .fullScreenNotAnimated(screen: ViewModelHolder.screen2(navigationManager.createScreen2(route: route)), embedInNavigationView: false, onDismiss: dismissCallback, popDelayInSeconds: 0.3)
                 case .screen3(let route):
                     let viewModelHolder = ViewModelHolder.screen3(navigationManager.createScreen3(route: route))
-                    if routes.last?.name == DemoNavigationRouteScreen2.Companion().NAME {
+                    if routes.last?.name == DemoNavigationRouteName.screen2.name {
                         return .fullScreenCover(screen: viewModelHolder, embedInNavigationView: true, onDismiss: dismissCallback)
                     } else {
                         return .sheet(screen: viewModelHolder, embedInNavigationView: true, onDismiss: dismissCallback)
@@ -56,7 +56,7 @@ private struct DemoNavigationModifier: ViewModifier {
                     if let url = URL(string: action.url) {
                         openURL(url)
                     }
-                case .openSetting:
+                case .openSettings:
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         openURL(url)
                     }

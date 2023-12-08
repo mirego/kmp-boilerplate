@@ -1,54 +1,39 @@
 package com.mirego.kmp.boilerplate.viewmodel.navigation
 
 import com.mirego.kmp.boilerplate.viewmodel.dialog.DialogNavigationData
+import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationRouteName.*
+import com.mirego.kmp.boilerplate.viewmodel.navigation.vmd.UUIDGenerator
 import com.mirego.kmp.boilerplate.viewmodel.navigation.vmd.VMDNavigationRoute
 import com.mirego.trikot.foundation.concurrent.AtomicReference
 import com.mirego.trikot.foundation.concurrent.setOrThrow
 
-sealed interface DemoNavigationRoute : VMDNavigationRoute {
-    class Screen1: DemoNavigationRoute {
-        companion object {
-            const val NAME = "Screen1"
-        }
+enum class DemoNavigationRouteName {
+    SCREEN1,
+    SCREEN2,
+    SCREEN3,
+    DIALOG
+}
 
-        override val name: String = NAME
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+sealed interface DemoNavigationRoute : VMDNavigationRoute {
+    class Screen1 : DemoNavigationRoute {
+        override val name: String = SCREEN1.name
+        override val uniqueId: String = UUIDGenerator.uuid()
     }
 
     class Screen2 : DemoNavigationRoute {
-        companion object {
-            const val NAME = "Screen2"
-        }
-
-        override val name: String = NAME
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+        override val name: String = SCREEN2.name
+        override val uniqueId: String = UUIDGenerator.uuid()
     }
 
-    class Screen3: DemoNavigationRoute {
-        companion object {
-            const val NAME = "Screen3"
-        }
-
-        override val name: String = NAME
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
+    class Screen3 : DemoNavigationRoute {
+        override val name: String = SCREEN3.name
+        override val uniqueId: String = UUIDGenerator.uuid()
     }
 
     data class Dialog(
         val navigationData: DialogNavigationData
     ) : DemoNavigationRoute {
-        companion object {
-            const val NAME = "Dialog"
-        }
-
-        override val name: String = NAME
-        override val uniqueId: String = UniqueIdGenerator.generateUniqueId()
-    }
-}
-
-private object UniqueIdGenerator {
-    private val id = AtomicReference<Long>(0)
-    fun generateUniqueId(): String {
-        id.setOrThrow(id.value + 1)
-        return id.value.toString()
+        override val name: String = DIALOG.name
+        override val uniqueId: String = UUIDGenerator.uuid()
     }
 }

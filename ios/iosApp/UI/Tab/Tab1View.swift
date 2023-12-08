@@ -62,7 +62,7 @@ struct Tab1View: View {
                 .readGlobalFrame {
                     navigationTransitionState.updateScreen2Data($0)
                 }
-                .opacity(presentedRouteName == DemoNavigationRouteScreen2.Companion().NAME ? 0 : 1)
+                .opacity(presentedRouteName == DemoNavigationRouteName.screen2.name ? 0 : 1)
 
             Spacer()
         }

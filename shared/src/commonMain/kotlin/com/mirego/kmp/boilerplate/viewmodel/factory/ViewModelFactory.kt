@@ -15,7 +15,7 @@ interface ViewModelFactory {
 
     fun createTab2(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope): Tab2ViewModel
 
-    fun createScreen1(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope): Screen1ViewModel
+    fun createScreen1(uniqueId :String, navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope): Screen1ViewModel
 
     fun createScreen2(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope): Screen2ViewModel
 

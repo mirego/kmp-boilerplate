@@ -4,15 +4,26 @@ import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationRoute
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
 import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithText
+import com.mirego.trikot.viewmodels.declarative.viewmodel.text
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 
 @Factory
 class Screen1ViewModelImpl(
+    uniqueId: String,
     private val navigationManager: DemoNavigationManager,
     coroutineScope: CoroutineScope
 ) : Screen1ViewModel, VMDViewModelImpl(coroutineScope) {
-    override val title = "Screen 1"
+
+    private val counter = MutableStateFlow(0)
+
+    override val title = text().apply {
+        bindText(counter.map { "Screen 1 - $uniqueId\n$it" })
+    }
 
     override val closeButton = buttonWithText("Close") {
         setAction {
@@ -47,6 +58,15 @@ class Screen1ViewModelImpl(
     override val popToScreen3Exclusive = buttonWithText("Pop to screen 3 exclusive") {
         setAction {
             navigationManager.popToName(DemoNavigationRoute.Screen3().name, inclusive = false)
+        }
+    }
+
+    init {
+        coroutineScope.launch {
+            while (true) {
+                delay(1000)
+                counter.value = counter.value + 1
+            }
         }
     }
 }

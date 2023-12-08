@@ -31,9 +31,9 @@ class ViewModelFactoryImpl : ViewModelFactory, KoinComponent {
         parametersOf(navigationManager, coroutineScope)
     }
 
-    override fun createScreen1(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope): Screen1ViewModel {
+    override fun createScreen1(uniqueId:String, navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope): Screen1ViewModel {
         return get {
-            parametersOf(navigationManager, coroutineScope)
+            parametersOf(uniqueId, navigationManager, coroutineScope)
         }
     }
 

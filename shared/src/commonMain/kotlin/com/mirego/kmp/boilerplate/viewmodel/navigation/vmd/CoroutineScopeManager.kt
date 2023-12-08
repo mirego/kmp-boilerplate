@@ -1,7 +1,6 @@
 package com.mirego.kmp.boilerplate.viewmodel.navigation.vmd
 
 import com.mirego.trikot.viewmodels.declarative.util.CoroutineScopeProvider
-import org.koin.core.component.KoinComponent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 

@@ -16,7 +16,7 @@ class DemoNavigationManagerImpl(
     private val viewModelFactory: ViewModelFactory by inject()
 
     override fun createScreen1(route: DemoNavigationRoute.Screen1) =
-        viewModelFactory.createScreen1(this, getCoroutineScope(route))
+        viewModelFactory.createScreen1(route.uniqueId, this, getCoroutineScope(route))
 
     override fun createScreen2(route: DemoNavigationRoute.Screen2) =
         viewModelFactory.createScreen2(this, getCoroutineScope(route))

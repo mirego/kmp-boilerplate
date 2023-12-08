@@ -47,9 +47,9 @@ class ViewModelFactoryPreview(
 
     override fun createTab2(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope) = createTab2()
 
-    fun createScreen1() = Screen1ViewModelImpl(navigationManager, coroutineScopeManager.createCoroutineScope())
+    fun createScreen1() = Screen1ViewModelImpl("1", navigationManager, coroutineScopeManager.createCoroutineScope())
 
-    override fun createScreen1(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope) = createScreen1()
+    override fun createScreen1(uniqueId:String, navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope) = createScreen1()
 
     fun createScreen2() = Screen2ViewModelImpl(navigationManager, coroutineScopeManager.createCoroutineScope())
 

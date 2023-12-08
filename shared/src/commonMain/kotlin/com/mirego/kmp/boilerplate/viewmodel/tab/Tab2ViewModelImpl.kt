@@ -29,7 +29,7 @@ class Tab2ViewModelImpl(
 
     override val openSettings= buttonWithText("Open settings") {
         setAction {
-            navigationManager.handleAction(NavigationAction.OpenSetting)
+            navigationManager.handleAction(NavigationAction.OpenSettings)
         }
     }
 }

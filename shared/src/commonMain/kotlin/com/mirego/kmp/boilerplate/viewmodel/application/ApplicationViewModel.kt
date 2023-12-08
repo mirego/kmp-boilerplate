@@ -3,7 +3,6 @@ package com.mirego.kmp.boilerplate.viewmodel.application
 import com.mirego.kmp.boilerplate.viewmodel.navigation.DemoNavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.tab.Tab1ViewModel
 import com.mirego.kmp.boilerplate.viewmodel.tab.Tab2ViewModel
-import com.mirego.trikot.viewmodels.declarative.Published
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModel
 
 interface ApplicationViewModel : VMDViewModel {

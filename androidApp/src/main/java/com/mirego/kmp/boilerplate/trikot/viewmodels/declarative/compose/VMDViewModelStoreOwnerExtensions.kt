@@ -1,22 +1,29 @@
 package com.mirego.kmp.boilerplate.trikot.viewmodels.declarative.compose
 
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModel
 
 /**
- * Use this method to get the initial VMDViewModel. This will make sure that it survives Activity recreation by wrapping it in a androidx.lifecycle.ViewModel
+ * Use this Composable method to get any viewmodel and make sure they survive Activity recreation.
  */
-@Suppress("UNCHECKED_CAST")
-fun <VMD : VMDViewModel> ViewModelStoreOwner.getInitialViewModel(factory: () -> VMD): VMD =
-    ViewModelProvider(
-        viewModelStore,
-        ViewModelProviderFactory(factory)
-    )[ViewModelWrapper::class.java].wrappedViewModel as VMD
+@Composable
+inline fun <reified VMD : VMDViewModel> vmdViewModel(crossinline factory: () -> VMD): VMD {
+    val wrapper: ViewModelWrapper<VMD> = viewModel(
+        factory = ViewModelProviderFactory {
+            factory()
+        },
+        key = VMD::class.qualifiedName
+    )
+    return wrapper.wrappedViewModel
+}
 
 @Suppress("UNCHECKED_CAST")
-private class ViewModelProviderFactory<VMD : VMDViewModel>(private val factory: () -> VMD) : ViewModelProvider.Factory {
+class ViewModelProviderFactory<VMD : VMDViewModel>(private val factory: () -> VMD) :
+    ViewModelProvider.Factory {
     override fun <VM : ViewModel> create(modelClass: Class<VM>): VM {
         return ViewModelWrapper(factory()) as VM
     }
