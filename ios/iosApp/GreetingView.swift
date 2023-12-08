@@ -11,5 +11,7 @@ struct GreetingView: View {
 }
 
 #Preview {
-    GreetingView()
+    PreviewContext {
+        GreetingView()
+    }
 }

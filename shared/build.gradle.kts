@@ -32,6 +32,9 @@ kotlin {
         framework {
             baseName = "Shared"
         }
+        ios.deploymentTarget = "15.0"
+
+        pod("Reachability", "~> 3.2")
     }
 
     sourceSets {
@@ -45,6 +48,7 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
+                api(libs.konnectivity)
             }
         }
 
@@ -52,6 +56,12 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotlinx.coroutines.test)
+            }
+        }
+
+        androidMain {
+            dependencies {
+                implementation(libs.androidx.startup.runtime)
             }
         }
     }

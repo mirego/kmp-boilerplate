@@ -8,8 +8,8 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'Project summary'
     spec.vendored_frameworks      = 'build/cocoapods/framework/Shared.framework'
     spec.libraries                = 'c++'
-                
-                
+    spec.ios.deployment_target = '15.0'
+    spec.dependency 'Reachability', '~> 3.2'
                 
     if !Dir.exist?('build/cocoapods/framework/Shared.framework') || Dir.empty?('build/cocoapods/framework/Shared.framework')
         raise "

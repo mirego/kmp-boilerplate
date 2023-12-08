@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.mirego.kmp.boilerplate.previews.PreviewContext
 import kotlinx.coroutines.flow.Flow
 
 @Composable
@@ -17,5 +18,7 @@ fun Greeting(textFlow: Flow<String>) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewGreeting() {
-    Greeting(Greeting().greeting())
+    PreviewContext {
+        Greeting(Greeting().greeting())
+    }
 }
