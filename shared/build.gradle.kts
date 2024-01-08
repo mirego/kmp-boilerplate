@@ -4,7 +4,9 @@ import co.touchlab.skie.configuration.DefaultArgumentInterop
 import co.touchlab.skie.configuration.EnumInterop
 import co.touchlab.skie.configuration.ExperimentalFeatures
 import co.touchlab.skie.configuration.FlowInterop
+import co.touchlab.skie.configuration.FunctionInterop
 import co.touchlab.skie.configuration.SealedInterop
+import co.touchlab.skie.configuration.SuppressSkieWarning
 import co.touchlab.skie.configuration.SuspendInterop
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
@@ -118,13 +120,19 @@ skie {
         group {
             DefaultArgumentInterop.Enabled(false)
             EnumInterop.Enabled(false)
+            EnumInterop.LegacyCaseName(true)
             ExperimentalFeatures.Enabled(false)
             FlowInterop.Enabled(false)
+            FunctionInterop.FileScopeConversion.Enabled(false)
+            FunctionInterop.LegacyName(true)
             SealedInterop.Enabled(false)
+            SealedInterop.ExportEntireHierarchy(false)
+            SuppressSkieWarning.NameCollision(false)
             SuspendInterop.Enabled(false)
         }
         group("com.mirego.kmp.boilerplate.viewmodels") {
             EnumInterop.Enabled(true)
+            EnumInterop.LegacyCaseName(false)
             FlowInterop.Enabled(true)
             SealedInterop.Enabled(true)
             SuspendInterop.Enabled(true)
