@@ -1,15 +1,17 @@
 [versions]
 androidComposeCompiler = "1.5.6"
-androidGradlePlugin = "8.2.0"
-androidxStartup = "1.1.1"
-androidxActivityCompose = "1.8.1"
+androidGradlePlugin = "8.2.1"
+androidxActivityCompose = "1.8.2"
 androidxAppcompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
+androidxLifecycle = "2.6.2"
+androidxStartup = "1.1.1"
 konnectivity = "0.3.0"
 kotlin = "1.9.21"
 kotlinxCoroutines = "1.7.3"
-kotlinxSerialization = "1.6.0"
-ktlint = "11.6.1"
+kotlinxSerialization = "1.6.2"
+ktlint = "12.0.2"
+skie = "0.6.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
@@ -18,11 +20,15 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "androidxStartup" }
 konnectivity = { module = "com.mirego:konnectivity", version.ref = "konnectivity" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+skie-configuration-annotations = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -33,6 +39,7 @@ kotlin-native-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", versio
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 owasp-dependencycheck = { id = "org.owasp.dependencycheck", version = "8.4.2" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+skie = { id = "co.touchlab.skie", version.ref = "skie" }
 
 [bundles]
 
