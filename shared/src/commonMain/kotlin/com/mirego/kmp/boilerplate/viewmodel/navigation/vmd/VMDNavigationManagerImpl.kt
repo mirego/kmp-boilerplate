@@ -64,7 +64,6 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
 
     private fun internalPopTo(popType: PopType, inclusive: Boolean, callListener: Boolean) {
         singleThreadCoroutine.launch {
-            println("HUGO DEBUG internalPopTo...")
             val navigationItem = internalRouteList
                 .lastOrNull { item ->
                     when (popType) {
@@ -74,14 +73,9 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
                 } ?: return@launch
             val index = internalRouteList.indexOf(navigationItem)
 
-            println("HUGO DEBUG internalPopTo index: $index")
-
             if (index != -1 && internalRouteList.isNotEmpty()) {
                 val effectiveIndex = index + if (inclusive) 0 else 1
-                println("HUGO DEBUG internalPopTo effectiveIndex: $effectiveIndex")
-                println("HUGO DEBUG list before: $internalRouteList")
                 internalRouteList.removeAll(internalRouteList.takeLast(internalRouteList.size - effectiveIndex))
-                println("HUGO DEBUG list after: $internalRouteList")
                 if (callListener) {
                     listener?.popTo(navigationItem, inclusive = inclusive)
                 }

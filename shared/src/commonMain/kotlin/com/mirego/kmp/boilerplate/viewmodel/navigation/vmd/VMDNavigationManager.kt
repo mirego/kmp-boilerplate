@@ -2,6 +2,7 @@ package com.mirego.kmp.boilerplate.viewmodel.navigation.vmd
 
 abstract class VMDNavigationManager<ROUTE : VMDNavigationRoute, ACTION> {
     abstract fun currentRoutes(): List<ROUTE>
+
     abstract fun <T : ROUTE> findRoute(uniqueId: String): T?
 
     abstract fun push(route: ROUTE, locally: Boolean = false)
