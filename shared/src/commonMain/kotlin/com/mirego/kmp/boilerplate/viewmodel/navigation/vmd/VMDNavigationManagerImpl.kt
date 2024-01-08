@@ -4,43 +4,33 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-
-data class NavigationItem<ROUTE : VMDNavigationRoute>(
-    val route: ROUTE,
-    val coroutineScope: CoroutineScope
-)
+import kotlinx.coroutines.launch
 
 open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
-    private val coroutineScopeManager: CoroutineScopeManager,
+    protected val coroutineScopeManager: CoroutineScopeManager,
     private val parentNavigationManager: VMDNavigationManager<ROUTE, ACTION>? = null
 ) : VMDNavigationManager<ROUTE, ACTION>() {
 
-    private val internalRouteList: MutableStateFlow<List<NavigationItem<ROUTE>>> =
-        MutableStateFlow(emptyList())
+    private val singleThreadCoroutine = coroutineScopeManager.createMainThreadCoroutineScope()
 
-    override val navigationItemList: Flow<List<NavigationItem<ROUTE>>>
-        get() = internalRouteList
+    private val internalRouteList: MutableList<ROUTE> = mutableListOf()
+
+    override fun currentRoutes() = internalRouteList
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ROUTE> findRoute(uniqueId: String): T? =
-        internalRouteList.value.firstOrNull { it.route.uniqueId == uniqueId }?.route as? T
+        internalRouteList.firstOrNull { it.uniqueId == uniqueId } as? T
 
-    override fun push(route: ROUTE, prioritizeParent: Boolean) {
-        if (prioritizeParent && parentNavigationManager != null) {
-            parentNavigationManager.push(route, prioritizeParent = prioritizeParent)
-            return
-        }
+    override fun push(route: ROUTE, locally: Boolean) {
+        singleThreadCoroutine.launch {
+            if (!locally && parentNavigationManager != null) {
+                parentNavigationManager.push(route, locally = locally)
+                return@launch
+            }
 
-        val newItem = NavigationItem(
-            route = route,
-            coroutineScope = coroutineScopeManager.createCoroutineScope()
-        )
-        val newList = internalRouteList.value.toMutableList().apply {
-            add(newItem)
+            internalRouteList.add(route)
+            listener?.push(route)
         }
-        internalRouteList.value = newList
-        listener?.push(route)
-        println("DEBUG: pushing ${route.name} id:${route.uniqueId} count: ${internalRouteList.value.size}")
     }
 
     override fun pop() {
@@ -48,17 +38,12 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
     }
 
     private fun internalPop(callListener: Boolean) {
-        val newList = internalRouteList.value.toMutableList().apply {
-            removeLastOrNull()?.coroutineScope?.let {
-                println("Cancelling $it")
-                it.cancel()
-            }
-        }
-        internalRouteList.value = newList
-        println("DEBUG: popping new count: ${internalRouteList.value.size}")
+        singleThreadCoroutine.launch {
+            internalRouteList.removeLastOrNull()
 
-        if (callListener) {
-            listener?.pop()
+            if (callListener) {
+                listener?.pop()
+            }
         }
     }
 
@@ -71,37 +56,35 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
     }
 
     override fun popToRoot() {
-        val firstItem = internalRouteList.value.firstOrNull() ?: return
-        internalPopTo(
-            popType = PopType.ById(firstItem.route.uniqueId),
-            inclusive = true,
-            callListener = true
-        )
+        singleThreadCoroutine.launch {
+            val firstItem = internalRouteList.firstOrNull() ?: return@launch
+            internalPopTo(popType = PopType.ById(firstItem.uniqueId), inclusive = true, callListener = true)
+        }
     }
 
     private fun internalPopTo(popType: PopType, inclusive: Boolean, callListener: Boolean) {
-        println("DEBUG: internalPopTo start count: ${internalRouteList.value.size}")
-        val navigationItem = internalRouteList.value
-            .lastOrNull { item ->
-                when (popType) {
-                    is PopType.ById -> item.route.uniqueId == popType.id
-                    is PopType.ByName -> item.route.name == popType.name
+        singleThreadCoroutine.launch {
+            println("HUGO DEBUG internalPopTo...")
+            val navigationItem = internalRouteList
+                .lastOrNull { item ->
+                    when (popType) {
+                        is PopType.ById -> item.uniqueId == popType.id
+                        is PopType.ByName -> item.name == popType.name
+                    }
+                } ?: return@launch
+            val index = internalRouteList.indexOf(navigationItem)
+
+            println("HUGO DEBUG internalPopTo index: $index")
+
+            if (index != -1 && internalRouteList.isNotEmpty()) {
+                val effectiveIndex = index + if (inclusive) 0 else 1
+                println("HUGO DEBUG internalPopTo effectiveIndex: $effectiveIndex")
+                println("HUGO DEBUG list before: $internalRouteList")
+                internalRouteList.removeAll(internalRouteList.takeLast(internalRouteList.size - effectiveIndex))
+                println("HUGO DEBUG list after: $internalRouteList")
+                if (callListener) {
+                    listener?.popTo(navigationItem, inclusive = inclusive)
                 }
-            } ?: return
-        val index = internalRouteList.value.indexOf(navigationItem)
-
-        if (index != -1 && internalRouteList.value.isNotEmpty()) {
-            val effectiveIndex = index + if (inclusive) 0 else 1
-            (effectiveIndex until internalRouteList.value.size).forEach {
-                val item = internalRouteList.value[it]
-                item.coroutineScope.cancel()
-            }
-
-            internalRouteList.value =
-                internalRouteList.value.slice(0..<effectiveIndex).toMutableList()
-            println("DEBUG: internalPopTo final count: ${internalRouteList.value.size}")
-            if (callListener) {
-                listener?.popTo(navigationItem.route, inclusive = inclusive)
             }
         }
     }
@@ -115,21 +98,15 @@ open class VMDNavigationManagerImpl<ROUTE : VMDNavigationRoute, ACTION>(
     }
 
     override fun poppedFrom(route: ROUTE) {
-        val routeIndex = internalRouteList.value.indexOfFirst {
-            it.route.uniqueId == route.uniqueId
-        }
-        if (routeIndex != -1) {
-            internalPopTo(
-                popType = PopType.ById(route.uniqueId),
-                inclusive = true,
-                callListener = false
-            )
+        singleThreadCoroutine.launch {
+            val routeIndex = internalRouteList.indexOfFirst {
+                it.uniqueId == route.uniqueId
+            }
+            if (routeIndex != -1) {
+                internalPopTo(popType = PopType.ById(route.uniqueId), inclusive = true, callListener = false)
+            }
         }
     }
-
-    protected fun getCoroutineScope(route: ROUTE): CoroutineScope = internalRouteList.value
-        .lastOrNull { it.route.uniqueId == route.uniqueId }
-        ?.coroutineScope ?: coroutineScopeManager.createCoroutineScope()
 }
 
 private sealed interface PopType {

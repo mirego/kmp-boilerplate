@@ -21,6 +21,6 @@ class Bootstrapper : KoinComponent {
     }
 
     fun applicationViewModel(): ApplicationViewModel = get {
-        parametersOf(coroutineScopeManager, coroutineScopeManager.createCoroutineScope(), DemoNavigationManagerImpl(coroutineScopeManager))
+        parametersOf(coroutineScopeManager, coroutineScopeManager.createMainThreadCoroutineScope(), DemoNavigationManagerImpl(coroutineScopeManager))
     }
 }

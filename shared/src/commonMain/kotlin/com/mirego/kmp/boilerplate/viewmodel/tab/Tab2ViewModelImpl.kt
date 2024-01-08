@@ -17,13 +17,13 @@ class Tab2ViewModelImpl(
 
     override val pushButton = buttonWithText("Push") {
         setAction {
-            navigationManager.push(DemoNavigationRoute.Screen1())
+            navigationManager.push(DemoNavigationRoute.Screen1(), locally = true)
         }
     }
 
     override val modalButton= buttonWithText("Modal") {
         setAction {
-            navigationManager.push(DemoNavigationRoute.Screen3(), prioritizeParent = true)
+            navigationManager.push(DemoNavigationRoute.Screen3())
         }
     }
 

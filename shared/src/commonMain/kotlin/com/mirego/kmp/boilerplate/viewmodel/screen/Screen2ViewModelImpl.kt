@@ -22,7 +22,7 @@ class Screen2ViewModelImpl(
 
     override val modalButton = buttonWithText("Modal") {
         setAction {
-            navigationManager.push(DemoNavigationRoute.Screen3(), prioritizeParent = true)
+            navigationManager.push(DemoNavigationRoute.Screen3())
         }
     }
 }

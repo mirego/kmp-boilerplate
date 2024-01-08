@@ -6,22 +6,30 @@ import Shared
     of VMDNavigationManagerListener to specific concrete types (VMDNavigationRoute).
     And this is why we have to cast the VMDNavigationRoute to Route in push and popTo methods
  */
-class NavigationState<ScreenData, Route: VMDNavigationRoute, Action: AnyObject>: VMDNavigationManagerListener<VMDNavigationRoute>, ObservableObject {
-    let navigation: NavigationType<ScreenData>
+class NavigationState<
+    ScreenData,
+    Route: VMDNavigationRoute,
+    Action: AnyObject,
+    NavModifier: ViewModifier
+>: VMDNavigationManagerListener<VMDNavigationRoute>, ObservableObject {
+
+    typealias NavigationStateTyped = NavigationState<ScreenData, Route, Action, NavModifier>
+
+    let navigation: NavigationType<ScreenData, NavModifier>
     let route: Route?
 
-    @Published var child: NavigationState<ScreenData, Route, Action>?
+    @Published var child: NavigationStateTyped?
     @Published var navigationDismissTriggered = false
 
-    private let buildNavigation: (([Route], Route) -> NavigationType<ScreenData>)?
+    private let buildNavigation: (([Route], Route) -> NavigationType<ScreenData, NavModifier>)?
     private let navigationManager: VMDNavigationManager<Route, Action>?
     private let actionListener: ActionListener<Route, Action>
     private var lastNavigationDate: Date?
 
     init(
-        navigation: NavigationType<ScreenData>,
+        navigation: NavigationType<ScreenData, NavModifier>,
         route: Route?,
-        buildNavigation: (([Route], Route) -> NavigationType<ScreenData>)? = nil,
+        buildNavigation: (([Route], Route) -> NavigationType<ScreenData, NavModifier>)? = nil,
         handleAction: ((Action) -> Void)? = nil,
         navigationManager: VMDNavigationManager<Route, Action>? = nil
     ) {
@@ -45,7 +53,6 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute, Action: AnyObject>:
 
         dedounceNavigation { [weak self] in
             guard let self else { return }
-            lastNavigationDate = Date()
             top().child = NavigationState(navigation: buildNavigation(currentStack(), route), route: route)
         }
     }
@@ -86,18 +93,21 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute, Action: AnyObject>:
         if let lastNavigationDate {
             let timeIntervalSinceNow = -lastNavigationDate.timeIntervalSinceNow
             if timeIntervalSinceNow < navigationAnimationDuration {
+                self.lastNavigationDate = Date(timeIntervalSinceNow: (navigationAnimationDuration - timeIntervalSinceNow))
                 DispatchQueue.main.asyncAfter(deadline: .now() + (navigationAnimationDuration - timeIntervalSinceNow)) {
                     action()
                 }
             } else {
+                self.lastNavigationDate = Date()
                 action()
             }
         } else {
+            self.lastNavigationDate = Date()
             action()
         }
     }
 
-    private func top() -> NavigationState<ScreenData, Route, Action> {
+    private func top() -> NavigationStateTyped {
         var current = self
 
         while current.child != nil {
@@ -106,7 +116,7 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute, Action: AnyObject>:
         return current
     }
 
-    private func topPresenter() -> NavigationState<ScreenData, Route, Action>? {
+    private func topPresenter() -> NavigationStateTyped? {
         guard self.child != nil else { return nil }
 
         var current = self
@@ -116,9 +126,9 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute, Action: AnyObject>:
         return current
     }
 
-    private func findLast(route: Route) -> NavigationState<ScreenData, Route, Action>? {
-        var current: NavigationState<ScreenData, Route, Action>? = self
-        var result: NavigationState<ScreenData, Route, Action>?
+    private func findLast(route: Route) -> NavigationStateTyped? {
+        var current: NavigationStateTyped? = self
+        var result: NavigationStateTyped?
         repeat {
             if current?.route?.uniqueId == route.uniqueId {
                 result = current
@@ -129,7 +139,7 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute, Action: AnyObject>:
         return result
     }
 
-    private func findParent(state: NavigationState<ScreenData, Route, Action>) -> NavigationState<ScreenData, Route, Action>? {
+    private func findParent(state: NavigationStateTyped) -> NavigationStateTyped? {
         var current = self
         while current.child != nil {
             if state === current.child {
@@ -142,7 +152,7 @@ class NavigationState<ScreenData, Route: VMDNavigationRoute, Action: AnyObject>:
 
     private func currentStack() -> [Route] {
         var stack: [Route] = []
-        var current: NavigationState<ScreenData, Route, Action>? = self
+        var current: NavigationStateTyped? = self
         while current != nil {
             if let route = current?.route {
                 stack.append(route)

@@ -5,11 +5,11 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 
 interface CoroutineScopeManager {
-    fun createCoroutineScope(): CoroutineScope
+    fun createMainThreadCoroutineScope(): CoroutineScope
 }
 
 class CoroutineScopeManagerImpl : CoroutineScopeManager {
-    override fun createCoroutineScope() = CoroutineScopeProvider.provideMainWithSuperviserJob(exceptionHandler = exceptionHandler())
+    override fun createMainThreadCoroutineScope() = CoroutineScopeProvider.provideMainWithSuperviserJob(exceptionHandler = exceptionHandler())
 
     private fun exceptionHandler() = CoroutineExceptionHandler { _, throwable ->
         println("Exception: $throwable")

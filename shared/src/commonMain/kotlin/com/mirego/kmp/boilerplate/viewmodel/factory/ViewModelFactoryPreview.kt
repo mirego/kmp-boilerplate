@@ -30,32 +30,32 @@ class ViewModelFactoryPreview(
         navigationManager = navigationManager,
         coroutineScopeManager = coroutineScopeManager,
         viewModelFactory = this,
-        coroutineScope = coroutineScopeManager.createCoroutineScope()
+        coroutineScope = coroutineScopeManager.createMainThreadCoroutineScope()
     )
 
     fun createTab1() = Tab1ViewModelImpl(
         navigationManager = navigationManager,
-        coroutineScope = coroutineScopeManager.createCoroutineScope()
+        coroutineScope = coroutineScopeManager.createMainThreadCoroutineScope()
     )
 
     override fun createTab1(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope) = createTab1()
 
     fun createTab2() = Tab2ViewModelImpl(
         navigationManager = navigationManager,
-        coroutineScope = coroutineScopeManager.createCoroutineScope()
+        coroutineScope = coroutineScopeManager.createMainThreadCoroutineScope()
     )
 
     override fun createTab2(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope) = createTab2()
 
-    fun createScreen1() = Screen1ViewModelImpl("1", navigationManager, coroutineScopeManager.createCoroutineScope())
+    fun createScreen1() = Screen1ViewModelImpl("1", navigationManager, coroutineScopeManager.createMainThreadCoroutineScope())
 
     override fun createScreen1(uniqueId:String, navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope) = createScreen1()
 
-    fun createScreen2() = Screen2ViewModelImpl(navigationManager, coroutineScopeManager.createCoroutineScope())
+    fun createScreen2() = Screen2ViewModelImpl(navigationManager, coroutineScopeManager.createMainThreadCoroutineScope())
 
     override fun createScreen2(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope) = createScreen2()
 
-    fun createScreen3() = Screen3ViewModelImpl(navigationManager, coroutineScopeManager.createCoroutineScope())
+    fun createScreen3() = Screen3ViewModelImpl(navigationManager, coroutineScopeManager.createMainThreadCoroutineScope())
 
     override fun createScreen3(navigationManager: DemoNavigationManager, coroutineScope: CoroutineScope) = createScreen3()
 
@@ -75,7 +75,7 @@ class ViewModelFactoryPreview(
                 )
             ),
         ),
-        coroutineScope = coroutineScopeManager.createCoroutineScope()
+        coroutineScope = coroutineScopeManager.createMainThreadCoroutineScope()
     )
 
     override fun createDialog(

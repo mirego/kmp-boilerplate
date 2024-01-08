@@ -14,16 +14,10 @@ struct Tab2View: View {
     }
 
     var body: some View {
-        if #available(iOS 16, *) {
-            NavigationStack {
-                content
-            }
-        } else {
-            NavigationView {
-                content
-            }
-            .navigationViewStyle(.stack)
+        NavigationView {
+            content
         }
+        .navigationViewStyle(.stack)
     }
 
     private var content: some View {

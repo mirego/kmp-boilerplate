@@ -36,6 +36,7 @@
 		E193C56A2B1681D800803102 /* Screen1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C5692B1681D800803102 /* Screen1View.swift */; };
 		E193C56E2B179B8B00803102 /* Screen2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C56D2B179B8B00803102 /* Screen2View.swift */; };
 		E193C5702B179BE400803102 /* Screen3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C56F2B179BE400803102 /* Screen3View.swift */; };
+		E1EA28062B4C52C800DCD06D /* EmptyViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EA28052B4C52C800DCD06D /* EmptyViewModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		E193C5692B1681D800803102 /* Screen1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen1View.swift; sourceTree = "<group>"; };
 		E193C56D2B179B8B00803102 /* Screen2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen2View.swift; sourceTree = "<group>"; };
 		E193C56F2B179BE400803102 /* Screen3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen3View.swift; sourceTree = "<group>"; };
+		E1EA28052B4C52C800DCD06D /* EmptyViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewModifier.swift; sourceTree = "<group>"; };
 		E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,6 +206,7 @@
 		E129C81A2B1F530500429558 /* VMD */ = {
 			isa = PBXGroup;
 			children = (
+				E1EA28052B4C52C800DCD06D /* EmptyViewModifier.swift */,
 				E129C8142B1E4ED600429558 /* FullScreenNotAnimatedPresenter.swift */,
 				E129C80A2B192ED400429558 /* Navigation.swift */,
 				E129C81F2B1F665200429558 /* NavigationContainerView.swift */,
@@ -419,6 +422,7 @@
 				E129C81C2B1F65C600429558 /* NavigationType.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				89011D512AE9A7750073544B /* ImageProvider.swift in Sources */,
+				E1EA28062B4C52C800DCD06D /* EmptyViewModifier.swift in Sources */,
 				E129C8222B1F66B700429558 /* NavigationDismissTriggeredKey.swift in Sources */,
 				E193C56E2B179B8B00803102 /* Screen2View.swift in Sources */,
 				89011D4B2AE9A4CD0073544B /* BootstrapImpl.swift in Sources */,

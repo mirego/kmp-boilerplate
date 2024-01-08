@@ -1,27 +1,49 @@
 import SwiftUI
 import Shared
 
-struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Action: AnyObject, Content: View, ScreenView: View>: View {
-    @ObservedObject var navigateState: NavigationState<ScreenData, Route, Action>
+struct NavigationContainerView<
+    ScreenData,
+    Route: VMDNavigationRoute,
+    Action: AnyObject,
+    Content: View,
+    ScreenView: View,
+    NavModifier: ViewModifier
+>: View {
+    @ObservedObject var navigateState: NavigationState<ScreenData, Route, Action, NavModifier>
 
     @ViewBuilder let buildView: (ScreenData) -> ScreenView
     let content: () -> Content
 
+    init(navigateState: NavigationState<ScreenData, Route, Action, NavModifier>, buildView: @escaping (ScreenData) -> ScreenView, content: @escaping () -> Content) {
+        self.navigateState = navigateState
+        self.buildView = buildView
+        self.content = content
+    }
+
     var body: some View {
         if embedInNavigationView {
-            if #available(iOS 16, *) {
-                NavigationStack {
-                    unwrappedBody
-                }
-            } else {
-                NavigationView {
-                    unwrappedBody
-                }
-                .navigationViewStyle(.stack)
-            }
+            navigationViewBodyModified
         } else {
             unwrappedBody
         }
+    }
+
+    @ViewBuilder
+    private var navigationViewBodyModified: some View {
+        if let navigationViewModifier {
+            navigationViewBody
+                .modifier(navigationViewModifier)
+        } else {
+            navigationViewBody
+        }
+    }
+
+    @ViewBuilder
+    private var navigationViewBody: some View {
+        NavigationView {
+            unwrappedBody
+        }
+        .navigationViewStyle(.stack)
     }
 
     @ViewBuilder
@@ -57,19 +79,31 @@ struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Action: An
             return false
         case .push:
             return false
-        case .sheet(_, let embedInNavigationView, _):
-            return embedInNavigationView
-        case .fullScreenCover(_, let embedInNavigationView, _):
-            return embedInNavigationView
-        case .fullScreenNotAnimated(_, let embedInNavigationView, _, _):
-            return embedInNavigationView
+        case .sheet(_, let data):
+            return data.embedInNavigationView
+        case .fullScreenCover(_, let data):
+            return data.embedInNavigationView
+        case .fullScreenNotAnimated(_, let data, _):
+            return data.embedInNavigationView
+        }
+    }
+
+    private var navigationViewModifier: NavModifier? {
+        switch navigateState.navigation {
+        case .fullScreenCover(_, let data):
+            return data.navigationViewModifier
+        default:
+            return nil
         }
     }
 
     @ViewBuilder
     private var childView: some View {
         if let child = navigateState.child, let screen = child.navigation.screen {
-            NavigationContainerView<ScreenData, Route, Action, ScreenView, ScreenView>(navigateState: child, buildView: buildView) {
+            NavigationContainerView<ScreenData, Route, Action, ScreenView, ScreenView, NavModifier>(
+                navigateState: child,
+                buildView: buildView
+            ) {
                 buildView(screen)
             }
         } else {
@@ -140,12 +174,12 @@ struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Action: An
             return nil
         case .push(_, let onDismiss):
             return onDismiss
-        case .sheet(_, _, let onDismiss):
-            return onDismiss
-        case .fullScreenCover(_, _, let onDismiss):
-            return onDismiss
-        case .fullScreenNotAnimated(_, _, onDismiss: let onDismiss, _):
-            return onDismiss
+        case .sheet(_, let data):
+            return data.onDismiss
+        case .fullScreenCover(_, let data):
+            return data.onDismiss
+        case .fullScreenNotAnimated(_, let data, _):
+            return data.onDismiss
         }
     }
 
@@ -163,13 +197,9 @@ struct NavigationContainerView<ScreenData, Route: VMDNavigationRoute, Action: An
 private extension View {
     @ViewBuilder
     func backportNavigationLink<V>(isPresented: Binding<Bool>, @ViewBuilder destination: () -> V) -> some View where V: View {
-        if #available(iOS 16, *) {
-            navigationDestination(isPresented: isPresented, destination: destination)
-        } else {
-            background(
-                NavigationLink(destination: destination(), isActive: isPresented, label: EmptyView.init)
-                    .hidden()
-            )
-        }
+        background(
+            NavigationLink(destination: destination(), isActive: isPresented, label: EmptyView.init)
+                .hidden()
+        )
     }
 }

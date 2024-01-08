@@ -16,14 +16,14 @@ class DemoNavigationManagerImpl(
     private val viewModelFactory: ViewModelFactory by inject()
 
     override fun createScreen1(route: DemoNavigationRoute.Screen1) =
-        viewModelFactory.createScreen1(route.uniqueId, this, getCoroutineScope(route))
+        viewModelFactory.createScreen1(route.uniqueId, this, coroutineScopeManager.createMainThreadCoroutineScope())
 
     override fun createScreen2(route: DemoNavigationRoute.Screen2) =
-        viewModelFactory.createScreen2(this, getCoroutineScope(route))
+        viewModelFactory.createScreen2(this, coroutineScopeManager.createMainThreadCoroutineScope())
 
     override fun createScreen3(route: DemoNavigationRoute.Screen3) =
-        viewModelFactory.createScreen3(this, getCoroutineScope(route))
+        viewModelFactory.createScreen3(this, coroutineScopeManager.createMainThreadCoroutineScope())
 
     override fun createDialog(route: DemoNavigationRoute.Dialog) =
-        viewModelFactory.createDialog(route.navigationData, this, getCoroutineScope(route))
+        viewModelFactory.createDialog(route.navigationData, this, coroutineScopeManager.createMainThreadCoroutineScope())
 }
