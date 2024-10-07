@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
@@ -47,7 +48,9 @@ fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemU
                 .background(viewModel.textColor.toColor().copy(alpha = 0.1f))
         ) { content ->
             Image(
-                modifier = Modifier.size(32.dp),
+                modifier = Modifier
+                    .size(32.dp)
+                    .align(Alignment.Center),
                 painter = pilotImageResourcePainter(content.imageResource),
                 colorFilter = ColorFilter.tint(viewModel.textColor.toColor()),
                 contentDescription = content.contentDescription

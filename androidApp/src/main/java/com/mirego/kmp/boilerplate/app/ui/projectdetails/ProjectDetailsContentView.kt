@@ -38,7 +38,7 @@ fun ProjectDetailsContentView(content: ProjectDetailsRoot.Content) {
             .navigationBarsPadding()
     ) {
         AsyncImage(
-            model = content.image,
+            model = content.image.url,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(max = screenWidth * 1.25f)

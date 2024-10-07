@@ -76,7 +76,7 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
                 .padding(horizontal = padding * 2)
                 .clip(RoundedCornerShape(percent = 50))
                 .background(Color.Red)
-                .padding(vertical = 12.dp),
+                .padding(all = 12.dp),
             pilotButton = viewModel.retryButton
         ) { content ->
             Text(

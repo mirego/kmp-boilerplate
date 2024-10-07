@@ -116,7 +116,7 @@ private fun ItemView(item: ProjectItem) {
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(16.dp))
                 .loading(item.isLoading),
-            model = item.image,
+            model = item.image.url,
             contentDescription = item.image.contentDescription,
             contentScale = ContentScale.FillWidth,
             placeholder = item.image.placeholder?.let {
