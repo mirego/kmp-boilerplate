@@ -104,4 +104,6 @@ dependencies {
     implementation(libs.pilot.viewmodel)
     implementation(libs.pilot.components)
     implementation(libs.pilot.navigation)
+    implementation(libs.pilot.components.material3)
+    implementation(libs.pilot.components.coil)
 }

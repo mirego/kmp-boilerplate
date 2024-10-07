@@ -6,7 +6,6 @@ import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.content.PilotLocalImageContent
 import com.mirego.trikot.viewmodels.declarative.Published
-import com.mirego.trikot.viewmodels.declarative.content.VMDTextPairContent
 import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 
 interface ProjectDetailsViewModel : NavigationViewModel {
@@ -24,8 +23,8 @@ sealed interface ProjectDetailsRoot {
         val image: PilotRemoteImage,
         val title: String,
         val subtitle: String,
-        val projectType: VMDTextPairContent,
-        val releaseYear: VMDTextPairContent,
+        val projectType: Pair<String, String>,
+        val releaseYear: Pair<String, String>,
         val backgroundColor: VMDColor,
         val textColor: VMDColor,
         val isLoading: Boolean

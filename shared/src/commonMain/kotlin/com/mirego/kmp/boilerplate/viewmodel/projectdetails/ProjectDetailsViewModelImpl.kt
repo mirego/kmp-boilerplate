@@ -17,7 +17,6 @@ import com.mirego.pilot.components.content.PilotLocalImageContent
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
-import com.mirego.trikot.viewmodels.declarative.content.VMDTextPairContent
 import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
@@ -61,11 +60,11 @@ class ProjectDetailsViewModelImpl(
         ),
         title = viewData.title,
         subtitle = viewData.subtitle,
-        projectType = VMDTextPairContent(
+        projectType = Pair(
             i18N[KWordTranslation.PROJECT_DETAILS_PROJECT_TYPE],
             viewData.projectType
         ),
-        releaseYear = VMDTextPairContent(
+        releaseYear = Pair(
             i18N[KWordTranslation.PROJECT_DETAILS_RELEASE_YEAR],
             viewData.releaseYear
         ),

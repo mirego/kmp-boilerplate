@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,7 +25,6 @@ import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModel
 import com.mirego.pilot.components.ui.pilotImageResourcePainter
 import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDText
 
 @Composable
 fun EmptyContentView(emptyViewModel: EmptyViewModel, modifier: Modifier = Modifier) {
@@ -40,17 +40,17 @@ fun EmptyContentView(emptyViewModel: EmptyViewModel, modifier: Modifier = Modifi
             contentDescription = viewModel.icon.contentDescription
         )
 
-        VMDText(
+        Text(
             modifier = Modifier.padding(top = padding * 2),
-            viewModel = viewModel.title,
+            text = viewModel.title,
             color = Color.White,
             style = style(TextSize.LARGE_TITLE, TextWeight.REGULAR),
             maxLines = 1
         )
 
-        VMDText(
+        Text(
             modifier = Modifier.padding(top = padding),
-            viewModel = viewModel.message,
+            text = viewModel.message,
             color = Color.White,
             style = style(TextSize.BODY, TextWeight.REGULAR),
             textAlign = TextAlign.Center

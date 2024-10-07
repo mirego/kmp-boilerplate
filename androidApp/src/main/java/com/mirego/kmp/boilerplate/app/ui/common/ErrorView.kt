@@ -30,10 +30,9 @@ import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModel
+import com.mirego.pilot.components.ui.PilotButton
 import com.mirego.pilot.components.ui.pilotImageResourcePainter
 import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDButton
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDText
 
 @Composable
 fun ErrorView(errorViewModel: ErrorViewModel) {
@@ -53,23 +52,23 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
             colorFilter = ColorFilter.tint(Color.White)
         )
 
-        VMDText(
+        Text(
             modifier = Modifier.padding(top = padding * 2 - iconPadding),
-            viewModel = viewModel.title,
+            text = viewModel.title,
             style = style(TextSize.LARGE_TITLE, TextWeight.REGULAR),
             color = Color.White,
             maxLines = 1
         )
 
-        VMDText(
+        Text(
             modifier = Modifier.padding(top = padding),
-            viewModel = viewModel.message,
+            text = viewModel.message,
             style = style(TextSize.BODY, TextWeight.REGULAR),
             color = Color.White,
             textAlign = TextAlign.Center
         )
 
-        VMDButton(
+        PilotButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .widthIn(max = 320.dp)
@@ -78,11 +77,11 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
                 .clip(RoundedCornerShape(percent = 50))
                 .background(Color.Red)
                 .padding(vertical = 12.dp),
-            viewModel = viewModel.retryButton
+            pilotButton = viewModel.retryButton
         ) { content ->
             Text(
                 modifier = Modifier,
-                text = content.text,
+                text = content,
                 style = style(TextSize.BODY, TextWeight.REGULAR),
                 color = Color.White
             )
