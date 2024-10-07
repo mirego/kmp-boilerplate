@@ -14,11 +14,11 @@ import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
 import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
+import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
 import com.mirego.trikot.viewmodels.declarative.viewmodel.list
-import com.mirego.trikot.viewmodels.declarative.viewmodel.remoteImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -91,9 +91,9 @@ class ProjectsViewModelImpl(
         title = title,
         subtitle = subtitle,
         description = description,
-        image = remoteImage(
-            imageUrl = imageUrl,
-            placeholderImageResource = SharedImageResource.imagePlaceholder
+        image = PilotRemoteImage(
+            url = imageUrl,
+            placeholder = SharedImageResource.imagePlaceholder
         ),
         tapAction = {
             Analytics.trackViewProject(projectId = id)

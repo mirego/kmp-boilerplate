@@ -3,7 +3,7 @@ import SwiftUI
 import Trikot
 
 final class ImageProvider: VMDImageProvider {
-    func imageForResource(imageResource: VMDImageResource) -> Image? {
+    func imageForResource(imageResource: PilotImageResource) -> Image? {
         guard let imageResource = imageResource as? SharedImageResource else { return nil }
         switch imageResource {
         case .emptypageicon:

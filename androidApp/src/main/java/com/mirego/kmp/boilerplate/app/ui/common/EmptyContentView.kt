@@ -1,5 +1,6 @@
 package com.mirego.kmp.boilerplate.app.ui.common
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,8 +22,8 @@ import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModel
+import com.mirego.pilot.components.ui.pilotImageResourcePainter
 import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDImage
 import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDText
 
 @Composable
@@ -32,10 +33,11 @@ fun EmptyContentView(emptyViewModel: EmptyViewModel, modifier: Modifier = Modifi
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        VMDImage(
+        Image(
             modifier = Modifier.size(55.dp),
-            viewModel = viewModel.icon,
-            colorFilter = ColorFilter.tint(Color.White)
+            painter = pilotImageResourcePainter(viewModel.icon.imageResource),
+            colorFilter = ColorFilter.tint(Color.White),
+            contentDescription = viewModel.icon.contentDescription
         )
 
         VMDText(

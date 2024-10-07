@@ -1,5 +1,6 @@
 package com.mirego.kmp.boilerplate.app.ui.common
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,9 +30,9 @@ import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModel
+import com.mirego.pilot.components.ui.pilotImageResourcePainter
 import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
 import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDButton
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDImage
 import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDText
 
 @Composable
@@ -45,9 +46,10 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        VMDImage(
+        Image(
+            painter = pilotImageResourcePainter(viewModel.icon.imageResource),
+            contentDescription = viewModel.icon.contentDescription,
             modifier = Modifier.size(55.dp),
-            viewModel = viewModel.icon,
             colorFilter = ColorFilter.tint(Color.White)
         )
 
