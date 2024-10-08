@@ -1,6 +1,7 @@
 import Shared
 import SwiftUI
 import Trikot
+import Pilot
 
 struct ProjectDetailsContentView: View {
     let viewModel: ProjectDetailsRootContent
@@ -37,28 +38,36 @@ struct ProjectDetailsContentView: View {
                 .padding(.top, 24)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(viewModel.projectType.first)
-                    .textStyle(.subHeadline, .semiBold, textColor)
-                    .fixedSize(horizontal: false, vertical: true)
+                if let headline = viewModel.projectType.first as? String {
+                    Text(headline)
+                        .textStyle(.subHeadline, .semiBold, textColor)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
                 
-                Text(viewModel.projectType.second)
-                    .textStyle(.subHeadline, .regular, textColor)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.leading)
-                    .fixedSize(horizontal: false, vertical: true)
+                if let projectType = viewModel.projectType.second as? String {
+                    Text(projectType)
+                        .textStyle(.subHeadline, .regular, textColor)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             .padding(.top, 32)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(viewModel.releaseYear.first)
-                    .textStyle(.subHeadline, .semiBold, textColor)
-                    .fixedSize(horizontal: false, vertical: true)
+                if let headline = viewModel.releaseYear.first as? String {
+                    Text(headline)
+                        .textStyle(.subHeadline, .semiBold, textColor)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
                 
-                Text(viewModel.releaseYear.second)
-                    .textStyle(.subHeadline, .regular, textColor)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.leading)
-                    .fixedSize(horizontal: false, vertical: true)
+                if let releaseYear = viewModel.releaseYear.second as? String {
+                    Text(releaseYear)
+                        .textStyle(.subHeadline, .regular, textColor)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             .padding(.top, 16)
         }
@@ -66,7 +75,7 @@ struct ProjectDetailsContentView: View {
     }
 
     private var backgroundImageView: some View {
-        VMDImage(viewModel.image)
+        PilotRemoteImageView(viewModel.image)
             .placeholder { imagePlaceHolder in
                 ZStack {
                     Rectangle()

@@ -1,5 +1,8 @@
 @file:Suppress("UNUSED_VARIABLE")
 
+import co.touchlab.skie.configuration.EnumInterop
+import co.touchlab.skie.configuration.FunctionInterop
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.native.cocoapods)
@@ -40,6 +43,16 @@ kword {
 skie {
     analytics {
         disableUpload.set(true)
+    }
+    features {
+        group("com.mirego.trikot") {
+            EnumInterop.LegacyCaseName(true)
+            FunctionInterop.LegacyName(true)
+        }
+
+        group("com.mirego.trikot.viewmodels.declarative") {
+            FunctionInterop.LegacyName(false)
+        }
     }
 }
 

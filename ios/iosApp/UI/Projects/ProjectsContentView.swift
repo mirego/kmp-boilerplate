@@ -1,6 +1,7 @@
 import Shared
 import SwiftUI
 import Trikot
+import Pilot
 
 struct ProjectsContentView: View {
     let viewModel: VMDListViewModel<ProjectsContentSection>
@@ -61,7 +62,7 @@ struct ProjectsContentView: View {
 
     private func itemView(viewModel: ProjectItem) -> some View {
         VStack(alignment: .leading, spacing: padding) {
-            VMDImage(viewModel.image)
+            PilotRemoteImageView(viewModel.image)
                 .placeholder { imagePlaceHolder in
                     ZStack {
                         Rectangle()
