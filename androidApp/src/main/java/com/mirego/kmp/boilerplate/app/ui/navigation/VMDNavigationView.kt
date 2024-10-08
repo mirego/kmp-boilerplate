@@ -37,7 +37,7 @@ fun <T : VMDNavigationRoute> VMDNavigationView(
     },
     navHost: @Composable (startDestination: String) -> Unit
 ) {
-    navHost(startDestination = ROOT_ROUTE)
+    navHost(ROOT_ROUTE)
 
     NavigationHandler(
         navigationViewModel = navigationViewModel,
