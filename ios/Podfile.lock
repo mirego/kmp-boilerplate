@@ -83,6 +83,8 @@ PODS:
     - Kingfisher (~> 7.10.1)
     - Pilot/Components
     - Shared
+  - Pilot/Navigation (0.3.1):
+    - Shared
   - Pilot/ViewModel (0.3.1):
     - Shared
   - PromisesObjC (2.3.1)
@@ -97,6 +99,8 @@ DEPENDENCIES:
   - FirebaseCore
   - "Pilot/Components (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
   - "Pilot/Components.Kingfisher (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
+  - "Pilot/Navigation (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
+  - "Pilot/ViewModel (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
   - Shared (from `../shared`)
   - SwiftLint
   - "Trikot/kword (from `git@github.com:mirego/trikot.git`, tag `5.2.0`)"
@@ -149,6 +153,6 @@ SPEC CHECKSUMS:
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
   Trikot: ca201c8ae67ff21f35a60a0bda6c600fbe51b282
 
-PODFILE CHECKSUM: eed3a249290a3376223deadc8b1afb32b9734834
+PODFILE CHECKSUM: d58ca66e77c67cd69edbe4150421be0da29161e4
 
 COCOAPODS: 1.13.0
