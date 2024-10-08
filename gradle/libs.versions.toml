@@ -27,7 +27,7 @@ mockk = "1.12.5"
 okio = "3.6.0"
 owasp = "8.4.2"
 skie = "0.9.2"
-trikot = "5.2.0"
+trikot = "5.5.0-dev2722"
 pilot = "0.3.1"
 
 [libraries]

@@ -90,8 +90,16 @@ PODS:
   - PromisesObjC (2.3.1)
   - Shared (0.1)
   - SwiftLint (0.53.0)
-  - Trikot/kword (5.2.0):
+  - SwiftUIIntrospect (1.3.0)
+  - Trikot/kword (5.5.0-SNAPSHOT):
     - Shared
+  - Trikot/viewmodels.declarative.flow (5.5.0-SNAPSHOT):
+    - Shared
+  - Trikot/viewmodels.declarative.SwiftUI.flow (5.5.0-SNAPSHOT):
+    - Kingfisher (~> 7.10.1)
+    - Shared
+    - SwiftUIIntrospect (~> 1.0)
+    - Trikot/viewmodels.declarative.flow
 
 DEPENDENCIES:
   - AppCenter/Distribute
@@ -103,7 +111,8 @@ DEPENDENCIES:
   - "Pilot/ViewModel (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
   - Shared (from `../shared`)
   - SwiftLint
-  - "Trikot/kword (from `git@github.com:mirego/trikot.git`, tag `5.2.0`)"
+  - "Trikot/kword (from `git@github.com:mirego/trikot.git`, tag `5.5.0-dev2722`)"
+  - "Trikot/viewmodels.declarative.SwiftUI.flow (from `git@github.com:mirego/trikot.git`, tag `5.5.0-dev2722`)"
 
 SPEC REPOS:
   trunk:
@@ -118,6 +127,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SwiftLint
+    - SwiftUIIntrospect
 
 EXTERNAL SOURCES:
   Pilot:
@@ -127,7 +137,7 @@ EXTERNAL SOURCES:
     :path: "../shared"
   Trikot:
     :git: "git@github.com:mirego/trikot.git"
-    :tag: 5.2.0
+    :tag: 5.5.0-dev2722
 
 CHECKOUT OPTIONS:
   Pilot:
@@ -135,7 +145,7 @@ CHECKOUT OPTIONS:
     :tag: 0.3.1
   Trikot:
     :git: "git@github.com:mirego/trikot.git"
-    :tag: 5.2.0
+    :tag: 5.5.0-dev2722
 
 SPEC CHECKSUMS:
   AppCenter: 85c92db0759d2792a65eb61d6842d2e86611a49a
@@ -151,8 +161,9 @@ SPEC CHECKSUMS:
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   Shared: 02f8809e574ee70fc8c9a3eb24fb5b4f7de3df71
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
-  Trikot: ca201c8ae67ff21f35a60a0bda6c600fbe51b282
+  SwiftUIIntrospect: fee9aa07293ee280373a591e1824e8ddc869ba5d
+  Trikot: 837e00007889a4e3c6dff133d8be7f9a13b7b450
 
-PODFILE CHECKSUM: d58ca66e77c67cd69edbe4150421be0da29161e4
+PODFILE CHECKSUM: ef2de80df675ad2793172d79c6b62a7f7a40a6ff
 
 COCOAPODS: 1.13.0
