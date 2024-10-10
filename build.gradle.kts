@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.serialization) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.owasp.dependencycheck)
+    alias(libs.plugins.compose.compiler) apply false
 }
 
 tasks.register("clean", Delete::class) {

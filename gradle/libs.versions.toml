@@ -1,8 +1,7 @@
 [versions]
 
 accompanist = "0.32.0"
-androidComposeCompiler = "1.5.3"
-androidGradlePlugin = "8.1.2"
+androidGradlePlugin = "8.5.2"
 android-splash = "1.0.1"
 android-playServices = "20.7.0"
 play-services-measurement-api = "21.5.0"
@@ -17,8 +16,8 @@ koin = "3.5.0"
 koin-android = "3.5.0"
 koin-androidx-compose = "3.5.0"
 koin_ksp = "1.1.0"
-ksp = "1.9.10-1.0.13"
-kotlin = "1.9.10"
+ksp = "2.0.20-1.0.25"
+kotlin = "2.0.20"
 kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.6.0"
 kword-plugin = "4.0.0"
@@ -27,7 +26,7 @@ firebase = "32.5.0"
 mockk = "1.12.5"
 okio = "3.6.0"
 owasp = "8.4.2"
-skie = "0.4.20"
+skie = "0.9.2"
 trikot = "5.2.0"
 
 [libraries]
@@ -90,5 +89,6 @@ mirego-kwordPlugin = { id = "mirego.kword", version.ref = "kword-plugin" }
 owasp-dependencycheck = { id = "org.owasp.dependencycheck", version.ref = "owasp" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 skie-plugin = { id = "co.touchlab.skie", version.ref = "skie" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [bundles]

@@ -46,7 +46,7 @@ class ProjectsRepositoryImpl(
 
     private fun buildQuery(language: Language) = ProjectsQuery(
         when (language) {
-            Language.ENGLISH -> "work"
+            Language.ENGLISH -> "projects"
             Language.FRENCH -> "projets"
         }
     )
