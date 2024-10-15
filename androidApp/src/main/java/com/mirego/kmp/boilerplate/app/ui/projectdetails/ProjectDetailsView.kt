@@ -56,7 +56,8 @@ fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemU
 
 @Composable
 private fun ContentView(viewModel: ProjectDetailsViewModel) {
-    viewModel.rootContent?.let { content ->
+    val projectDetailsViewModel: ProjectDetailsViewModel by viewModel.observeAsState()
+    projectDetailsViewModel.rootContent?.let { content ->
         when (content) {
             is ProjectDetailsRoot.Content -> ProjectDetailsContentView(content = content)
             is ProjectDetailsRoot.Error -> ErrorView(errorViewModel = content.errorViewModel)

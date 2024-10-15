@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.crashlyticsPlugin)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -45,9 +46,6 @@ android {
     }
     androidResources {
         generateLocaleConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidComposeCompiler.get()
     }
     packaging {
         // Do not include coroutines debug infrastructure in the resulting APK
