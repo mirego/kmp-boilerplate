@@ -2,7 +2,7 @@ package com.mirego.kmp.boilerplate.viewmodel
 
 import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.testutils.BaseTest
-import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBColor
+import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBAColor
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectItemViewData
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsUseCase
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsViewData
@@ -51,8 +51,8 @@ class ProjectsViewModelImplTest : BaseTest() {
                     subtitle = "subtitle",
                     description = "description",
                     imageUrl = "imageUrl",
-                    backgroundColor = "000000".toRGBColor() ?: RGBAColor.None,
-                    textColor = "FFFFFF".toRGBColor() ?: RGBAColor.None
+                    backgroundColor = "000000".toRGBAColor() ?: RGBAColor.None,
+                    textColor = "FFFFFF".toRGBAColor() ?: RGBAColor.None
                 )
             )
         )

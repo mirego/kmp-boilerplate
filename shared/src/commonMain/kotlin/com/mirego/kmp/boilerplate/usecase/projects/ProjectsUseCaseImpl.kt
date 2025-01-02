@@ -2,7 +2,7 @@ package com.mirego.kmp.boilerplate.usecase.projects
 
 import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.repository.projects.ProjectsRepository
-import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBColor
+import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBAColor
 import com.mirego.kmp.boilerplate.utils.StateData
 import com.mirego.trikot.datasources.flow.extensions.mapValue
 import kotlinx.coroutines.flow.Flow
@@ -26,8 +26,8 @@ class ProjectsUseCaseImpl(
                             subtitle = project.name,
                             description = project.projectType,
                             imageUrl = project.listImageUrl.toString(),
-                            backgroundColor = project.mainColor?.toRGBColor() ?: RGBAColor.None,
-                            textColor = project.textColor?.toRGBColor() ?: RGBAColor.None
+                            backgroundColor = project.mainColor?.toRGBAColor() ?: RGBAColor.None,
+                            textColor = project.textColor?.toRGBAColor() ?: RGBAColor.None
                         )
                     }
                 )

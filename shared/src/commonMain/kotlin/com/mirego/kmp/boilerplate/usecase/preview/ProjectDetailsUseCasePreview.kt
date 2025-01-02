@@ -3,7 +3,7 @@ package com.mirego.kmp.boilerplate.usecase.preview
 import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsUseCase
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsViewData
-import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBColor
+import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBAColor
 import com.mirego.kmp.boilerplate.utils.StateData
 import com.mirego.kmp.boilerplate.utils.stateDataData
 import com.mirego.kmp.boilerplate.utils.stateDataError
@@ -19,8 +19,8 @@ class ProjectDetailsUseCasePreview(private val previewState: PreviewState) : Pro
             "We make cool stuff",
             "KMP mobile apps",
             "2023",
-            "FFFFFF".toRGBColor() ?: RGBAColor.None,
-            "000000".toRGBColor() ?: RGBAColor.None
+            "FFFFFF".toRGBAColor() ?: RGBAColor.None,
+            "000000".toRGBAColor() ?: RGBAColor.None
         )
     }
 

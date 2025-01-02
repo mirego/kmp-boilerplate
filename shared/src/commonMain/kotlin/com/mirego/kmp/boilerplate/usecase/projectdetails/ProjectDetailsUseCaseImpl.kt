@@ -24,13 +24,13 @@ class ProjectDetailsUseCaseImpl(
                 subtitle = entity.name,
                 projectType = entity.projectType,
                 releaseYear = entity.year.toString(),
-                backgroundColor = entity.mainColor?.toRGBColor() ?: defaultBackgroundColor,
-                textColor = entity.textColor?.toRGBColor() ?: defaultTextColor
+                backgroundColor = entity.mainColor?.toRGBAColor() ?: defaultBackgroundColor,
+                textColor = entity.textColor?.toRGBAColor() ?: defaultTextColor
             )
         }
 }
 
-fun String.toRGBColor(): RGBAColor? {
+fun String.toRGBAColor(): RGBAColor? {
     var hex = this
     hex = hex.replace("#", "")
 

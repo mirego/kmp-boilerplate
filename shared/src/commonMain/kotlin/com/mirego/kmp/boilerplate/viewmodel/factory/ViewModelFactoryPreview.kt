@@ -3,7 +3,7 @@ package com.mirego.kmp.boilerplate.viewmodel.factory
 import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.usecase.preview.UseCaseFactoryPreview
-import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBColor
+import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBAColor
 import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsViewModelImpl
@@ -50,7 +50,7 @@ class ViewModelFactoryPreview(
     override fun createProjectDetails(navigationData: ProjectDetailsNavigationData, closeAction: () -> Unit, coroutineScope: CoroutineScope) = createProjectDetails()
 
     fun createProjectDetails(previewState: PreviewState = PreviewState.Data.Content) = ProjectDetailsViewModelImpl(
-        navigationData = ProjectDetailsNavigationData("", "000000".toRGBColor() ?: RGBAColor.None, "ffffff".toRGBColor() ?: RGBAColor.None),
+        navigationData = ProjectDetailsNavigationData("", "000000".toRGBAColor() ?: RGBAColor.None, "ffffff".toRGBAColor() ?: RGBAColor.None),
         projectDetailsUseCase = useCaseFactoryPreview.projectDetailsUseCase(previewState),
         i18N = i18N,
         viewModelFactory = this,
