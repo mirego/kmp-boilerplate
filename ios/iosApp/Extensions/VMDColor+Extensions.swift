@@ -1,7 +1,7 @@
 import Shared
 import SwiftUI
 
-extension VMDColor {
+extension RGBAColor {
     var color: Color {
         Color(
             Color.RGBColorSpace.sRGB,
