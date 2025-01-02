@@ -4,6 +4,7 @@ import com.mirego.kmp.boilerplate.analytics.Analytics
 import com.mirego.kmp.boilerplate.analytics.ScreenName
 import com.mirego.kmp.boilerplate.extension.stateFlowOf
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
+import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectDetailsUseCasePreview
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsUseCase
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsViewData
@@ -17,7 +18,6 @@ import com.mirego.pilot.components.content.PilotLocalImageContent
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
-import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
@@ -38,8 +38,8 @@ class ProjectDetailsViewModelImpl(
     viewModelFactory = viewModelFactory,
     coroutineScope = coroutineScope
 ) {
-    override val backgroundColor: VMDColor = navigationData.backgroundColor
-    override val textColor: VMDColor = navigationData.textColor
+    override val backgroundColor: RGBAColor = navigationData.backgroundColor
+    override val textColor: RGBAColor = navigationData.textColor
 
     init {
         bindRootContent(

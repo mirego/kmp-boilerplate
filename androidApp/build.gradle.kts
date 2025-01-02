@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.crashlyticsPlugin)
