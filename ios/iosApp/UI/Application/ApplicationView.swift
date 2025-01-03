@@ -1,17 +1,18 @@
 import Shared
+import Pilot
 import SwiftUI
 import Trikot
 
 struct ApplicationView: View {
-    @ObservedObject private var observableViewModel: ObservableViewModelAdapter<ApplicationViewModel>
+    @StateObject private var viewModelLifecycle: ViewModelLifecycleHandler<ApplicationViewModel>
     @StateObject private var statusBarConfigurator = StatusBarConfigurator()
     
     init(viewModel: ApplicationViewModel) {
-        observableViewModel = viewModel.asObservable()
+        _viewModelLifecycle = StateObject(wrappedValue: ViewModelLifecycleHandler(viewModel: viewModel))
     }
 
     var viewModel: ApplicationViewModel {
-        observableViewModel.viewModel
+        viewModelLifecycle.viewModel
     }
 
     var body: some View {
@@ -26,6 +27,6 @@ struct ApplicationView: View {
 
 struct ApplicationView_Previews: PreviewProvider {
     static var previews: some View {
-        ApplicationView(viewModel: factoryPreview().createApplication())
+        ApplicationView(viewModel: previewsFactory().createApplication())
     }
 }

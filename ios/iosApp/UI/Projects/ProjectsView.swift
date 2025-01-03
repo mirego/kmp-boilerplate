@@ -1,16 +1,19 @@
 import Shared
+import Pilot
 import SwiftUI
 import Trikot
 
 struct ProjectsView: View {
-    @ObservedObject private var observableViewModel: ObservableViewModelAdapter<ProjectsViewModel>
+    @StateObject private var viewModelLifecycle: ViewModelLifecycleHandler<ProjectsViewModel>
+    @ObservedObject private var rootContentObservable: StateObservable<ProjectsRoot>
 
     init(viewModel: ProjectsViewModel) {
-        observableViewModel = viewModel.asObservable()
+        _viewModelLifecycle = StateObject(wrappedValue: ViewModelLifecycleHandler(viewModel: viewModel))
+        _rootContentObservable = ObservedObject(wrappedValue: StateObservable(viewModel.rootContent))
     }
 
     var viewModel: ProjectsViewModel {
-        observableViewModel.viewModel
+        viewModelLifecycle.viewModel
     }
 
     var body: some View {
@@ -20,34 +23,32 @@ struct ProjectsView: View {
                 Color(.primaryBlack)
                     .ignoresSafeArea()
             )
-            .handleNavigation(viewModel, route: viewModel.navigationRoute, navigationTypeOverride: navigationTypeOverride)
+            .handleNavigation(navigationManager: viewModel.navigationManager)
     }
 
     @ViewBuilder private var contentView: some View {
-        if let rootContent = viewModel.rootContent {
-            switch onEnum(of: rootContent) {
-                case let .content(content):
-                    ProjectsContentView(viewModel: content.sections)
-                case let .error(error):
-                    ErrorView(viewModel: error.errorViewModel)
-            }
+        switch onEnum(of: rootContentObservable.value) {
+            case let .content(content):
+                ProjectsContentView(projectsContentSections: content.sections)
+            case let .error(error):
+                ErrorView(viewModel: error.errorViewModel)
         }
     }
 }
 
 extension ProjectsView {
-    func navigationTypeOverride(route: VMDNavigationRoute) -> NavigationType? {
-        if route is NavigationRouteProjectDetails {
-            return .push
-        }
-        
-        return nil
-    }
+//    func navigationTypeOverride(route: VMDNavigationRoute) -> NavigationType? {
+//        if route is NavigationRouteProjectDetails {
+//            return .push
+//        }
+//        
+//        return nil
+//    }
 }
 
 #Preview {
     ProjectsView(
-        viewModel: factoryPreview().createProjects(
+        viewModel: previewsFactory().createProjects(
             previewState: PreviewStateDataEmpty()
         )
     )
@@ -55,7 +56,7 @@ extension ProjectsView {
 
 #Preview {
     ProjectsView(
-        viewModel: factoryPreview().createProjects(
+        viewModel: previewsFactory().createProjects(
             previewState: PreviewStateError()
         )
     )

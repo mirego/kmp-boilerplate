@@ -4,15 +4,11 @@ import Trikot
 import Pilot
 
 struct EmptyContentView: View {
-    @ObservedObject private var observableViewModel: ObservableViewModelAdapter<EmptyViewModel>
+    private let viewModel: EmptyViewModel
     private let padding: CGFloat = 16
 
-    private var viewModel: EmptyViewModel {
-        observableViewModel.viewModel
-    }
-
     init(viewModel: EmptyViewModel) {
-        observableViewModel = viewModel.asObservable()
+        self.viewModel = viewModel
     }
 
     var body: some View {

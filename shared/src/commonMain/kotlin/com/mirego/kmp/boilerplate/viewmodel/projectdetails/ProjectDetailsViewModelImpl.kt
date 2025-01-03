@@ -2,6 +2,7 @@ package com.mirego.kmp.boilerplate.viewmodel.projectdetails
 
 import com.mirego.kmp.boilerplate.analytics.Analytics
 import com.mirego.kmp.boilerplate.analytics.ScreenName
+import com.mirego.kmp.boilerplate.extension.eagerlyStateIn
 import com.mirego.kmp.boilerplate.extension.stateFlowOf
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
 import com.mirego.kmp.boilerplate.model.RGBAColor
@@ -15,6 +16,7 @@ import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.content.PilotLocalImageContent
+import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import kotlinx.coroutines.CoroutineScope
@@ -35,17 +37,13 @@ class ProjectDetailsViewModelImpl(
 
     override val backgroundColor: RGBAColor = navigationData.backgroundColor
     override val textColor: RGBAColor = navigationData.textColor
-    override val rootContent: Flow<ProjectDetailsRoot?>
-
-    init {
-        rootContent = projectDetailsUseCase.projectsDetails(navigationData.id).map { stateData ->
-            when (stateData) {
-                is DataState.Data -> buildContent(stateData.value, false)
-                is DataState.Pending -> buildLoading()
-                is DataState.Error -> buildError()
-            }
+    override val rootContent = projectDetailsUseCase.projectsDetails(navigationData.id).map { stateData ->
+        when (stateData) {
+            is DataState.Data -> buildContent(stateData.value, false)
+            is DataState.Pending -> buildLoading()
+            is DataState.Error -> buildError()
         }
-    }
+    }.eagerlyStateIn(viewModelScope, buildLoading())
 
     override fun onAppear(coroutineScope: CoroutineScope) {
         super.onAppear(coroutineScope)

@@ -4,7 +4,7 @@ import Trikot
 import Pilot
 
 struct ProjectsContentView: View {
-    let viewModel: VMDListViewModel<ProjectsContentSection>
+    let projectsContentSections: [ProjectsContentSection]
 
     private let padding: CGFloat = 16
 
@@ -12,7 +12,7 @@ struct ProjectsContentView: View {
         GeometryReader { proxy in
             ScrollView(.vertical) {
                 VStack(spacing: padding * 2) {
-                    ForEach(viewModel.elements, id: \.identifier) { section in
+                    ForEach(projectsContentSections, id: \.id) { section in
                         switch onEnum(of: section) {
                             case let .header(header):
                                 headerView(header: header)
@@ -21,7 +21,7 @@ struct ProjectsContentView: View {
                                     .padding(.top, 100)
                             case let .projectsList(projectsList):
                                 projectListView(
-                                    viewModel: projectsList.viewModel,
+                                    projects: projectsList.projects,
                                     itemSize: proxy.size.width - 2 * padding
                                 )
                         }
@@ -47,9 +47,9 @@ struct ProjectsContentView: View {
         .padding(.horizontal, padding)
     }
 
-    private func projectListView(viewModel: VMDListViewModel<ProjectItem>, itemSize: CGFloat) -> some View {
+    private func projectListView(projects: [ProjectItem], itemSize: CGFloat) -> some View {
         VStack(spacing: 16) {
-            ForEach(viewModel.elements, id: \.identifier) { item in
+            ForEach(projects, id: \.identifier) { item in
                 Button {
                     item.tapAction()
                 } label: {

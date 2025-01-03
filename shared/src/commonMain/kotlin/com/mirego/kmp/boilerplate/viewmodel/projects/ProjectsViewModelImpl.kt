@@ -1,5 +1,6 @@
 package com.mirego.kmp.boilerplate.viewmodel.projects
 
+import com.mirego.kmp.boilerplate.extension.eagerlyStateIn
 import com.mirego.kmp.boilerplate.extension.prioritiseData
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectsUseCasePreview
@@ -16,7 +17,6 @@ import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
@@ -27,23 +27,19 @@ import org.koin.core.component.KoinComponent
 class ProjectsViewModelImpl(
     private val projectsUseCase: ProjectsUseCase,
     private val i18N: I18N,
-    @InjectedParam private val navigationManager: NavigationManager
+    @InjectedParam override val navigationManager: NavigationManager
 ) : ProjectsViewModel(), KoinComponent {
-    override val rootContent: Flow<ProjectsRoot?>
-
-    init {
-        rootContent = projectsUseCase.projects().map { stateData ->
-            when (val prioritizedData = stateData.prioritiseData()) {
-                is DataState.Data -> when (val data = prioritizedData.value) {
-                    is ProjectsViewData.Content -> buildData(data)
-                    is ProjectsViewData.Empty -> buildEmptyData()
-                }
-
-                is DataState.Error -> buildError()
-                is DataState.Pending -> buildLoading()
+    override val rootContent = projectsUseCase.projects().map { stateData ->
+        when (val prioritizedData = stateData.prioritiseData()) {
+            is DataState.Data -> when (val data = prioritizedData.value) {
+                is ProjectsViewData.Content -> buildData(data)
+                is ProjectsViewData.Empty -> buildEmptyData()
             }
+
+            is DataState.Error -> buildError()
+            is DataState.Pending -> buildLoading()
         }
-    }
+    }.eagerlyStateIn(viewModelScope, buildLoading())
 
     private fun buildData(viewData: ProjectsViewData.Content) = ProjectsRoot.Content(
         sections = listOf(

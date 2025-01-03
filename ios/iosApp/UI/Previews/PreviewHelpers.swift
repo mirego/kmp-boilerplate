@@ -8,8 +8,8 @@ func previewi18N(languageCode: String) -> I18N {
     return i18N
 }
 
-func factoryPreview(languageCode: String = "en") -> ViewModelFactoryPreview {
+func previewsFactory(languageCode: String = "en") -> ViewModelPreviewsFactory {
     let i18N = previewi18N(languageCode: languageCode)
     let usecaseFactory = UseCaseFactoryPreview()
-    return ViewModelFactoryPreview(i18N: i18N, useCaseFactoryPreview: usecaseFactory)
+    return ViewModelPreviewsFactory(i18N: i18N, useCaseFactoryPreview: usecaseFactory)
 }
