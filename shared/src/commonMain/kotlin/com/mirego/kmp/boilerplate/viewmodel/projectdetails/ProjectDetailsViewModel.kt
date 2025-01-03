@@ -13,17 +13,18 @@ import org.koin.core.parameter.ParametersHolder
 import org.koin.core.parameter.parametersOf
 
 abstract class ProjectDetailsViewModel : PilotAppearanceLifecycleViewModel() {
-    companion object {
-        fun parameters(navigationManager: NavigationManager, route: NavigationRoute.ProjectDetails?): ParametersHolder = parametersOf(navigationManager, route)
-    }
-
     abstract val closeButton: PilotButton<PilotLocalImageContent>
 
     abstract val backgroundColor: RGBAColor
     abstract val textColor: RGBAColor
+
     abstract val rootContent: Flow<ProjectDetailsRoot?>
 
     abstract val navigationManager: NavigationManager
+
+    companion object {
+        fun parameters(navigationManager: NavigationManager, route: NavigationRoute.ProjectDetails?): ParametersHolder = parametersOf(navigationManager, route)
+    }
 }
 
 sealed interface ProjectDetailsRoot {
