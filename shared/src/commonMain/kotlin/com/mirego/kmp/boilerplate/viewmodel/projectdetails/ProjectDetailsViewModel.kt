@@ -8,7 +8,7 @@ import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.content.PilotLocalImageContent
 import com.mirego.pilot.components.lifecycle.PilotAppearanceLifecycleViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.parameter.ParametersHolder
 import org.koin.core.parameter.parametersOf
 
@@ -18,7 +18,7 @@ abstract class ProjectDetailsViewModel : PilotAppearanceLifecycleViewModel() {
     abstract val backgroundColor: RGBAColor
     abstract val textColor: RGBAColor
 
-    abstract val rootContent: Flow<ProjectDetailsRoot?>
+    abstract val rootContent: StateFlow<ProjectDetailsRoot>
 
     abstract val navigationManager: NavigationManager
 

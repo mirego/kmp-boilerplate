@@ -6,12 +6,13 @@ import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.lifecycle.PilotAppearanceLifecycleViewModel
 import com.mirego.trikot.viewmodels.declarative.content.VMDIdentifiableContent
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.parameter.ParametersHolder
 import org.koin.core.parameter.parametersOf
 
 abstract class ProjectsViewModel : PilotAppearanceLifecycleViewModel() {
-    abstract val rootContent: Flow<ProjectsRoot?>
+    abstract val rootContent: StateFlow<ProjectsRoot>
+    abstract val navigationManager: NavigationManager
 
     companion object {
         fun parameters(navigationManager: NavigationManager): ParametersHolder = parametersOf(navigationManager)
@@ -29,21 +30,26 @@ sealed interface ProjectsRoot {
 }
 
 sealed interface ProjectsContentSection {
+    val identifier: String
+
     data class Header(
         val title: String,
-        val description: String,
-        val identifier: String = "Header"
-    ) : ProjectsContentSection
+        val description: String
+    ) : ProjectsContentSection {
+        override val identifier = "Header"
+    }
 
     data class NoProjects(
-        val emptyViewModel: EmptyViewModel,
-        val identifier: String = "NoProjects"
-    ) : ProjectsContentSection
+        val emptyViewModel: EmptyViewModel
+    ) : ProjectsContentSection {
+        override val identifier = "NoProjects"
+    }
 
     data class ProjectsList(
-        val projects: List<ProjectItem>,
-        val identifier: String = "ProjectsList"
-    ) : ProjectsContentSection
+        val projects: List<ProjectItem>
+    ) : ProjectsContentSection {
+        override val identifier = "ProjectsList"
+    }
 }
 
 data class ProjectItem(
