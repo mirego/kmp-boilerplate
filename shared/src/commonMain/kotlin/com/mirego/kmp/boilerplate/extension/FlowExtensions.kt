@@ -11,5 +11,4 @@ import kotlinx.coroutines.flow.stateIn
 
 fun <T> stateFlowOf(value: T): StateFlow<T> = MutableStateFlow(value)
 
-fun <T> Flow<T>.eagerlyStateIn(scope: CoroutineScope, initialValue: T): StateFlow<T> =
-    flowOn(Dispatchers.Default).stateIn(scope, SharingStarted.Eagerly, initialValue)
+fun <T> Flow<T>.eagerlyStateIn(scope: CoroutineScope, initialValue: T): StateFlow<T> = flowOn(Dispatchers.Default).stateIn(scope, SharingStarted.Eagerly, initialValue)

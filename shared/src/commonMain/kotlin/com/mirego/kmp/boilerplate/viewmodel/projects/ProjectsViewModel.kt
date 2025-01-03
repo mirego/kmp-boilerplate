@@ -30,25 +30,25 @@ sealed interface ProjectsRoot {
 }
 
 sealed interface ProjectsContentSection {
-    val id: String
+    val identifier: String
 
     data class Header(
         val title: String,
         val description: String
     ) : ProjectsContentSection {
-        override val id = "Header"
+        override val identifier = "Header"
     }
 
     data class NoProjects(
         val emptyViewModel: EmptyViewModel
     ) : ProjectsContentSection {
-        override val id = "NoProjects"
+        override val identifier = "NoProjects"
     }
 
     data class ProjectsList(
         val projects: List<ProjectItem>
     ) : ProjectsContentSection {
-        override val id = "ProjectsList"
+        override val identifier = "ProjectsList"
     }
 }
 

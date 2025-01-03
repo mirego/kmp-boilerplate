@@ -20,7 +20,6 @@ import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.InjectedParam
