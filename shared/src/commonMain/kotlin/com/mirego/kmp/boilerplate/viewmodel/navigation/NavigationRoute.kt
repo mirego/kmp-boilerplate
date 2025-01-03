@@ -9,6 +9,7 @@ enum class NavigationRouteName {
 
 sealed class NavigationRoute(routeName: NavigationRouteName) : EnumPilotNavigationRoute(routeName) {
     data class ProjectDetails(
-        val navigationData: ProjectDetailsNavigationData
+        val navigationData: ProjectDetailsNavigationData,
+        val closeAction: () -> Unit
     ) : NavigationRoute(NavigationRouteName.PROJECT_DETAILS)
 }

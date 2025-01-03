@@ -82,11 +82,14 @@ class ProjectsViewModelImpl(
         tapAction = {
             navigationManager.push(
                 NavigationRoute.ProjectDetails(
-                    ProjectDetailsNavigationData(
+                    navigationData = ProjectDetailsNavigationData(
                         id = id,
                         backgroundColor = backgroundColor,
                         textColor = textColor
-                    )
+                    ),
+                    closeAction = {
+                        navigationManager.pop()
+                    }
                 )
             )
         },

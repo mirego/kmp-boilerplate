@@ -91,8 +91,6 @@ class ProjectDetailsViewModelImpl(
         content = stateFlowOf(
             PilotLocalImageContent(SharedImageResource.closeIcon)
         ),
-        action = {
-            navigationManager.pop()
-        }
+        action = route.closeAction
     )
 }

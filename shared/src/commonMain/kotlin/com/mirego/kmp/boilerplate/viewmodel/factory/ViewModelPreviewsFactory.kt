@@ -50,11 +50,14 @@ class ViewModelPreviewsFactory(
         i18N = i18N,
         navigationManager = navigationManager,
         route = NavigationRoute.ProjectDetails(
-            ProjectDetailsNavigationData(
+            navigationData = ProjectDetailsNavigationData(
                 "",
                 "000000".toRGBAColor() ?: RGBAColor.None,
                 "ffffff".toRGBAColor() ?: RGBAColor.None
-            )
+            ),
+            closeAction = {
+                // NO-OP
+            }
         )
     )
 }
