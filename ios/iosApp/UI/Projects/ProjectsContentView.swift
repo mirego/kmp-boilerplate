@@ -12,7 +12,7 @@ struct ProjectsContentView: View {
         GeometryReader { proxy in
             ScrollView(.vertical) {
                 VStack(spacing: padding * 2) {
-                    ForEach(projectsContentSections, id: \.id) { section in
+                    ForEach(projectsContentSections, id: \.identifier) { section in
                         switch onEnum(of: section) {
                             case let .header(header):
                                 headerView(header: header)
