@@ -12,19 +12,15 @@ import com.mirego.killswitch.AndroidKillswitch
 import com.mirego.killswitch.KillswitchException
 import com.mirego.kmp.boilerplate.app.ui.application.ApplicationView
 import com.mirego.kmp.boilerplate.bootstrap.Bootstrapper
-import com.mirego.kmp.boilerplate.trikot.viewmodels.declarative.compose.getInitialViewModel
 import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private val bootstrapper: Bootstrapper
         get() = (applicationContext as AndroidApplication).bootstrapper
 
-    private val viewModel: ApplicationViewModel by lazy {
-        getInitialViewModel {
-            bootstrapper.applicationViewModel()
-        }
-    }
+    private val viewModel: ApplicationViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -14,47 +14,47 @@ import com.mirego.trikot.viewmodels.declarative.util.CoroutineScopeProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
-class ViewModelFactoryPreview(
-    private val i18N: I18N,
-    private val useCaseFactoryPreview: UseCaseFactoryPreview = UseCaseFactoryPreview()
-) : ViewModelFactory {
-
-    fun createCoroutineScope() = CoroutineScopeProvider.provideMainWithSuperviserJob(
-        CoroutineExceptionHandler { _, exception ->
-            println("CoroutineExceptionHandler got $exception")
-        }
-    )
-
-    fun createApplication() = ApplicationViewModelImpl(
-        this,
-        createCoroutineScope()
-    )
-
-    override fun createRoot(coroutineScope: CoroutineScope) = createRoot()
-
-    fun createRoot() = RootViewModelImpl(
-        i18N = i18N,
-        viewModelFactory = this,
-        coroutineScope = createCoroutineScope()
-    )
-
-    override fun createProjects(coroutineScope: CoroutineScope) = createProjects()
-    fun createProjects(previewState: PreviewState = PreviewState.Data.Content) = ProjectsViewModelImpl(
-        projectsUseCase = useCaseFactoryPreview.projectsUseCase(previewState),
-        i18N = i18N,
-        viewModelFactory = this,
-        coroutineScope = createCoroutineScope()
-    )
-
-    override fun createProjectDetails(navigationData: ProjectDetailsNavigationData, closeAction: () -> Unit, coroutineScope: CoroutineScope) = createProjectDetails()
-
-    fun createProjectDetails(previewState: PreviewState = PreviewState.Data.Content) = ProjectDetailsViewModelImpl(
-        navigationData = ProjectDetailsNavigationData("", "000000".toRGBAColor() ?: RGBAColor.None, "ffffff".toRGBAColor() ?: RGBAColor.None),
-        projectDetailsUseCase = useCaseFactoryPreview.projectDetailsUseCase(previewState),
-        i18N = i18N,
-        viewModelFactory = this,
-        closeAction = {},
-        coroutineScope = createCoroutineScope()
-    )
-}
+//@Suppress("unused", "MemberVisibilityCanBePrivate")
+//class ViewModelFactoryPreview(
+//    private val i18N: I18N,
+//    private val useCaseFactoryPreview: UseCaseFactoryPreview = UseCaseFactoryPreview()
+//) : ViewModelFactory {
+//
+//    fun createCoroutineScope() = CoroutineScopeProvider.provideMainWithSuperviserJob(
+//        CoroutineExceptionHandler { _, exception ->
+//            println("CoroutineExceptionHandler got $exception")
+//        }
+//    )
+//
+//    fun createApplication() = ApplicationViewModelImpl(
+//        this,
+//        createCoroutineScope()
+//    )
+//
+//    override fun createRoot(coroutineScope: CoroutineScope) = createRoot()
+//
+//    fun createRoot() = RootViewModelImpl(
+//        i18N = i18N,
+//        viewModelFactory = this,
+//        coroutineScope = createCoroutineScope()
+//    )
+//
+//    override fun createProjects(coroutineScope: CoroutineScope) = createProjects()
+//    fun createProjects(previewState: PreviewState = PreviewState.Data.Content) = ProjectsViewModelImpl(
+//        projectsUseCase = useCaseFactoryPreview.projectsUseCase(previewState),
+//        i18N = i18N,
+//        viewModelFactory = this,
+//        coroutineScope = createCoroutineScope()
+//    )
+//
+//    override fun createProjectDetails(navigationData: ProjectDetailsNavigationData, closeAction: () -> Unit, coroutineScope: CoroutineScope) = createProjectDetails()
+//
+//    fun createProjectDetails(previewState: PreviewState = PreviewState.Data.Content) = ProjectDetailsViewModelImpl(
+//        navigationData = ProjectDetailsNavigationData("", "000000".toRGBAColor() ?: RGBAColor.None, "ffffff".toRGBAColor() ?: RGBAColor.None),
+//        projectDetailsUseCase = useCaseFactoryPreview.projectDetailsUseCase(previewState),
+//        i18N = i18N,
+//        viewModelFactory = this,
+//        closeAction = {},
+//        coroutineScope = createCoroutineScope()
+//    )
+//}

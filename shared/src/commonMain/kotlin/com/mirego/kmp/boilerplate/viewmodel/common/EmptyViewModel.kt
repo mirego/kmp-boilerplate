@@ -2,12 +2,12 @@ package com.mirego.kmp.boilerplate.viewmodel.common
 
 import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.content.PilotLocalImageContent
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModel
+import com.mirego.pilot.viewmodel.PilotViewModel
 
-interface EmptyViewModel : VMDViewModel {
-    val icon: PilotLocalImageContent
-    val title: String
-    val message: String
-    val actionButton: PilotButton<String>?
-    val secondaryActionButton: PilotButton<String>?
+abstract class EmptyViewModel : PilotViewModel() {
+    abstract val icon: PilotLocalImageContent
+    abstract val title: String
+    abstract val message: String
+    abstract val actionButton: PilotButton<String>?
+    abstract val secondaryActionButton: PilotButton<String>?
 }

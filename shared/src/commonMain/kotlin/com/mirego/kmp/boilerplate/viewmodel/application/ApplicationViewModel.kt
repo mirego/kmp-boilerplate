@@ -1,8 +1,10 @@
 package com.mirego.kmp.boilerplate.viewmodel.application
 
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModel
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModel
+import com.mirego.pilot.viewmodel.PilotViewModel
 
-interface ApplicationViewModel : VMDViewModel {
-    val rootViewModel: RootViewModel
+abstract class ApplicationViewModel : PilotViewModel() {
+    abstract val navigationManager: NavigationManager
+    abstract val rootViewModel: RootViewModel
 }

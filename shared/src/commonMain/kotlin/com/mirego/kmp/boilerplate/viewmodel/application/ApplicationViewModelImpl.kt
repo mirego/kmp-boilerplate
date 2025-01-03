@@ -1,14 +1,14 @@
 package com.mirego.kmp.boilerplate.viewmodel.application
 
-import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
-import kotlinx.coroutines.CoroutineScope
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
+import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModel
+import com.mirego.pilot.viewmodel.viewModelScope
 import org.koin.core.annotation.Factory
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 @Factory
-class ApplicationViewModelImpl(
-    viewModelFactory: ViewModelFactory,
-    coroutineScope: CoroutineScope
-) : ApplicationViewModel, VMDViewModelImpl(coroutineScope) {
-    override val rootViewModel = viewModelFactory.createRoot(coroutineScope)
+internal class ApplicationViewModelImpl : ApplicationViewModel(), KoinComponent {
+    override val navigationManager = NavigationManager(viewModelScope)
+    override val rootViewModel: RootViewModel by inject { RootViewModel.parameters(navigationManager, viewModelScope = viewModelScope) }
 }

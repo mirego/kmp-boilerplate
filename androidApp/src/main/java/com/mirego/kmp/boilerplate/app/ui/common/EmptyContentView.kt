@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mirego.kmp.boilerplate.app.ui.common.Const.padding
-import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
+//import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.projects.ProjectsView
 import com.mirego.kmp.boilerplate.app.ui.theme.TextSize
 import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
@@ -28,21 +28,20 @@ import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsStat
 
 @Composable
 fun EmptyContentView(emptyViewModel: EmptyViewModel, modifier: Modifier = Modifier) {
-    val viewModel: EmptyViewModel by emptyViewModel.observeAsState()
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             modifier = Modifier.size(55.dp),
-            painter = pilotImageResourcePainter(viewModel.icon.imageResource),
+            painter = pilotImageResourcePainter(emptyViewModel.icon.imageResource),
             colorFilter = ColorFilter.tint(Color.White),
-            contentDescription = viewModel.icon.contentDescription
+            contentDescription = emptyViewModel.icon.contentDescription
         )
 
         Text(
             modifier = Modifier.padding(top = padding * 2),
-            text = viewModel.title,
+            text = emptyViewModel.title,
             color = Color.White,
             style = style(TextSize.LARGE_TITLE, TextWeight.REGULAR),
             maxLines = 1
@@ -50,7 +49,7 @@ fun EmptyContentView(emptyViewModel: EmptyViewModel, modifier: Modifier = Modifi
 
         Text(
             modifier = Modifier.padding(top = padding),
-            text = viewModel.message,
+            text = emptyViewModel.message,
             color = Color.White,
             style = style(TextSize.BODY, TextWeight.REGULAR),
             textAlign = TextAlign.Center
@@ -58,10 +57,10 @@ fun EmptyContentView(emptyViewModel: EmptyViewModel, modifier: Modifier = Modifi
     }
 }
 
-@Preview
-@Composable
-fun PreviewEmptyContentView() {
-    PreviewProvider {
-        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Data.Empty))
-    }
-}
+//@Preview
+//@Composable
+//fun PreviewEmptyContentView() {
+//    PreviewProvider {
+//        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Data.Empty))
+//    }
+//}

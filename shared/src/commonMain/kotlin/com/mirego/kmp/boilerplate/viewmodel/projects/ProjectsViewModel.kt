@@ -2,21 +2,27 @@ package com.mirego.kmp.boilerplate.viewmodel.projects
 
 import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModel
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModel
-import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModel
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.pilot.components.PilotRemoteImage
-import com.mirego.trikot.viewmodels.declarative.Published
-import com.mirego.trikot.viewmodels.declarative.components.VMDListViewModel
+import com.mirego.pilot.components.lifecycle.PilotAppearanceLifecycleViewModel
 import com.mirego.trikot.viewmodels.declarative.content.VMDIdentifiableContent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
+import org.koin.core.parameter.ParametersHolder
+import org.koin.core.parameter.parametersOf
 
-interface ProjectsViewModel : NavigationViewModel {
+abstract class ProjectsViewModel : PilotAppearanceLifecycleViewModel() {
+    abstract val rootContent: Flow<ProjectsRoot?>
 
-    @Published
-    val rootContent: ProjectsRoot?
+    companion object {
+        fun parameters(navigationManager: NavigationManager, viewModelScope: CoroutineScope): ParametersHolder =
+            parametersOf(navigationManager, viewModelScope)
+    }
 }
 
 sealed interface ProjectsRoot {
     data class Content(
-        val sections: VMDListViewModel<ProjectsContentSection>
+        val sections: List<ProjectsContentSection>
     ) : ProjectsRoot
 
     data class Error(
@@ -24,25 +30,22 @@ sealed interface ProjectsRoot {
     ) : ProjectsRoot
 }
 
-sealed interface ProjectsContentSection : VMDIdentifiableContent {
+sealed interface ProjectsContentSection {
     data class Header(
         val title: String,
-        val description: String
-    ) : ProjectsContentSection {
-        override val identifier: String = "Header"
-    }
+        val description: String,
+        val identifier: String = "Header"
+    ) : ProjectsContentSection
 
     data class NoProjects(
-        val emptyViewModel: EmptyViewModel
-    ) : ProjectsContentSection {
-        override val identifier: String = "NoProjects"
-    }
+        val emptyViewModel: EmptyViewModel,
+        val identifier: String = "NoProjects"
+    ) : ProjectsContentSection
 
     data class ProjectsList(
-        val viewModel: VMDListViewModel<ProjectItem>
-    ) : ProjectsContentSection {
-        override val identifier: String = "ProjectsList"
-    }
+        val projects: List<ProjectItem>,
+        val identifier: String = "ProjectsList"
+    ) : ProjectsContentSection
 }
 
 data class ProjectItem(

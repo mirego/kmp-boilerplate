@@ -9,15 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
+//import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.projects.ProjectsView
 import com.mirego.kmp.boilerplate.app.ui.theme.PrimaryBlack
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModel
 import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
 
 @Composable
-fun RootView(rootViewModel: RootViewModel) {
-    val viewModel: RootViewModel by rootViewModel.observeAsState()
+fun RootView(rootViewModel: RootViewModel, navigationManager: NavigationManager) {
     val systemUiController = rememberSystemUiController()
     systemUiController.setNavigationBarColor(color = Color.PrimaryBlack, darkIcons = false)
     systemUiController.setStatusBarColor(color = Color.Transparent, darkIcons = false)
@@ -27,14 +27,14 @@ fun RootView(rootViewModel: RootViewModel) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        ProjectsView(projectsViewModel = viewModel.projectsViewModel)
+        ProjectsView(projectsViewModel = rootViewModel.projectsViewModel, navigationManager = navigationManager)
     }
 }
 
-@Preview
-@Composable
-fun PreviewRootView() {
-    PreviewProvider {
-        RootView(rootViewModel = it.createRoot())
-    }
-}
+//@Preview
+//@Composable
+//fun PreviewRootView() {
+//    PreviewProvider {
+//        RootView(rootViewModel = it.createRoot())
+//    }
+//}

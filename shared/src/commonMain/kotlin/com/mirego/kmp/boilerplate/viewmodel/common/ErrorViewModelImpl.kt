@@ -4,10 +4,8 @@ import com.mirego.kmp.boilerplate.extension.stateFlowOf
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
 import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotImageResource
-import com.mirego.pilot.components.buildRichText
 import com.mirego.pilot.components.content.PilotLocalImageContent
 import com.mirego.trikot.kword.I18N
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
 import kotlinx.coroutines.CoroutineScope
 
 class ErrorViewModelImpl(
@@ -17,7 +15,7 @@ class ErrorViewModelImpl(
     retryLabel: String,
     retryAction: () -> Unit,
     coroutineScope: CoroutineScope
-) : ErrorViewModel, VMDViewModelImpl(coroutineScope) {
+) : ErrorViewModel() {
 
     companion object {
         fun build(i18N: I18N, titleKey: KWordTranslation, messageKey: KWordTranslation, coroutineScope: CoroutineScope, retryAction: () -> Unit) = ErrorViewModelImpl(

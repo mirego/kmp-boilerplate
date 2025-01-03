@@ -1,7 +1,6 @@
 package com.mirego.kmp.boilerplate.viewmodel.projects
 
 import com.mirego.kmp.boilerplate.analytics.Analytics
-import com.mirego.kmp.boilerplate.analytics.ScreenName
 import com.mirego.kmp.boilerplate.extension.prioritiseData
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectsUseCasePreview
@@ -11,66 +10,54 @@ import com.mirego.kmp.boilerplate.usecase.projects.ProjectsViewData
 import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
-import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
-import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
-import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
-import com.mirego.trikot.viewmodels.declarative.viewmodel.list
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
+import org.koin.core.annotation.InjectedParam
 
 @Factory
-@PublishedSubClass(superClass = NavigationViewModelImpl::class)
 class ProjectsViewModelImpl(
     private val projectsUseCase: ProjectsUseCase,
     private val i18N: I18N,
-    viewModelFactory: ViewModelFactory,
-    coroutineScope: CoroutineScope
-) : ProjectsViewModel, BaseProjectsViewModelImpl(
-    onTrackScreenView = {
-        Analytics.trackScreenView(ScreenName.projects)
-    },
-    viewModelFactory = viewModelFactory,
-    coroutineScope = coroutineScope
-) {
+    @InjectedParam private val navigationManager: NavigationManager,
+    @InjectedParam private val coroutineScope: CoroutineScope
+) : ProjectsViewModel() {
+    override val rootContent: Flow<ProjectsRoot?>
 
     init {
-        bindRootContent(
-            projectsUseCase.projects().map { stateData ->
-                when (val prioritizedData = stateData.prioritiseData()) {
-                    is DataState.Data -> when (val data = prioritizedData.value) {
-                        is ProjectsViewData.Content -> buildData(data)
-                        is ProjectsViewData.Empty -> buildEmptyData()
-                    }
-
-                    is DataState.Error -> buildError()
-                    is DataState.Pending -> buildLoading()
+        rootContent = projectsUseCase.projects().map { stateData ->
+            when (val prioritizedData = stateData.prioritiseData()) {
+                is DataState.Data -> when (val data = prioritizedData.value) {
+                    is ProjectsViewData.Content -> buildData(data)
+                    is ProjectsViewData.Empty -> buildEmptyData()
                 }
+
+                is DataState.Error -> buildError()
+                is DataState.Pending -> buildLoading()
             }
-        )
+        }
     }
 
     private fun buildData(viewData: ProjectsViewData.Content) = ProjectsRoot.Content(
-        sections = list {
-            elements = listOf(
-                buildHeader(),
-                buildProjectList(viewData)
-            )
-        }
+        sections = listOf(
+            buildHeader(),
+            buildProjectList(viewData)
+        )
     )
 
     private fun buildEmptyData() = ProjectsRoot.Content(
-        sections = list {
-            elements = listOf(
-                buildHeader(),
-                buildEmpty()
-            )
-        }
+        sections = listOf(
+            buildHeader(),
+            buildEmpty()
+        )
     )
 
     private fun buildHeader() = ProjectsContentSection.Header(
@@ -79,11 +66,9 @@ class ProjectsViewModelImpl(
     )
 
     private fun buildProjectList(viewData: ProjectsViewData.Content) = ProjectsContentSection.ProjectsList(
-        viewModel = list(
-            elements = viewData.items.map { item ->
-                item.toItem(isLoading = false)
-            }
-        )
+        projects = viewData.items.map { item ->
+            item.toItem(isLoading = false)
+        }
     )
 
     private fun ProjectItemViewData.toItem(isLoading: Boolean) = ProjectItem(
@@ -97,11 +82,13 @@ class ProjectsViewModelImpl(
         ),
         tapAction = {
             Analytics.trackViewProject(projectId = id)
-            navigateToProjectDetails(
-                ProjectDetailsNavigationData(
-                    id = id,
-                    backgroundColor = backgroundColor,
-                    textColor = textColor
+            navigationManager.push(
+                NavigationRoute.ProjectDetails(
+                    ProjectDetailsNavigationData(
+                        id = id,
+                        backgroundColor = backgroundColor,
+                        textColor = textColor
+                    )
                 )
             )
         },
@@ -132,17 +119,13 @@ class ProjectsViewModelImpl(
     )
 
     private fun buildLoading() = ProjectsRoot.Content(
-        sections = list {
-            elements = listOf(
-                buildHeader(),
-                ProjectsContentSection.ProjectsList(
-                    viewModel = list(
-                        elements = ProjectsUseCasePreview.buildPreviewItems().map {
-                            it.toItem(isLoading = true)
-                        }
-                    )
-                )
+        sections = listOf(
+            buildHeader(),
+            ProjectsContentSection.ProjectsList(
+                projects = ProjectsUseCasePreview.buildPreviewItems().map {
+                    it.toItem(isLoading = true)
+                }
             )
-        }
+        )
     )
 }

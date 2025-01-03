@@ -2,26 +2,19 @@ package com.mirego.kmp.boilerplate.app.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.navigation.compose.rememberNavController
-import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModel
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 
 @Composable
-fun NavigationView(navigationViewModel: NavigationViewModel, content: @Composable () -> Unit) {
+fun NavigationView(navigationManager: NavigationManager, content: @Composable () -> Unit) {
     if (LocalInspectionMode.current) {
         content()
         return
     }
 
-    val navController = rememberNavController()
-    VMDNavigationView(
-        navigationViewModel = navigationViewModel,
-        navController = navController
-    ) { startDestination ->
-        BoilerplateNavHost(
-            navController = navController,
-            startDestination = startDestination,
-            navigationViewModel = navigationViewModel,
-            content = content
-        )
-    }
+    val navController = rememberNavController(navigationManager)
+    BoilerplateNavHost(
+        navController = navController,
+        navigationManager = navigationManager,
+        content = content
+    )
 }

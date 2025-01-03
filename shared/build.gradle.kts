@@ -140,7 +140,12 @@ kotlin {
                 implementation(libs.mockk.common)
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.lifecycle.viewmodel.ktx)
+            }
+        }
 
         val androidUnitTest by getting {
             dependencies {

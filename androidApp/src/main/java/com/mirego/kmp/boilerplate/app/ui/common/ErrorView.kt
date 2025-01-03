@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mirego.kmp.boilerplate.app.ui.common.Const.padding
-import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
+//import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.projects.ProjectsView
 import com.mirego.kmp.boilerplate.app.ui.theme.TextSize
 import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
@@ -32,12 +31,10 @@ import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModel
 import com.mirego.pilot.components.ui.PilotButton
 import com.mirego.pilot.components.ui.pilotImageResourcePainter
-import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
 
 @Composable
 fun ErrorView(errorViewModel: ErrorViewModel) {
     val iconPadding = 4.dp
-    val viewModel: ErrorViewModel by errorViewModel.observeAsState()
     Column(
         modifier = Modifier
             .statusBarsPadding()
@@ -46,15 +43,15 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = pilotImageResourcePainter(viewModel.icon.imageResource),
-            contentDescription = viewModel.icon.contentDescription,
+            painter = pilotImageResourcePainter(errorViewModel.icon.imageResource),
+            contentDescription = errorViewModel.icon.contentDescription,
             modifier = Modifier.size(55.dp),
             colorFilter = ColorFilter.tint(Color.White)
         )
 
         Text(
             modifier = Modifier.padding(top = padding * 2 - iconPadding),
-            text = viewModel.title,
+            text = errorViewModel.title,
             style = style(TextSize.LARGE_TITLE, TextWeight.REGULAR),
             color = Color.White,
             maxLines = 1
@@ -62,7 +59,7 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
 
         Text(
             modifier = Modifier.padding(top = padding),
-            text = viewModel.message,
+            text = errorViewModel.message,
             style = style(TextSize.BODY, TextWeight.REGULAR),
             color = Color.White,
             textAlign = TextAlign.Center
@@ -77,7 +74,7 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
                 .clip(RoundedCornerShape(percent = 50))
                 .background(Color.Red)
                 .padding(all = 12.dp),
-            pilotButton = viewModel.retryButton
+            pilotButton = errorViewModel.retryButton
         ) { content ->
             Text(
                 modifier = Modifier,
@@ -89,10 +86,10 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
     }
 }
 
-@Preview
-@Composable
-fun PreviewProjectsView() {
-    PreviewProvider {
-        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Error))
-    }
-}
+//@Preview
+//@Composable
+//fun PreviewProjectsView() {
+//    PreviewProvider {
+//        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Error))
+//    }
+//}
