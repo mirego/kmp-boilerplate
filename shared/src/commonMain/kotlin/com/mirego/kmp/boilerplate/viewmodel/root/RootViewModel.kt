@@ -10,7 +10,6 @@ interface RootViewModel {
     val projectsViewModel: ProjectsViewModel
 
     companion object {
-        fun parameters(navigationManager: NavigationManager): ParametersHolder =
-            parametersOf(navigationManager)
+        fun parameters(navigationManager: NavigationManager): ParametersHolder = parametersOf(navigationManager)
     }
 }

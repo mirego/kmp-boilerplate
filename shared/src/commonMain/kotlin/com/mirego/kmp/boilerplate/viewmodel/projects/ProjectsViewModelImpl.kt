@@ -2,7 +2,6 @@ package com.mirego.kmp.boilerplate.viewmodel.projects
 
 import com.mirego.kmp.boilerplate.extension.prioritiseData
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
-import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectsUseCasePreview
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectItemViewData
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsUseCase
@@ -13,13 +12,11 @@ import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
-import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
@@ -100,8 +97,7 @@ class ProjectsViewModelImpl(
         emptyViewModel = EmptyViewModelImpl(
             title = i18N[KWordTranslation.GENERIC_EMPTY_CONTENT_TITLE],
             message = i18N[KWordTranslation.PROJECTS_EMPTY_CONTENT_MESSAGE],
-            actionButton = null,
-            coroutineScope = viewModelScope
+            actionButton = null
         )
     )
 
@@ -109,8 +105,7 @@ class ProjectsViewModelImpl(
         errorViewModel = ErrorViewModelImpl.build(
             i18N = i18N,
             titleKey = KWordTranslation.GENERIC_ERROR_TITLE,
-            messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE,
-            coroutineScope = viewModelScope
+            messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE
         ) {
             viewModelScope.launch {
                 projectsUseCase.refreshProjects()

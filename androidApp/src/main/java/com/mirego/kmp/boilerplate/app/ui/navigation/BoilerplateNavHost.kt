@@ -3,9 +3,13 @@ package com.mirego.kmp.boilerplate.app.ui.navigation
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,25 +47,31 @@ fun BoilerplateNavHost(
         }
 
         NavigationRouteName.entries.forEach { routeName ->
-            val content: @Composable (NavBackStackEntry) -> Unit = { backStackEntry ->
-                when (routeName) {
-                    NavigationRouteName.PROJECT_DETAILS -> ProjectDetailsView(
-                        projectDetailsViewModel = koinViewModel {
-                            ProjectDetailsViewModel.parameters(
-                                navigationManager,
-                                navigationManager.findRoute(backStackEntry)
-                            )
-                        }
+            navigableContent(routeName, navigationManager)
+        }
+    }
+}
+
+private fun NavGraphBuilder.navigableContent(routeName: NavigationRouteName, navigationManager: NavigationManager) {
+    val content: @Composable (NavBackStackEntry) -> Unit = { backStackEntry ->
+        when (routeName) {
+            NavigationRouteName.PROJECT_DETAILS -> ProjectDetailsView(
+                projectDetailsViewModel = koinViewModel {
+                    ProjectDetailsViewModel.parameters(
+                        navigationManager,
+                        navigationManager.findRoute(backStackEntry)
                     )
                 }
-            }
+            )
+        }
+    }
 
-            composable(
-                route = pilotNavRoute(routeName.name),
-                arguments = pilotNavArguments,
-            ) {
-                content(it)
-            }
+    composable(
+        route = pilotNavRoute(routeName.name),
+        arguments = pilotNavArguments
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            content(it)
         }
     }
 }

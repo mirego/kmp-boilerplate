@@ -26,7 +26,7 @@ class ViewModelPreviewsFactory(
     private val useCaseFactoryPreview: UseCaseFactoryPreview = UseCaseFactoryPreview()
 ) : KoinComponent {
     private val navigationManager = NavigationManager(
-        coroutineScope = createCoroutineScope(),
+        coroutineScope = createCoroutineScope()
     )
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->

@@ -44,5 +44,5 @@ private fun NavControllerSaver(context: Context, navigationManager: PilotNavigat
                     restoreState(it)
                 }
             }
-        },
+        }
     )

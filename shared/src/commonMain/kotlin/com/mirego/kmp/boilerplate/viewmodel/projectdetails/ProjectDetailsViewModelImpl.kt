@@ -15,7 +15,6 @@ import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.content.PilotLocalImageContent
-import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import kotlinx.coroutines.CoroutineScope
@@ -84,7 +83,6 @@ class ProjectDetailsViewModelImpl(
             i18N = i18N,
             titleKey = KWordTranslation.GENERIC_ERROR_TITLE,
             messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE,
-            coroutineScope = viewModelScope,
             retryAction = {}
         )
     )

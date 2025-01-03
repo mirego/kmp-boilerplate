@@ -7,7 +7,7 @@ import org.koin.core.annotation.Factory
 @Factory
 class NavigationManager(
     coroutineScope: CoroutineScope,
-    parentNavigationManager: NavigationManager? = null,
+    parentNavigationManager: NavigationManager? = null
 ) : DefaultPilotNavigationManager<NavigationRoute, NavigationAction>(
     coroutineScope,
     parentNavigationManager

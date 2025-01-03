@@ -14,8 +14,7 @@ abstract class ProjectsViewModel : PilotAppearanceLifecycleViewModel() {
     abstract val rootContent: Flow<ProjectsRoot?>
 
     companion object {
-        fun parameters(navigationManager: NavigationManager): ParametersHolder =
-            parametersOf(navigationManager)
+        fun parameters(navigationManager: NavigationManager): ParametersHolder = parametersOf(navigationManager)
     }
 }
 
