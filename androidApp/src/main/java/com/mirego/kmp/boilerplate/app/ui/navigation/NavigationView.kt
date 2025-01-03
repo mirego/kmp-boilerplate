@@ -15,6 +15,6 @@ fun NavigationView(navigationManager: NavigationManager, content: @Composable ()
     BoilerplateNavHost(
         navController = navController,
         navigationManager = navigationManager,
-        content = content
+        rootContent = content
     )
 }

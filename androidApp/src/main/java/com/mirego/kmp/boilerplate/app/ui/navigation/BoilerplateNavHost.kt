@@ -3,11 +3,8 @@ package com.mirego.kmp.boilerplate.app.ui.navigation
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -18,6 +15,8 @@ import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRouteName
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsViewModel
 import com.mirego.pilot.navigation.compose.PilotNavControllerNavigationListener
 import com.mirego.pilot.navigation.compose.findRoute
+import com.mirego.pilot.navigation.compose.pilotNavArguments
+import com.mirego.pilot.navigation.compose.pilotNavRoute
 import org.koin.androidx.compose.koinViewModel
 
 internal const val ROOT_ROUTE = "root"
@@ -26,7 +25,7 @@ internal const val ROOT_ROUTE = "root"
 fun BoilerplateNavHost(
     navController: NavHostController,
     navigationManager: NavigationManager,
-    content: @Composable () -> Unit
+    rootContent: @Composable () -> Unit
 ) {
     LaunchedEffect(navigationManager, navController) {
         navigationManager.listener = PilotNavControllerNavigationListener(navController)
@@ -40,26 +39,29 @@ fun BoilerplateNavHost(
         exitTransition = { fadeOut(tween(500)) }
     ) {
         composable(ROOT_ROUTE) {
-            content()
+            rootContent()
         }
-        composable(
-            route = NavigationRouteName.PROJECT_DETAILS.name
-        ) {
-            NavigableContent(NavigationRouteName.PROJECT_DETAILS, navigationManager)
-        }
-    }
-}
 
-@Composable
-private fun NavigableContent(route: NavigationRouteName, navigationManager: NavigationManager): @Composable (NavBackStackEntry) -> Unit {
-    val content: @Composable (NavBackStackEntry) -> Unit = { backStackEntry ->
-        Box(modifier = Modifier.fillMaxSize()) {
-            when (route) {
-                NavigationRouteName.PROJECT_DETAILS -> ProjectDetailsView(
-                    projectDetailsViewModel = koinViewModel { ProjectDetailsViewModel.parameters(navigationManager, navigationManager.findRoute(backStackEntry)) }
-                )
+        NavigationRouteName.entries.forEach { routeName ->
+            val content: @Composable (NavBackStackEntry) -> Unit = { backStackEntry ->
+                when (routeName) {
+                    NavigationRouteName.PROJECT_DETAILS -> ProjectDetailsView(
+                        projectDetailsViewModel = koinViewModel {
+                            ProjectDetailsViewModel.parameters(
+                                navigationManager,
+                                navigationManager.findRoute(backStackEntry)
+                            )
+                        }
+                    )
+                }
+            }
+
+            composable(
+                route = pilotNavRoute(routeName.name),
+                arguments = pilotNavArguments,
+            ) {
+                content(it)
             }
         }
     }
-    return content
 }

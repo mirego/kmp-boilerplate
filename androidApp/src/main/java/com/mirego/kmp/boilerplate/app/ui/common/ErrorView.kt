@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mirego.kmp.boilerplate.app.ui.common.Const.padding
-//import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
+import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.projects.ProjectsView
 import com.mirego.kmp.boilerplate.app.ui.theme.TextSize
 import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
@@ -86,10 +86,10 @@ fun ErrorView(errorViewModel: ErrorViewModel) {
     }
 }
 
-//@Preview
-//@Composable
-//fun PreviewProjectsView() {
-//    PreviewProvider {
-//        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Error))
-//    }
-//}
+@Preview
+@Composable
+fun PreviewProjectsView() {
+    PreviewProvider {
+        ProjectsView(projectsViewModel = it.createProjects(previewState = PreviewState.Error))
+    }
+}

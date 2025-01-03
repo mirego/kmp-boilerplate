@@ -6,7 +6,6 @@ import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.lifecycle.PilotAppearanceLifecycleViewModel
 import com.mirego.trikot.viewmodels.declarative.content.VMDIdentifiableContent
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.parameter.ParametersHolder
 import org.koin.core.parameter.parametersOf
@@ -15,8 +14,8 @@ abstract class ProjectsViewModel : PilotAppearanceLifecycleViewModel() {
     abstract val rootContent: Flow<ProjectsRoot?>
 
     companion object {
-        fun parameters(navigationManager: NavigationManager, viewModelScope: CoroutineScope): ParametersHolder =
-            parametersOf(navigationManager, viewModelScope)
+        fun parameters(navigationManager: NavigationManager): ParametersHolder =
+            parametersOf(navigationManager)
     }
 }
 

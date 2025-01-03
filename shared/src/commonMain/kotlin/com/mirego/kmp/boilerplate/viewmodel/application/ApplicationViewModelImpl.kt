@@ -10,5 +10,5 @@ import org.koin.core.component.inject
 @Factory
 internal class ApplicationViewModelImpl : ApplicationViewModel(), KoinComponent {
     override val navigationManager = NavigationManager(viewModelScope)
-    override val rootViewModel: RootViewModel by inject { RootViewModel.parameters(navigationManager, viewModelScope = viewModelScope) }
+    override val rootViewModel: RootViewModel by inject { RootViewModel.parameters(navigationManager) }
 }

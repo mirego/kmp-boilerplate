@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.ripple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +31,7 @@ import coil.compose.AsyncImage
 import com.mirego.kmp.boilerplate.app.ui.common.Const.padding
 import com.mirego.kmp.boilerplate.app.ui.common.EmptyContentView
 import com.mirego.kmp.boilerplate.app.ui.common.loading
-//import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
+import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.app.ui.theme.AccentOrange
 import com.mirego.kmp.boilerplate.app.ui.theme.TextSize
 import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
@@ -158,10 +157,10 @@ private fun ItemView(item: ProjectItem) {
     }
 }
 
-//@Preview
-//@Composable
-//fun PreviewProjectsContentView() {
-//    PreviewProvider {
-//        ProjectsView(projectsViewModel = it.createProjects())
-//    }
-//}
+@Preview
+@Composable
+fun PreviewProjectsContentView() {
+    PreviewProvider {
+        ProjectsView(projectsViewModel = it.createProjects())
+    }
+}

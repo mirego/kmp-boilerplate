@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.mirego.kmp.boilerplate.app.ui.common.ErrorView
 import com.mirego.kmp.boilerplate.app.ui.common.toColor
-//import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
+import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsRoot
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsViewModel
@@ -69,34 +69,34 @@ private fun ContentView(viewModel: ProjectDetailsViewModel) {
     }
 }
 
-//@Preview
-//@Composable
-//fun PreviewProjectsDetailsContentView() {
-//    PreviewProvider {
-//        ProjectDetailsView(projectDetailsViewModel = it.createProjectDetails(previewState = PreviewState.Data.Content))
-//    }
-//}
-//
-//@Preview
-//@Composable
-//fun PreviewProjectsDetailsEmptyView() {
-//    PreviewProvider {
-//        ProjectDetailsView(projectDetailsViewModel = it.createProjectDetails(previewState = PreviewState.Data.Empty))
-//    }
-//}
-//
-//@Preview
-//@Composable
-//fun PreviewProjectsDetailsLoadingView() {
-//    PreviewProvider {
-//        ProjectDetailsView(projectDetailsViewModel = it.createProjectDetails(previewState = PreviewState.Loading))
-//    }
-//}
-//
-//@Preview
-//@Composable
-//fun PreviewProjectsDetailsErrorView() {
-//    PreviewProvider {
-//        ProjectDetailsView(projectDetailsViewModel = it.createProjectDetails(previewState = PreviewState.Error))
-//    }
-//}
+@Preview
+@Composable
+fun PreviewProjectsDetailsContentView() {
+    PreviewProvider {
+        ProjectDetailsView(projectDetailsViewModel = it.createProjectDetails(previewState = PreviewState.Data.Content))
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProjectsDetailsEmptyView() {
+    PreviewProvider {
+        ProjectDetailsView(projectDetailsViewModel = it.createProjectDetails(previewState = PreviewState.Data.Empty))
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProjectsDetailsLoadingView() {
+    PreviewProvider {
+        ProjectDetailsView(projectDetailsViewModel = it.createProjectDetails(previewState = PreviewState.Loading))
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProjectsDetailsErrorView() {
+    PreviewProvider {
+        ProjectDetailsView(projectDetailsViewModel = it.createProjectDetails(previewState = PreviewState.Error))
+    }
+}

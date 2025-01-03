@@ -10,10 +10,12 @@ import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsUseCase
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsViewData
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.content.PilotLocalImageContent
+import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import kotlinx.coroutines.CoroutineScope
@@ -27,8 +29,7 @@ import org.koin.core.component.KoinComponent
 class ProjectDetailsViewModelImpl(
     projectDetailsUseCase: ProjectDetailsUseCase,
     private val i18N: I18N,
-    closeAction: () -> Unit,
-    @InjectedParam private val coroutineScope: CoroutineScope,
+    @InjectedParam override val navigationManager: NavigationManager,
     @InjectedParam route: NavigationRoute.ProjectDetails
 ) : ProjectDetailsViewModel(), KoinComponent {
     private val navigationData = route.navigationData
@@ -83,7 +84,7 @@ class ProjectDetailsViewModelImpl(
             i18N = i18N,
             titleKey = KWordTranslation.GENERIC_ERROR_TITLE,
             messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE,
-            coroutineScope = coroutineScope,
+            coroutineScope = viewModelScope,
             retryAction = {}
         )
     )
@@ -92,6 +93,8 @@ class ProjectDetailsViewModelImpl(
         content = stateFlowOf(
             PilotLocalImageContent(SharedImageResource.closeIcon)
         ),
-        action = closeAction
+        action = {
+            navigationManager.pop()
+        }
     )
 }

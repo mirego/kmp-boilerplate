@@ -1,8 +1,8 @@
 package com.mirego.kmp.boilerplate.viewmodel.projects
 
-import com.mirego.kmp.boilerplate.analytics.Analytics
 import com.mirego.kmp.boilerplate.extension.prioritiseData
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
+import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectsUseCasePreview
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectItemViewData
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsUseCase
@@ -13,23 +13,25 @@ import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
+import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotRemoteImage
+import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.InjectedParam
+import org.koin.core.component.KoinComponent
 
 @Factory
 class ProjectsViewModelImpl(
     private val projectsUseCase: ProjectsUseCase,
     private val i18N: I18N,
-    @InjectedParam private val navigationManager: NavigationManager,
-    @InjectedParam private val coroutineScope: CoroutineScope
-) : ProjectsViewModel() {
+    @InjectedParam private val navigationManager: NavigationManager
+) : ProjectsViewModel(), KoinComponent {
     override val rootContent: Flow<ProjectsRoot?>
 
     init {
@@ -81,7 +83,6 @@ class ProjectsViewModelImpl(
             placeholder = SharedImageResource.imagePlaceholder
         ),
         tapAction = {
-            Analytics.trackViewProject(projectId = id)
             navigationManager.push(
                 NavigationRoute.ProjectDetails(
                     ProjectDetailsNavigationData(
@@ -100,7 +101,7 @@ class ProjectsViewModelImpl(
             title = i18N[KWordTranslation.GENERIC_EMPTY_CONTENT_TITLE],
             message = i18N[KWordTranslation.PROJECTS_EMPTY_CONTENT_MESSAGE],
             actionButton = null,
-            coroutineScope = coroutineScope
+            coroutineScope = viewModelScope
         )
     )
 
@@ -109,10 +110,9 @@ class ProjectsViewModelImpl(
             i18N = i18N,
             titleKey = KWordTranslation.GENERIC_ERROR_TITLE,
             messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE,
-            coroutineScope = coroutineScope
-
+            coroutineScope = viewModelScope
         ) {
-            coroutineScope.launch {
+            viewModelScope.launch {
                 projectsUseCase.refreshProjects()
             }
         }
