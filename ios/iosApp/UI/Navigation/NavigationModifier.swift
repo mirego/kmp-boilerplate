@@ -5,8 +5,7 @@ import Trikot
 
 private struct NavigationModifier: ViewModifier {
     let navigationManager: NavigationManager
-    
-//    let navigationTypeOverride: ((VMDNavigationRoute) -> NavigationType?)?
+    let navigationTypeOverride: ((NavigationRoute) -> NavigationType?)?
     
     private let koin = Application.koin
 
@@ -32,17 +31,45 @@ private struct NavigationModifier: ViewModifier {
             navigationManager.poppedFrom(route: route)
         }
         
-        return switch onEnum(of: route) {
-        case .projectDetails(let route):
+        return switch navigationType(for: route) {
+        case .sheet:
                 .sheet(
-                    screen: ViewModelHolder.projectDetails(
-                        koin.projectDetailsViewModel(
-                            navigationManager: navigationManager,
-                            route: route
-                        )
-                    ),
+                    screen: buildViewModelHolder(route: route),
                     data: NavigationTypeData(embedInNavigationView: false, onDismiss: onDismissClosure)
                 )
+        case .fullScreen:
+                .fullScreenCover(
+                    screen: buildViewModelHolder(route: route),
+                    data: NavigationTypeData(embedInNavigationView: false, onDismiss: onDismissClosure)
+                )
+        case .push:
+                .push(
+                    screen: buildViewModelHolder(route: route),
+                    onDismiss: onDismissClosure
+                )
+        }
+    }
+    
+    private func buildViewModelHolder(route: NavigationRoute) -> ViewModelHolder {
+        return switch onEnum(of: route) {
+        case .projectDetails(let route):
+            ViewModelHolder.projectDetails(
+                koin.projectDetailsViewModel(
+                    navigationManager: navigationManager,
+                    route: route
+                )
+            )
+        }
+    }
+    
+    private func navigationType(for route: NavigationRoute) -> NavigationType {
+        if let overridenNavigationType = navigationTypeOverride?(route) {
+            return overridenNavigationType
+        }
+        
+        switch onEnum(of: route) {
+            case .projectDetails(let route):
+                return .push
         }
     }
     
@@ -52,10 +79,11 @@ private struct NavigationModifier: ViewModifier {
 }
 
 extension View {
-    func handleNavigation(navigationManager: NavigationManager) -> some View {
+    func handleNavigation(navigationManager: NavigationManager, navigationTypeOverride: ((NavigationRoute) -> NavigationType?)? = nil) -> some View {
         modifier(
             NavigationModifier(
-                navigationManager: navigationManager
+                navigationManager: navigationManager,
+                navigationTypeOverride: navigationTypeOverride
             )
         )
     }
@@ -70,31 +98,3 @@ enum NavigationType {
 enum ViewModelHolder {
     case projectDetails(ProjectDetailsViewModel)
 }
-
-
-    
-//    private func navigationType(for route: VMDNavigationRoute?) -> NavigationType? {
-//        if let route, let overridenNavigationType = navigationTypeOverride?(route) {
-//            return overridenNavigationType
-//        }
-//
-//        if route is NavigationRouteProjectDetails {
-//            return .push
-//        }
-//
-//        return nil
-//    }
-    
-    
-
-
-
-//    .sheet(route: navigationType(for: route) == .sheet ? route : nil) { route in
-//        buildView(for: route)
-//    }
-//    .fullScreen(route: navigationType(for: route) == .fullScreen ? route : nil) { route in
-//        buildView(for: route)
-//    }
-//    .push(route: navigationType(for: route) == .push ? route : nil) { route in
-//        buildView(for: route)
-//    }

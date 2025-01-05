@@ -1,6 +1,5 @@
 import Shared
 import SwiftUI
-import Trikot
 import Pilot
 
 struct ProjectDetailsView: View {
@@ -39,6 +38,7 @@ struct ProjectDetailsView: View {
                 }
             }
         }
+        .handleNavigation(navigationManager: viewModel.navigationManager)
     }
 
     @ViewBuilder private var contentView: some View {

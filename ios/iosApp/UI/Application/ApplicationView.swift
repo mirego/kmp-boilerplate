@@ -1,7 +1,6 @@
 import Shared
 import Pilot
 import SwiftUI
-import Trikot
 
 struct ApplicationView: View {
     @StateObject private var viewModelLifecycle: ViewModelLifecycleHandler<ApplicationViewModel>

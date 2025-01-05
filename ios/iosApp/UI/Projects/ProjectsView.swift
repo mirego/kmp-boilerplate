@@ -1,7 +1,6 @@
 import Shared
 import Pilot
 import SwiftUI
-import Trikot
 
 struct ProjectsView: View {
     @StateObject private var viewModelLifecycle: ViewModelLifecycleHandler<ProjectsViewModel>
@@ -23,7 +22,7 @@ struct ProjectsView: View {
                 Color(.primaryBlack)
                     .ignoresSafeArea()
             )
-            .handleNavigation(navigationManager: viewModel.navigationManager)
+            .handleNavigation(navigationManager: viewModel.navigationManager, navigationTypeOverride: navigationTypeOverride)
     }
 
     @ViewBuilder private var contentView: some View {
@@ -37,13 +36,13 @@ struct ProjectsView: View {
 }
 
 extension ProjectsView {
-//    func navigationTypeOverride(route: VMDNavigationRoute) -> NavigationType? {
-//        if route is NavigationRouteProjectDetails {
-//            return .push
-//        }
-//        
-//        return nil
-//    }
+    func navigationTypeOverride(route: NavigationRoute) -> NavigationType? {
+        if route is NavigationRoute.ProjectDetails {
+            return .push
+        }
+        
+        return nil
+    }
 }
 
 #Preview {

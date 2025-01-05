@@ -1,6 +1,5 @@
 import Shared
 import SwiftUI
-import Trikot
 import Pilot
 
 struct ProjectsContentView: View {

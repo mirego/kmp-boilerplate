@@ -1,7 +1,6 @@
 import Shared
 import Pilot
 import SwiftUI
-import Trikot
 
 struct RootView: View {
     private var viewModel: RootViewModel
