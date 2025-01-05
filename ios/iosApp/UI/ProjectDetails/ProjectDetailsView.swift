@@ -38,7 +38,6 @@ struct ProjectDetailsView: View {
                 }
             }
         }
-        .handleNavigation(navigationManager: viewModel.navigationManager)
     }
 
     @ViewBuilder private var contentView: some View {
