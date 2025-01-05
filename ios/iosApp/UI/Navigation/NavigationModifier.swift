@@ -8,7 +8,7 @@ private struct NavigationModifier: ViewModifier {
     let navigationTypeOverride: ((NavigationRoute) -> NavigationType?)?
     
     private let koin = Application.koin
-
+    
     func body(content: Content) -> some View {
         content
             .pilotNavigation(
@@ -18,7 +18,7 @@ private struct NavigationModifier: ViewModifier {
                 handleAction: handleAction
             )
     }
-
+    
     @ViewBuilder  private func buildView(viewModelHolder: ViewModelHolder) -> some View {
         switch viewModelHolder {
         case .projectDetails(let viewModel):
@@ -68,8 +68,8 @@ private struct NavigationModifier: ViewModifier {
         }
         
         switch onEnum(of: route) {
-            case .projectDetails(let route):
-                return .push
+        case .projectDetails:
+            return .push
         }
     }
     

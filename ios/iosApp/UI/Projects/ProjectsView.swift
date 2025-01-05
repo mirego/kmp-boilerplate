@@ -5,16 +5,16 @@ import SwiftUI
 struct ProjectsView: View {
     @StateObject private var viewModelLifecycle: ViewModelLifecycleHandler<ProjectsViewModel>
     @ObservedObject private var rootContentObservable: StateObservable<ProjectsRoot>
-
+    
     init(viewModel: ProjectsViewModel) {
         _viewModelLifecycle = StateObject(wrappedValue: ViewModelLifecycleHandler(viewModel: viewModel))
         _rootContentObservable = ObservedObject(wrappedValue: StateObservable(viewModel.rootContent))
     }
-
+    
     var viewModel: ProjectsViewModel {
         viewModelLifecycle.viewModel
     }
-
+    
     var body: some View {
         contentView
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -24,13 +24,13 @@ struct ProjectsView: View {
             )
             .handleNavigation(navigationManager: viewModel.navigationManager, navigationTypeOverride: navigationTypeOverride)
     }
-
+    
     @ViewBuilder private var contentView: some View {
         switch onEnum(of: rootContentObservable.value) {
-            case let .content(content):
-                ProjectsContentView(projectsContentSections: content.sections)
-            case let .error(error):
-                ErrorView(viewModel: error.errorViewModel)
+        case let .content(content):
+            ProjectsContentView(projectsContentSections: content.sections)
+        case let .error(error):
+            ErrorView(viewModel: error.errorViewModel)
         }
     }
 }
