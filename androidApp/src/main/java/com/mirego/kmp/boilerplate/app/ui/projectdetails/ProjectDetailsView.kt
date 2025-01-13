@@ -45,7 +45,7 @@ fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemU
                 .clip(CircleShape)
                 .size(40.dp)
                 .background(viewModel.textColor.toColor().copy(alpha = 0.1f)),
-            pilotButton = viewModel.closeButton,
+            pilotButton = viewModel.closeButton
         ) { content ->
             Image(
                 modifier = Modifier
