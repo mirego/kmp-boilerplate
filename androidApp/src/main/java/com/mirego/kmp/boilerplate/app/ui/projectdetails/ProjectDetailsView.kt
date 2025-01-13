@@ -39,13 +39,13 @@ fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemU
         ContentView(viewModel = viewModel)
 
         PilotButton(
-            pilotButton = viewModel.closeButton,
             modifier = Modifier
                 .statusBarsPadding()
                 .padding(8.dp)
                 .clip(CircleShape)
                 .size(40.dp)
-                .background(viewModel.textColor.toColor().copy(alpha = 0.1f))
+                .background(viewModel.textColor.toColor().copy(alpha = 0.1f)),
+            pilotButton = viewModel.closeButton,
         ) { content ->
             Image(
                 modifier = Modifier
