@@ -39,13 +39,13 @@ struct ProjectDetailsContentView: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 if let headline = viewModel.projectType.first {
-                    Text(String(headline)
+                    Text(String(headline))
                         .textStyle(.subHeadline, .semiBold, textColor)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 
                 if let projectType = viewModel.projectType.second {
-                    Text(String(projectType)
+                    Text(String(projectType))
                         .textStyle(.subHeadline, .regular, textColor)
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
@@ -56,13 +56,13 @@ struct ProjectDetailsContentView: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 if let headline = viewModel.releaseYear.first {
-                    Text(String(headline)
+                    Text(String(headline))
                         .textStyle(.subHeadline, .semiBold, textColor)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 
                 if let releaseYear = viewModel.releaseYear.second {
-                    Text(String(releaseYear)
+                    Text(String(releaseYear))
                         .textStyle(.subHeadline, .regular, textColor)
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
