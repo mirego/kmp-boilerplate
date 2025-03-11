@@ -41,11 +41,7 @@ enum AppInitializer {
     }
 
     private static func initializeCommon() {
-       TrikotKword.shared.setCurrentLanguage(LocaleUtils().supportedLanguageCode())
-       TrikotViewModelDeclarative.shared.initialize(
-           imageProvider: ImageProvider(),
-           spanStyleProvider: DefaultSpanStyleProvider()
-       )
+        TrikotKword.shared.setCurrentLanguage(LocaleUtils().supportedLanguageCode())
     }
 
     private static func initializeKingfisher() {
