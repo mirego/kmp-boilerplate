@@ -84,6 +84,17 @@ PODS:
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
+  - Pilot/Components (0.3.1):
+    - Pilot/ViewModel
+    - Shared
+  - Pilot/Components.Kingfisher (0.3.1):
+    - Kingfisher (~> 7.10.1)
+    - Pilot/Components
+    - Shared
+  - Pilot/Navigation (0.3.1):
+    - Shared
+  - Pilot/ViewModel (0.3.1):
+    - Shared
   - PromisesObjC (2.4.0)
   - Shared (0.1)
   - SwiftLint (0.57.0)
@@ -102,6 +113,10 @@ DEPENDENCIES:
   - AppCenter/Distribute
   - FirebaseAnalytics
   - FirebaseCore
+  - "Pilot/Components (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
+  - "Pilot/Components.Kingfisher (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
+  - "Pilot/Navigation (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
+  - "Pilot/ViewModel (from `git@github.com:mirego/viewmodel-pilot.git`, tag `0.3.1`)"
   - Shared (from `../shared`)
   - SwiftLint
   - "Trikot/kword (from `git@github.com:mirego/trikot.git`, tag `5.5.0-dev2722`)"
@@ -123,6 +138,9 @@ SPEC REPOS:
     - SwiftUIIntrospect
 
 EXTERNAL SOURCES:
+  Pilot:
+    :git: "git@github.com:mirego/viewmodel-pilot.git"
+    :tag: 0.3.1
   Shared:
     :path: "../shared"
   Trikot:
@@ -130,6 +148,9 @@ EXTERNAL SOURCES:
     :tag: 5.5.0-dev2722
 
 CHECKOUT OPTIONS:
+  Pilot:
+    :git: "git@github.com:mirego/viewmodel-pilot.git"
+    :tag: 0.3.1
   Trikot:
     :git: "git@github.com:mirego/trikot.git"
     :tag: 5.5.0-dev2722
@@ -144,12 +165,13 @@ SPEC CHECKSUMS:
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   Kingfisher: 99edc495d3b7607e6425f0d6f6847b2abd6d716d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  Pilot: dfd3ab62e7df19d531882a8df7ae78edfd49dd9d
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   Shared: 02f8809e574ee70fc8c9a3eb24fb5b4f7de3df71
   SwiftLint: eb47480d47c982481592c195c221d11013a679cc
   SwiftUIIntrospect: fee9aa07293ee280373a591e1824e8ddc869ba5d
   Trikot: 837e00007889a4e3c6dff133d8be7f9a13b7b450
 
-PODFILE CHECKSUM: 7896ef8b5f482d9c009e646430313abc8222766e
+PODFILE CHECKSUM: ef2de80df675ad2793172d79c6b62a7f7a40a6ff
 
 COCOAPODS: 1.15.2

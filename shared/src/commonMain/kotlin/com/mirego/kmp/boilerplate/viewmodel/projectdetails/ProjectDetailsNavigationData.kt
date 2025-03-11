@@ -1,9 +1,9 @@
 package com.mirego.kmp.boilerplate.viewmodel.projectdetails
 
-import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
+import com.mirego.kmp.boilerplate.model.RGBAColor
 
 data class ProjectDetailsNavigationData(
     val id: String,
-    val backgroundColor: VMDColor,
-    val textColor: VMDColor
+    val backgroundColor: RGBAColor,
+    val textColor: RGBAColor
 )

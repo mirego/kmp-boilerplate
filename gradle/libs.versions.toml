@@ -28,6 +28,7 @@ okio = "3.9.0"
 owasp = "8.4.2"
 skie = "0.9.2"
 trikot = "5.5.0-dev2722"
+pilot = "0.3.1"
 
 [libraries]
 accompanist-placeholder-material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist" }
@@ -74,6 +75,11 @@ trikot-viewmodels-databinding = { module = "com.mirego.trikot:viewmodels-databin
 trikot-vmd-compose = { module = "com.mirego.trikot:viewmodels-declarative-compose-flow", version.ref = "trikot" }
 trikot-vmd-annotations = { module = "com.mirego.trikot:viewmodels-annotations", version.ref = "trikot" }
 trikot-vmd-annotations-compiler = { module = "com.mirego.trikot:viewmodels-declarative-compiler-flow", version.ref = "trikot" }
+pilot-viewmodel = { module = "com.mirego.pilot:viewmodel", version.ref = "pilot" }
+pilot-navigation = { module = "com.mirego.pilot:navigation", version.ref = "pilot" }
+pilot-components = { module = "com.mirego.pilot:components", version.ref = "pilot" }
+pilot-components-material3 = { module = "com.mirego.pilot:components-material3", version.ref = "pilot" }
+pilot-components-coil = { module = "com.mirego.pilot:components-coil", version.ref = "pilot" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

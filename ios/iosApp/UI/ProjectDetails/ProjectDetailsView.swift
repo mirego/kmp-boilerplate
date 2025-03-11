@@ -1,6 +1,7 @@
 import Shared
 import SwiftUI
 import Trikot
+import Pilot
 
 struct ProjectDetailsView: View {
     @ObservedObject private var observableViewModel: ObservableViewModelAdapter<ProjectDetailsViewModel>
@@ -26,8 +27,8 @@ struct ProjectDetailsView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                VMDButton(viewModel.closeButton) {
-                    $0.image.image?
+                PilotButtonView(viewModel.closeButton) { content in
+                    PilotLocalImage(content)
                         .renderingMode(.template)
                         .resizable()
                         .frame(width: 35, height: 35)

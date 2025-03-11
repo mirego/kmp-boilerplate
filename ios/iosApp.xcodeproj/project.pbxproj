@@ -36,6 +36,7 @@
 		895BED1D2AF58517005B1212 /* AnalyticsServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BED1C2AF58517005B1212 /* AnalyticsServiceImpl.swift */; };
 		895BED1F2AF9780C005B1212 /* ToReplace-GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 895BED1E2AF9780C005B1212 /* ToReplace-GoogleService-Info.plist */; };
 		9B8ACFDB4E332DFCA8B97CBB /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4E1328B104D05A50A097EE /* Pods_iosApp.framework */; };
+		AFA072922CB4FA2700CC03C1 /* PilotStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA072912CB4FA2700CC03C1 /* PilotStyleModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		895BED1A2AF4469C005B1212 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		895BED1C2AF58517005B1212 /* AnalyticsServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsServiceImpl.swift; sourceTree = "<group>"; };
 		895BED1E2AF9780C005B1212 /* ToReplace-GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ToReplace-GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AFA072912CB4FA2700CC03C1 /* PilotStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotStyleModifier.swift; sourceTree = "<group>"; };
 		E232C917135C2C1E3BC8748A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,6 +202,7 @@
 		895BECFF2AEFF0FB005B1212 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AFA072902CB4FA0D00CC03C1 /* Modifiers */,
 				895BED002AEFF111005B1212 /* StatusBarConfigurator.swift */,
 				895BED022AEFF281005B1212 /* TextStyle.swift */,
 				895BED082AF0A4C3005B1212 /* ErrorView.swift */,
@@ -226,6 +229,14 @@
 				895BED142AF3FDD0005B1212 /* Binding+Extensions.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		AFA072902CB4FA0D00CC03C1 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				AFA072912CB4FA2700CC03C1 /* PilotStyleModifier.swift */,
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 		C8C629BFDC2144230B71E3BC /* Frameworks */ = {
@@ -402,6 +413,7 @@
 				89011D492AE9A3690073544B /* AppDelegate.swift in Sources */,
 				895BED172AF416F5005B1212 /* VMDColor+Extensions.swift in Sources */,
 				89011D4D2AE9A4FC0073544B /* AppEnvironment+iOS.swift in Sources */,
+				AFA072922CB4FA2700CC03C1 /* PilotStyleModifier.swift in Sources */,
 				895BED012AEFF111005B1212 /* StatusBarConfigurator.swift in Sources */,
 				895BED152AF3FDD0005B1212 /* Binding+Extensions.swift in Sources */,
 				89011D5B2AE9B0310073544B /* PreviewHelpers.swift in Sources */,

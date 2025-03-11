@@ -2,7 +2,9 @@ package com.mirego.kmp.boilerplate.viewmodel.projectdetails
 
 import com.mirego.kmp.boilerplate.analytics.Analytics
 import com.mirego.kmp.boilerplate.analytics.ScreenName
+import com.mirego.kmp.boilerplate.extension.stateFlowOf
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
+import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectDetailsUseCasePreview
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsUseCase
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsViewData
@@ -10,13 +12,12 @@ import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
 import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModelImpl
+import com.mirego.pilot.components.PilotButton
+import com.mirego.pilot.components.PilotRemoteImage
+import com.mirego.pilot.components.content.PilotLocalImageContent
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
 import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
-import com.mirego.trikot.viewmodels.declarative.content.VMDTextPairContent
-import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
-import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithImage
-import com.mirego.trikot.viewmodels.declarative.viewmodel.remoteImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
@@ -37,8 +38,8 @@ class ProjectDetailsViewModelImpl(
     viewModelFactory = viewModelFactory,
     coroutineScope = coroutineScope
 ) {
-    override val backgroundColor: VMDColor = navigationData.backgroundColor
-    override val textColor: VMDColor = navigationData.textColor
+    override val backgroundColor: RGBAColor = navigationData.backgroundColor
+    override val textColor: RGBAColor = navigationData.textColor
 
     init {
         bindRootContent(
@@ -53,17 +54,17 @@ class ProjectDetailsViewModelImpl(
     }
 
     private fun buildContent(viewData: ProjectDetailsViewData, isLoading: Boolean) = ProjectDetailsRoot.Content(
-        image = remoteImage(
-            imageUrl = viewData.imageUrl,
-            placeholderImageResource = SharedImageResource.imagePlaceholder
+        image = PilotRemoteImage(
+            url = viewData.imageUrl,
+            placeholder = SharedImageResource.imagePlaceholder
         ),
         title = viewData.title,
         subtitle = viewData.subtitle,
-        projectType = VMDTextPairContent(
+        projectType = Pair(
             i18N[KWordTranslation.PROJECT_DETAILS_PROJECT_TYPE],
             viewData.projectType
         ),
-        releaseYear = VMDTextPairContent(
+        releaseYear = Pair(
             i18N[KWordTranslation.PROJECT_DETAILS_RELEASE_YEAR],
             viewData.releaseYear
         ),
@@ -88,9 +89,10 @@ class ProjectDetailsViewModelImpl(
         )
     )
 
-    override val closeButton = buttonWithImage(image = SharedImageResource.closeIcon) {
-        setAction {
-            closeAction()
-        }
-    }
+    override val closeButton = PilotButton(
+        content = stateFlowOf(
+            PilotLocalImageContent(SharedImageResource.closeIcon)
+        ),
+        action = closeAction
+    )
 }

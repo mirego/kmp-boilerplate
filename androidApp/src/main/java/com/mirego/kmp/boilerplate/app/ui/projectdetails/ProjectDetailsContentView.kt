@@ -10,16 +10,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.mirego.kmp.boilerplate.app.ui.common.Const.padding
 import com.mirego.kmp.boilerplate.app.ui.common.loading
 import com.mirego.kmp.boilerplate.app.ui.common.toColor
@@ -27,10 +25,7 @@ import com.mirego.kmp.boilerplate.app.ui.theme.TextSize
 import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsRoot
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.LocalImage
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.PlaceholderState
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDImage
-import com.mirego.trikot.viewmodels.declarative.properties.VMDImageResource
+import com.mirego.pilot.components.ui.pilotImageResourcePainter
 
 @Composable
 fun ProjectDetailsContentView(content: ProjectDetailsRoot.Content) {
@@ -42,18 +37,16 @@ fun ProjectDetailsContentView(content: ProjectDetailsRoot.Content) {
             .fillMaxSize()
             .navigationBarsPadding()
     ) {
-        VMDImage(
+        AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(max = screenWidth * 1.25f)
                 .align(Alignment.TopCenter),
-            viewModel = content.image,
+            model = content.image.url,
             contentScale = ContentScale.FillWidth,
-            placeholder = { placeholderImageResource: VMDImageResource, _: PlaceholderState ->
-                ImagePlaceholder(
-                    placeholderImageResource = placeholderImageResource,
-                    color = textColor
-                )
+            contentDescription = content.image.contentDescription,
+            placeholder = content.image.placeholder?.let {
+                pilotImageResourcePainter(it)
             }
         )
 
@@ -127,22 +120,5 @@ fun ProjectDetailsContentView(content: ProjectDetailsRoot.Content) {
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun ImagePlaceholder(placeholderImageResource: VMDImageResource, color: Color) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        LocalImage(
-            modifier = Modifier.size(96.dp),
-            imageResource = placeholderImageResource,
-            contentScale = ContentScale.FillWidth,
-            colorFilter = ColorFilter.tint(color)
-        )
     }
 }

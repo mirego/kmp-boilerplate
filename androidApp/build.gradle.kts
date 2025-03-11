@@ -99,4 +99,9 @@ dependencies {
     implementation(libs.trikot.vmd.compose)
     "ciImplementation"(libs.appcenter)
     "storeImplementation"(libs.appcenter.play)
+    implementation(libs.pilot.viewmodel)
+    implementation(libs.pilot.components)
+    implementation(libs.pilot.navigation)
+    implementation(libs.pilot.components.material3)
+    implementation(libs.pilot.components.coil)
 }

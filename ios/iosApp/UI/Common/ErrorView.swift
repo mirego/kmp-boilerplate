@@ -1,6 +1,7 @@
 import Shared
 import SwiftUI
 import Trikot
+import Pilot
 
 struct ErrorView: View {
     @ObservedObject private var observableViewModel: ObservableViewModelAdapter<ErrorViewModel>
@@ -16,23 +17,23 @@ struct ErrorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            VMDImage(viewModel.icon)
+            PilotLocalImage(viewModel.icon)
                 .resizable()
                 .frame(width: 55, height: 55)
                 .foregroundStyle(Color.white)
 
-            VMDText(viewModel.title)
+            Text(viewModel.title)
                 .textStyle(.largeTitle, .regular, .white)
                 .lineLimit(1)
                 .padding(.top, padding * 2)
 
-            VMDText(viewModel.message)
+            Text(viewModel.message)
                 .textStyle(.body, .regular, .white)
                 .multilineTextAlignment(.center)
                 .padding(.top, padding)
 
-            VMDButton(viewModel.retryButton) {
-                Text($0.text)
+            PilotButtonView(viewModel.retryButton) { content in
+                Text(content as String)
                     .textStyle(.body, .regular, .white)
                     .frame(maxWidth: 320)
             }

@@ -1,5 +1,6 @@
 package com.mirego.kmp.boilerplate.app.ui.projectdetails
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
@@ -21,9 +23,9 @@ import com.mirego.kmp.boilerplate.app.ui.preview.PreviewProvider
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsRoot
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsViewModel
+import com.mirego.pilot.components.ui.PilotButton
+import com.mirego.pilot.components.ui.pilotImageResourcePainter
 import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.LocalImage
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDButton
 
 @Composable
 fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemUiController: SystemUiController? = null) {
@@ -36,19 +38,22 @@ fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemU
     ) {
         ContentView(viewModel = viewModel)
 
-        VMDButton(
+        PilotButton(
             modifier = Modifier
                 .statusBarsPadding()
                 .padding(8.dp)
                 .clip(CircleShape)
                 .size(40.dp)
                 .background(viewModel.textColor.toColor().copy(alpha = 0.1f)),
-            viewModel = viewModel.closeButton
+            pilotButton = viewModel.closeButton
         ) { content ->
-            LocalImage(
-                modifier = Modifier.size(32.dp),
-                imageResource = content.image,
-                colorFilter = ColorFilter.tint(viewModel.textColor.toColor())
+            Image(
+                modifier = Modifier
+                    .size(32.dp)
+                    .align(Alignment.Center),
+                painter = pilotImageResourcePainter(content.imageResource),
+                colorFilter = ColorFilter.tint(viewModel.textColor.toColor()),
+                contentDescription = content.contentDescription
             )
         }
     }
