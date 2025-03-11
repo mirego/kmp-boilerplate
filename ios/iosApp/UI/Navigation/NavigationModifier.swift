@@ -73,9 +73,7 @@ private struct NavigationModifier: ViewModifier {
         }
     }
     
-    private func handleAction(action: NavigationAction) {
-        // NO-OP
-    }
+    private func handleAction(action: NavigationAction) {}
 }
 
 extension View {
