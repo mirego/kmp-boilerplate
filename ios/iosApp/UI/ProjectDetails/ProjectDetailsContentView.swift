@@ -38,14 +38,14 @@ struct ProjectDetailsContentView: View {
                 .padding(.top, 24)
 
             VStack(alignment: .leading, spacing: 4) {
-                if let headline = viewModel.projectType.first as? String {
-                    Text(headline)
+                if let headline = viewModel.projectType.first {
+                    Text(String(headline))
                         .textStyle(.subHeadline, .semiBold, textColor)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 
-                if let projectType = viewModel.projectType.second as? String {
-                    Text(projectType)
+                if let projectType = viewModel.projectType.second {
+                    Text(String(projectType))
                         .textStyle(.subHeadline, .regular, textColor)
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
@@ -55,14 +55,14 @@ struct ProjectDetailsContentView: View {
             .padding(.top, 32)
 
             VStack(alignment: .leading, spacing: 4) {
-                if let headline = viewModel.releaseYear.first as? String {
-                    Text(headline)
+                if let headline = viewModel.releaseYear.first {
+                    Text(String(headline))
                         .textStyle(.subHeadline, .semiBold, textColor)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 
-                if let releaseYear = viewModel.releaseYear.second as? String {
-                    Text(releaseYear)
+                if let releaseYear = viewModel.releaseYear.second {
+                    Text(String(releaseYear))
                         .textStyle(.subHeadline, .regular, textColor)
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
