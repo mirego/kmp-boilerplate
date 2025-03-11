@@ -1,5 +1,7 @@
 package com.mirego.kmp.boilerplate.viewmodel.projects
 
+import com.mirego.kmp.boilerplate.analytics.Analytics
+import com.mirego.kmp.boilerplate.analytics.ScreenName
 import com.mirego.kmp.boilerplate.extension.eagerlyStateIn
 import com.mirego.kmp.boilerplate.extension.prioritiseData
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
@@ -17,6 +19,7 @@ import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
@@ -40,6 +43,11 @@ class ProjectsViewModelImpl(
             is DataState.Pending -> buildLoading()
         }
     }.eagerlyStateIn(viewModelScope, buildLoading())
+
+    override fun onAppear(coroutineScope: CoroutineScope) {
+        super.onAppear(coroutineScope)
+        Analytics.trackScreenView(ScreenName.projects)
+    }
 
     private fun buildData(viewData: ProjectsViewData.Content) = ProjectsRoot.Content(
         sections = listOf(
@@ -76,6 +84,7 @@ class ProjectsViewModelImpl(
             placeholder = SharedImageResource.imagePlaceholder
         ),
         tapAction = {
+            Analytics.trackViewProject(projectId = id)
             navigationManager.push(
                 NavigationRoute.ProjectDetails(
                     navigationData = ProjectDetailsNavigationData(

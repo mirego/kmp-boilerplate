@@ -38,11 +38,11 @@ fun ProjectDetailsContentView(content: ProjectDetailsRoot.Content) {
             .navigationBarsPadding()
     ) {
         AsyncImage(
-            model = content.image.url,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(max = screenWidth * 1.25f)
                 .align(Alignment.TopCenter),
+            model = content.image.url,
             contentScale = ContentScale.FillWidth,
             contentDescription = content.image.contentDescription,
             placeholder = content.image.placeholder?.let {
