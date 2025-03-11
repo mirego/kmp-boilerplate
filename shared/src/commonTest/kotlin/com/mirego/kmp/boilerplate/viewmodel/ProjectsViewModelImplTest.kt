@@ -15,6 +15,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlin.test.Test
 import kotlin.test.assertTrue
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 
@@ -35,7 +36,7 @@ class ProjectsViewModelImplTest : BaseTest() {
         val viewData = ProjectsViewData.Empty
         every { useCase.projects() } returns flowOf(stateDataData(viewData))
 
-        val sections = (viewModel.rootContent as ProjectsRoot.Content).sections
+        val sections = (viewModel.rootContent.first() as ProjectsRoot.Content).sections
         assertTrue { sections[0] is ProjectsContentSection.Header }
         assertTrue { sections[1] is ProjectsContentSection.NoProjects }
     }
@@ -57,7 +58,7 @@ class ProjectsViewModelImplTest : BaseTest() {
         )
         every { useCase.projects() } returns flowOf(stateDataData(viewData))
 
-        val sections = (viewModel.rootContent as ProjectsRoot.Content).sections
+        val sections = (viewModel.rootContent.first() as ProjectsRoot.Content).sections
         assertTrue { sections[0] is ProjectsContentSection.Header }
         assertTrue { sections[1] is ProjectsContentSection.ProjectsList }
     }
