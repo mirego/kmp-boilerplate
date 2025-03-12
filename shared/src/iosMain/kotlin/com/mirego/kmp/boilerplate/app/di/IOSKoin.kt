@@ -15,12 +15,8 @@ class IOSKoin(
         bootstrapper.initDependencies()
     }
 
-    fun applicationViewModel(): ApplicationViewModel =
-        get()
+    fun applicationViewModel(): ApplicationViewModel = get()
 
-    fun projectDetailsViewModel(
-        navigationManager: NavigationManager,
-        route: NavigationRoute.ProjectDetails
-    ): ProjectDetailsViewModel =
+    fun projectDetailsViewModel(navigationManager: NavigationManager, route: NavigationRoute.ProjectDetails): ProjectDetailsViewModel =
         get { ProjectDetailsViewModel.parameters(navigationManager, route) }
 }
