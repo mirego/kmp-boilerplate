@@ -1,7 +1,6 @@
 import Shared
 import Pilot
 import SwiftUI
-import Trikot
 
 private struct NavigationModifier: ViewModifier {
     let navigationManager: NavigationManager

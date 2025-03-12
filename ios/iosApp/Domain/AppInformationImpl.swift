@@ -1,6 +1,5 @@
 import Foundation
 import Shared
-import Trikot
 
 class AppInformationImpl: AppInformation {
     private let flowProvider: FlowProvider<Shared.Locale> = FlowProvider()
