@@ -1,11 +1,12 @@
 package com.mirego.kmp.boilerplate.app.ui.common
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,34 +22,32 @@ import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModel
-import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDImage
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDText
+import com.mirego.pilot.components.ui.pilotImageResourcePainter
 
 @Composable
 fun EmptyContentView(emptyViewModel: EmptyViewModel, modifier: Modifier = Modifier) {
-    val viewModel: EmptyViewModel by emptyViewModel.observeAsState()
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        VMDImage(
+        Image(
             modifier = Modifier.size(55.dp),
-            viewModel = viewModel.icon,
-            colorFilter = ColorFilter.tint(Color.White)
+            painter = pilotImageResourcePainter(emptyViewModel.icon.imageResource),
+            colorFilter = ColorFilter.tint(Color.White),
+            contentDescription = emptyViewModel.icon.contentDescription
         )
 
-        VMDText(
+        Text(
             modifier = Modifier.padding(top = padding * 2),
-            viewModel = viewModel.title,
+            text = emptyViewModel.title,
             color = Color.White,
             style = style(TextSize.LARGE_TITLE, TextWeight.REGULAR),
             maxLines = 1
         )
 
-        VMDText(
+        Text(
             modifier = Modifier.padding(top = padding),
-            viewModel = viewModel.message,
+            text = emptyViewModel.message,
             color = Color.White,
             style = style(TextSize.BODY, TextWeight.REGULAR),
             textAlign = TextAlign.Center

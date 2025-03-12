@@ -1,7 +1,7 @@
 package com.mirego.kmp.boilerplate.usecase.projects
 
+import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.utils.StateData
-import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import kotlinx.coroutines.flow.Flow
 
 interface ProjectsUseCase {
@@ -23,6 +23,6 @@ data class ProjectItemViewData(
     val subtitle: String,
     val description: String,
     val imageUrl: String,
-    val backgroundColor: VMDColor,
-    val textColor: VMDColor
+    val backgroundColor: RGBAColor,
+    val textColor: RGBAColor
 )

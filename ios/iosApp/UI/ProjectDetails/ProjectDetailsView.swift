@@ -1,16 +1,18 @@
 import Shared
 import SwiftUI
-import Trikot
+import Pilot
 
 struct ProjectDetailsView: View {
-    @ObservedObject private var observableViewModel: ObservableViewModelAdapter<ProjectDetailsViewModel>
-
+    @StateObject private var viewModelLifecycle: ViewModelLifecycleHandler<ProjectDetailsViewModel>
+    @ObservedObject private var rootContentObservable: StateObservable<ProjectDetailsRoot>
+    
     init(viewModel: ProjectDetailsViewModel) {
-        observableViewModel = viewModel.asObservable()
+        _viewModelLifecycle = StateObject(wrappedValue: ViewModelLifecycleHandler(viewModel: viewModel))
+        _rootContentObservable = ObservedObject(wrappedValue: StateObservable(viewModel.rootContent))
     }
 
     var viewModel: ProjectDetailsViewModel {
-        observableViewModel.viewModel
+        viewModelLifecycle.viewModel
     }
 
     var body: some View {
@@ -26,8 +28,8 @@ struct ProjectDetailsView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                VMDButton(viewModel.closeButton) {
-                    $0.image.image?
+                PilotButtonView(viewModel.closeButton) { content in
+                    PilotLocalImage(content)
                         .renderingMode(.template)
                         .resizable()
                         .frame(width: 35, height: 35)
@@ -36,23 +38,20 @@ struct ProjectDetailsView: View {
                 }
             }
         }
-        .handleNavigation(viewModel, route: viewModel.navigationRoute)
     }
 
     @ViewBuilder private var contentView: some View {
-        if let root = viewModel.rootContent {
-            switch onEnum(of: root) {
-                case let .content(content):
-                    ProjectDetailsContentView(viewModel: content)
-                case let .error(error):
-                    ErrorView(viewModel: error.errorViewModel)
-            }
+        switch onEnum(of: rootContentObservable.value) {
+        case let .content(content):
+            ProjectDetailsContentView(viewModel: content)
+        case let .error(error):
+            ErrorView(viewModel: error.errorViewModel)
         }
     }
 }
 
 #Preview {
     ProjectDetailsView(
-        viewModel: factoryPreview().createProjectDetails(previewState: PreviewStateDataContent())
+        viewModel: previewsFactory().createProjectDetails(previewState: PreviewStateDataContent())
     )
 }

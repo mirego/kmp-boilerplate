@@ -7,7 +7,7 @@ import Shared
 import Trikot
 
 enum AppInitializer {
-    static func initializeComponents(environment _: AppEnvironment) {
+    static func initializeComponents() {
         initializeFirebase()
         initializeAppCenter()
         initializeCommon()
@@ -42,10 +42,6 @@ enum AppInitializer {
 
     private static func initializeCommon() {
         TrikotKword.shared.setCurrentLanguage(LocaleUtils().supportedLanguageCode())
-        TrikotViewModelDeclarative.shared.initialize(
-            imageProvider: ImageProvider(),
-            spanStyleProvider: DefaultSpanStyleProvider()
-        )
     }
 
     private static func initializeKingfisher() {

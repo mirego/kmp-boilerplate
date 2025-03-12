@@ -4,6 +4,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.mirego.kmp.boilerplate.app.resources.AndroidImageProvider
+import com.mirego.pilot.components.ui.PilotResources
 
 @Composable
 fun Theme(
@@ -13,8 +15,12 @@ fun Theme(
         primary = Color.AccentOrange
     )
 
-    MaterialTheme(
-        colorScheme = colors,
-        content = content
-    )
+    PilotResources(
+        imageResourceProvider = AndroidImageProvider()
+    ) {
+        MaterialTheme(
+            colorScheme = colors,
+            content = content
+        )
+    }
 }

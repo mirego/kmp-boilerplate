@@ -17,10 +17,14 @@ target 'iosApp' do
 
     ENV['TRIKOT_FRAMEWORK_NAME']='Shared'
     properties = load_properties('../gradle/libs.versions.toml')
-    pod 'Trikot/viewmodels.declarative.SwiftUI.flow', :git => 'git@github.com:mirego/trikot.git', :tag => properties['trikot']
     pod 'Trikot/kword', :git => 'git@github.com:mirego/trikot.git', :tag => properties['trikot']
 
     pod 'SwiftLint'
+
+    pod 'Pilot/Components', :git => 'git@github.com:mirego/viewmodel-pilot.git', :tag => properties['pilot'], :inhibit_warnings => true
+    pod 'Pilot/Components.Kingfisher', :git => 'git@github.com:mirego/viewmodel-pilot.git', :tag => properties['pilot'], :inhibit_warnings => true
+    pod 'Pilot/Navigation', :git => 'git@github.com:mirego/viewmodel-pilot.git', :tag => properties['pilot'], :inhibit_warnings => true
+    pod 'Pilot/ViewModel', :git => 'git@github.com:mirego/viewmodel-pilot.git', :tag => properties['pilot'], :inhibit_warnings => true
 end
 
 post_install do |installer|

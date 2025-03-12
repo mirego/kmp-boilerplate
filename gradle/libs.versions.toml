@@ -8,6 +8,7 @@ play-services-measurement-api = "21.5.0"
 androidxActivityCompose = "1.9.2"
 androidxAppcompat = "1.7.0"
 androidxComposeBom = "2024.09.03"
+androidx-lifecycle = "2.8.7"
 appcenter = "5.0.2"
 apollo = "3.8.2"
 crashlytics-plugin = "3.0.2"
@@ -28,6 +29,8 @@ okio = "3.9.0"
 owasp = "8.4.2"
 skie = "0.9.2"
 trikot = "5.5.0-dev2722"
+pilot = "0.3.1"
+material3Android = "1.3.1"
 
 [libraries]
 accompanist-placeholder-material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist" }
@@ -39,6 +42,8 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 #android-play-services-measurement-api = { group = "com.google.android.gms", name = "play-services-measurement-api", version.ref = "play-services-measurement-api" }
 android-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 android-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
@@ -67,13 +72,14 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 trikot-analytics = { module = "com.mirego.trikot:analytics", version.ref = "trikot" }
 trikot-analytics-firebase = { module = "com.mirego.trikot.analytics:firebase-ktx", version.ref = "trikot" }
-trikot-vmd = { module = "com.mirego.trikot:viewmodels-declarative-flow", version.ref = "trikot" }
 trikot-kword = { module = "com.mirego.trikot:kword", version.ref = "trikot" }
 trikot-datasources = { module = "com.mirego.trikot:datasources-flow", version.ref = "trikot" }
-trikot-viewmodels-databinding = { module = "com.mirego.trikot:viewmodels-databinding", version.ref = "trikot" }
-trikot-vmd-compose = { module = "com.mirego.trikot:viewmodels-declarative-compose-flow", version.ref = "trikot" }
-trikot-vmd-annotations = { module = "com.mirego.trikot:viewmodels-annotations", version.ref = "trikot" }
-trikot-vmd-annotations-compiler = { module = "com.mirego.trikot:viewmodels-declarative-compiler-flow", version.ref = "trikot" }
+pilot-viewmodel = { module = "com.mirego.pilot:viewmodel", version.ref = "pilot" }
+pilot-navigation = { module = "com.mirego.pilot:navigation", version.ref = "pilot" }
+pilot-components = { module = "com.mirego.pilot:components", version.ref = "pilot" }
+pilot-components-material3 = { module = "com.mirego.pilot:components-material3", version.ref = "pilot" }
+pilot-components-coil = { module = "com.mirego.pilot:components-coil", version.ref = "pilot" }
+androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

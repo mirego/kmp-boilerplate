@@ -1,10 +1,10 @@
 package com.mirego.kmp.boilerplate.usecase.projects
 
+import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.repository.projects.ProjectsRepository
-import com.mirego.kmp.boilerplate.usecase.projectdetails.toVMDColor
+import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBAColor
 import com.mirego.kmp.boilerplate.utils.StateData
 import com.mirego.trikot.datasources.flow.extensions.mapValue
-import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Factory
 
@@ -26,8 +26,8 @@ class ProjectsUseCaseImpl(
                             subtitle = project.name,
                             description = project.projectType,
                             imageUrl = project.listImageUrl.toString(),
-                            backgroundColor = project.mainColor?.toVMDColor() ?: VMDColor.None,
-                            textColor = project.textColor?.toVMDColor() ?: VMDColor.None
+                            backgroundColor = project.mainColor?.toRGBAColor() ?: RGBAColor.None,
+                            textColor = project.textColor?.toRGBAColor() ?: RGBAColor.None
                         )
                     }
                 )

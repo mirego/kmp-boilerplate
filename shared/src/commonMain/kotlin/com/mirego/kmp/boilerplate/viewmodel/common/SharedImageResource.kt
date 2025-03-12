@@ -2,9 +2,9 @@
 
 package com.mirego.kmp.boilerplate.viewmodel.common
 
-import com.mirego.trikot.viewmodels.declarative.properties.VMDImageResource
+import com.mirego.pilot.components.PilotImageResource
 
-enum class SharedImageResource : VMDImageResource {
+enum class SharedImageResource : PilotImageResource {
     closeIcon,
     emptyPageIcon,
     errorPageIcon,

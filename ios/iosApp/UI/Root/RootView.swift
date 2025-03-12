@@ -1,26 +1,23 @@
 import Shared
+import Pilot
 import SwiftUI
-import Trikot
 
 struct RootView: View {
-    @ObservedObject private var observableViewModel: ObservableViewModelAdapter<RootViewModel>
+    private var viewModel: RootViewModel
 
     init(viewModel: RootViewModel) {
-        observableViewModel = viewModel.asObservable()
-    }
-
-    var viewModel: RootViewModel {
-        observableViewModel.viewModel
+        self.viewModel = viewModel
     }
 
     var body: some View {
         ProjectsView(viewModel: viewModel.projectsViewModel)
             .embedInNavigationView()
+            .pilotStyle()
     }
 }
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(viewModel: factoryPreview().createRoot())
+        RootView(viewModel: previewsFactory().createRoot())
     }
 }

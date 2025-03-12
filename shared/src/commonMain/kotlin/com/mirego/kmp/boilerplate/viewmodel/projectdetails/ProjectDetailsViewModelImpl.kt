@@ -2,68 +2,65 @@ package com.mirego.kmp.boilerplate.viewmodel.projectdetails
 
 import com.mirego.kmp.boilerplate.analytics.Analytics
 import com.mirego.kmp.boilerplate.analytics.ScreenName
+import com.mirego.kmp.boilerplate.extension.eagerlyStateIn
+import com.mirego.kmp.boilerplate.extension.stateFlowOf
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
+import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectDetailsUseCasePreview
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsUseCase
 import com.mirego.kmp.boilerplate.usecase.projectdetails.ProjectDetailsViewData
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
-import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
-import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
+import com.mirego.pilot.components.PilotButton
+import com.mirego.pilot.components.PilotRemoteImage
+import com.mirego.pilot.components.content.PilotLocalImageContent
+import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
-import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
-import com.mirego.trikot.viewmodels.declarative.content.VMDTextPairContent
-import com.mirego.trikot.viewmodels.declarative.properties.VMDColor
-import com.mirego.trikot.viewmodels.declarative.viewmodel.buttonWithImage
-import com.mirego.trikot.viewmodels.declarative.viewmodel.remoteImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
+import org.koin.core.annotation.InjectedParam
+import org.koin.core.component.KoinComponent
 
 @Factory
-@PublishedSubClass(superClass = NavigationViewModelImpl::class)
 class ProjectDetailsViewModelImpl(
-    private val navigationData: ProjectDetailsNavigationData,
     projectDetailsUseCase: ProjectDetailsUseCase,
     private val i18N: I18N,
-    viewModelFactory: ViewModelFactory,
-    closeAction: () -> Unit,
-    coroutineScope: CoroutineScope
-) : ProjectDetailsViewModel, BaseProjectDetailsViewModelImpl(
-    onTrackScreenView = {
-        Analytics.trackScreenView(ScreenName.project_details)
-    },
-    viewModelFactory = viewModelFactory,
-    coroutineScope = coroutineScope
-) {
-    override val backgroundColor: VMDColor = navigationData.backgroundColor
-    override val textColor: VMDColor = navigationData.textColor
+    @InjectedParam override val navigationManager: NavigationManager,
+    @InjectedParam route: NavigationRoute.ProjectDetails
+) : ProjectDetailsViewModel(), KoinComponent {
+    private val navigationData = route.navigationData
 
-    init {
-        bindRootContent(
-            projectDetailsUseCase.projectsDetails(navigationData.id).map { stateData ->
-                when (stateData) {
-                    is DataState.Data -> buildContent(stateData.value, false)
-                    is DataState.Pending -> buildLoading()
-                    is DataState.Error -> buildError()
-                }
-            }
-        )
+    override val backgroundColor: RGBAColor = navigationData.backgroundColor
+    override val textColor: RGBAColor = navigationData.textColor
+    override val rootContent = projectDetailsUseCase.projectsDetails(navigationData.id).map { stateData ->
+        when (stateData) {
+            is DataState.Data -> buildContent(stateData.value, false)
+            is DataState.Pending -> buildLoading()
+            is DataState.Error -> buildError()
+        }
+    }.eagerlyStateIn(viewModelScope, buildLoading())
+
+    override fun onAppear(coroutineScope: CoroutineScope) {
+        super.onAppear(coroutineScope)
+        Analytics.trackScreenView(ScreenName.project_details)
     }
 
     private fun buildContent(viewData: ProjectDetailsViewData, isLoading: Boolean) = ProjectDetailsRoot.Content(
-        image = remoteImage(
-            imageUrl = viewData.imageUrl,
-            placeholderImageResource = SharedImageResource.imagePlaceholder
+        image = PilotRemoteImage(
+            url = viewData.imageUrl,
+            placeholder = SharedImageResource.imagePlaceholder
         ),
         title = viewData.title,
         subtitle = viewData.subtitle,
-        projectType = VMDTextPairContent(
+        projectType = Pair(
             i18N[KWordTranslation.PROJECT_DETAILS_PROJECT_TYPE],
             viewData.projectType
         ),
-        releaseYear = VMDTextPairContent(
+        releaseYear = Pair(
             i18N[KWordTranslation.PROJECT_DETAILS_RELEASE_YEAR],
             viewData.releaseYear
         ),
@@ -83,14 +80,14 @@ class ProjectDetailsViewModelImpl(
             i18N = i18N,
             titleKey = KWordTranslation.GENERIC_ERROR_TITLE,
             messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE,
-            coroutineScope = coroutineScope,
             retryAction = {}
         )
     )
 
-    override val closeButton = buttonWithImage(image = SharedImageResource.closeIcon) {
-        setAction {
-            closeAction()
-        }
-    }
+    override val closeButton = PilotButton(
+        content = stateFlowOf(
+            PilotLocalImageContent(SharedImageResource.closeIcon)
+        ),
+        action = route.closeAction
+    )
 }
