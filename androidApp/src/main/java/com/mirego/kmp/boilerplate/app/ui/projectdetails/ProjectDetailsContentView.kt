@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.mirego.kmp.boilerplate.app.ui.common.Const.padding
 import com.mirego.kmp.boilerplate.app.ui.common.loading
 import com.mirego.kmp.boilerplate.app.ui.common.toColor
@@ -25,7 +24,7 @@ import com.mirego.kmp.boilerplate.app.ui.theme.TextSize
 import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsRoot
-import com.mirego.pilot.components.ui.pilotImageResourcePainter
+import com.mirego.pilot.components.ui.coil.PilotRemoteImage
 
 @Composable
 fun ProjectDetailsContentView(content: ProjectDetailsRoot.Content) {
@@ -37,17 +36,13 @@ fun ProjectDetailsContentView(content: ProjectDetailsRoot.Content) {
             .fillMaxSize()
             .navigationBarsPadding()
     ) {
-        AsyncImage(
+        PilotRemoteImage(
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(max = screenWidth * 1.25f)
                 .align(Alignment.TopCenter),
-            model = content.image.url,
-            contentScale = ContentScale.FillWidth,
-            contentDescription = content.image.contentDescription,
-            placeholder = content.image.placeholder?.let {
-                pilotImageResourcePainter(it)
-            }
+            pilotRemoteImage = content.image,
+            contentScale = ContentScale.FillWidth
         )
 
         Column(

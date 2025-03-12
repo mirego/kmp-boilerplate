@@ -23,10 +23,8 @@ fun org.jetbrains.kotlin.gradle.plugin.mpp.Framework.configureFramework() {
     baseName = TRIKOT_FRAMEWORK_NAME
     isStatic = false
     export(libs.trikot.analytics)
-    export(libs.trikot.vmd)
     export(libs.trikot.kword)
     export(libs.trikot.datasources)
-    export(libs.trikot.vmd.annotations)
     export(libs.killswitch)
     export(libs.pilot.navigation)
     export(libs.pilot.viewmodel)
@@ -48,10 +46,6 @@ skie {
         group("com.mirego.trikot") {
             EnumInterop.LegacyCaseName(true)
             FunctionInterop.LegacyName(true)
-        }
-
-        group("com.mirego.trikot.viewmodels.declarative") {
-            FunctionInterop.LegacyName(false)
         }
     }
 }
@@ -121,10 +115,8 @@ kotlin {
                 implementation(libs.okio)
                 implementation(libs.skie)
                 api(libs.trikot.analytics)
-                api(libs.trikot.vmd.annotations)
                 api(libs.trikot.datasources)
                 api(libs.trikot.kword)
-                api(libs.trikot.vmd)
                 api(libs.killswitch)
                 api(libs.pilot.viewmodel)
                 api(libs.pilot.components)
@@ -187,7 +179,6 @@ android {
 
 dependencies {
     add("kspCommonMainMetadata", libs.ksp.koinCompiler)
-    add("kspCommonMainMetadata", libs.trikot.vmd.annotations.compiler)
 }
 
 ktlint {

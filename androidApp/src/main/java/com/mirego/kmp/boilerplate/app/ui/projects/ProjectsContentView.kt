@@ -27,7 +27,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.mirego.kmp.boilerplate.app.ui.common.Const.padding
 import com.mirego.kmp.boilerplate.app.ui.common.EmptyContentView
 import com.mirego.kmp.boilerplate.app.ui.common.loading
@@ -38,7 +37,7 @@ import com.mirego.kmp.boilerplate.app.ui.theme.TextWeight
 import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectItem
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsContentSection
-import com.mirego.pilot.components.ui.pilotImageResourcePainter
+import com.mirego.pilot.components.ui.coil.PilotRemoteImage
 
 @Composable
 fun ProjectsContentView(projectSections: List<ProjectsContentSection>) {
@@ -109,18 +108,14 @@ private fun ItemView(item: ProjectItem) {
             ),
         verticalArrangement = Arrangement.spacedBy(padding)
     ) {
-        AsyncImage(
+        PilotRemoteImage(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(16.dp))
                 .loading(item.isLoading),
-            model = item.image.url,
-            contentDescription = item.image.contentDescription,
+            pilotRemoteImage = item.image,
             contentScale = ContentScale.FillWidth,
-            placeholder = item.image.placeholder?.let {
-                pilotImageResourcePainter(it)
-            }
         )
 
         Column(

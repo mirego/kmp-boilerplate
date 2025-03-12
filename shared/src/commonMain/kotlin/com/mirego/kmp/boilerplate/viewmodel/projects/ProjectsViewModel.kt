@@ -5,7 +5,6 @@ import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModel
 import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.lifecycle.PilotAppearanceLifecycleViewModel
-import com.mirego.trikot.viewmodels.declarative.content.VMDIdentifiableContent
 import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.parameter.ParametersHolder
 import org.koin.core.parameter.parametersOf
@@ -53,11 +52,11 @@ sealed interface ProjectsContentSection {
 }
 
 data class ProjectItem(
-    override val identifier: String,
+    val identifier: String,
     val title: String,
     val subtitle: String,
     val description: String,
     val image: PilotRemoteImage,
     val tapAction: () -> Unit,
     val isLoading: Boolean
-) : VMDIdentifiableContent
+)
