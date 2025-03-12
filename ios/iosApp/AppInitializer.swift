@@ -7,7 +7,7 @@ import Shared
 import Trikot
 
 enum AppInitializer {
-    static func initializeComponents(environment _: AppEnvironment) {
+    static func initializeComponents() {
         initializeFirebase()
         initializeAppCenter()
         initializeCommon()

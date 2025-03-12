@@ -1,18 +1,13 @@
 import Shared
 import SwiftUI
-import Trikot
 import Pilot
 
 struct ErrorView: View {
-    @ObservedObject private var observableViewModel: ObservableViewModelAdapter<ErrorViewModel>
+    private let viewModel: ErrorViewModel
     private let padding: CGFloat = 16
 
-    private var viewModel: ErrorViewModel {
-        observableViewModel.viewModel
-    }
-
     init(viewModel: ErrorViewModel) {
-        observableViewModel = viewModel.asObservable()
+        self.viewModel = viewModel
     }
 
     var body: some View {

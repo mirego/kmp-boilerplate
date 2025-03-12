@@ -1,50 +1,86 @@
 import Shared
+import Pilot
 import SwiftUI
 import Trikot
 
-struct NavigationModifier: ViewModifier {
-    let viewModel: VMDNavigationViewModel
-    let route: VMDNavigationRoute?
-    let navigationTypeOverride: ((VMDNavigationRoute) -> NavigationType?)?
-
+private struct NavigationModifier: ViewModifier {
+    let navigationManager: NavigationManager
+    let navigationTypeOverride: ((NavigationRoute) -> NavigationType?)?
+    
+    private let koin = Application.koin
+    
     func body(content: Content) -> some View {
         content
-            .sheet(route: navigationType(for: route) == .sheet ? route : nil) { route in
-                buildView(for: route)
-            }
-            .fullScreen(route: navigationType(for: route) == .fullScreen ? route : nil) { route in
-                buildView(for: route)
-            }
-            .push(route: navigationType(for: route) == .push ? route : nil) { route in
-                buildView(for: route)
-            }
+            .pilotNavigation(
+                navigationManager: navigationManager,
+                buildView: buildView,
+                buildNavigation: buildNavigation,
+                handleAction: handleAction
+            )
     }
-
-    @ViewBuilder  private func buildView(for route: VMDNavigationRoute) -> some View {
-        if let route = route as? NavigationRouteProjectDetails {
-            ProjectDetailsView(viewModel: route.viewModel)
+    
+    @ViewBuilder  private func buildView(viewModelHolder: ViewModelHolder) -> some View {
+        switch viewModelHolder {
+        case .projectDetails(let viewModel):
+            ProjectDetailsView(viewModel: viewModel)
         }
     }
-
-    private func navigationType(for route: VMDNavigationRoute?) -> NavigationType? {
-        if let route, let overridenNavigationType = navigationTypeOverride?(route) {
+    
+    private func buildNavigation(routes: [NavigationRoute], route: NavigationRoute) -> PilotNavigationType<ViewModelHolder, EmptyViewModifier>? {
+        let onDismissClosure: () -> Void = {
+            navigationManager.poppedFrom(route: route)
+        }
+        
+        return switch navigationType(for: route) {
+        case .sheet:
+                .sheet(
+                    screen: buildViewModelHolder(route: route),
+                    data: NavigationTypeData(embedInNavigationView: false, onDismiss: onDismissClosure)
+                )
+        case .fullScreen:
+                .fullScreenCover(
+                    screen: buildViewModelHolder(route: route),
+                    data: NavigationTypeData(embedInNavigationView: false, onDismiss: onDismissClosure)
+                )
+        case .push:
+                .push(
+                    screen: buildViewModelHolder(route: route),
+                    onDismiss: onDismissClosure
+                )
+        }
+    }
+    
+    private func buildViewModelHolder(route: NavigationRoute) -> ViewModelHolder {
+        return switch onEnum(of: route) {
+        case .projectDetails(let route):
+            ViewModelHolder.projectDetails(
+                koin.projectDetailsViewModel(
+                    navigationManager: navigationManager,
+                    route: route
+                )
+            )
+        }
+    }
+    
+    private func navigationType(for route: NavigationRoute) -> NavigationType {
+        if let overridenNavigationType = navigationTypeOverride?(route) {
             return overridenNavigationType
         }
-
-        if route is NavigationRouteProjectDetails {
+        
+        switch onEnum(of: route) {
+        case .projectDetails:
             return .push
         }
-
-        return nil
     }
+    
+    private func handleAction(action: NavigationAction) {}
 }
 
 extension View {
-    func handleNavigation(_ viewModel: VMDNavigationViewModel, route: VMDNavigationRoute?, navigationTypeOverride: ((VMDNavigationRoute) -> NavigationType?)? = nil) -> some View {
+    func handleNavigation(navigationManager: NavigationManager, navigationTypeOverride: ((NavigationRoute) -> NavigationType?)? = nil) -> some View {
         modifier(
             NavigationModifier(
-                viewModel: viewModel,
-                route: route,
+                navigationManager: navigationManager,
                 navigationTypeOverride: navigationTypeOverride
             )
         )
@@ -55,4 +91,8 @@ enum NavigationType {
     case sheet
     case fullScreen
     case push
+}
+
+enum ViewModelHolder {
+    case projectDetails(ProjectDetailsViewModel)
 }
