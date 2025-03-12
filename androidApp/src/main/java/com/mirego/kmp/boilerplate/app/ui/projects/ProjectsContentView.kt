@@ -115,7 +115,7 @@ private fun ItemView(item: ProjectItem) {
                 .clip(RoundedCornerShape(16.dp))
                 .loading(item.isLoading),
             pilotRemoteImage = item.image,
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.FillWidth
         )
 
         Column(
