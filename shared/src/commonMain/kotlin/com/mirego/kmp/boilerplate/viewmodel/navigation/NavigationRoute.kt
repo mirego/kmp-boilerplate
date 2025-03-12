@@ -1,17 +1,15 @@
 package com.mirego.kmp.boilerplate.viewmodel.navigation
 
-import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsViewModel
-import com.mirego.kmp.mirego.trikot.viewmodels.declarative.navigation.VMDNavigationRoute
+import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
+import com.mirego.pilot.navigation.EnumPilotNavigationRoute
 
-sealed interface NavigationRoute : VMDNavigationRoute {
+enum class NavigationRouteName {
+    PROJECT_DETAILS
+}
+
+sealed class NavigationRoute(routeName: NavigationRouteName) : EnumPilotNavigationRoute(routeName) {
     data class ProjectDetails(
-        override val viewModel: ProjectDetailsViewModel,
-        override val resetBlock: () -> Unit
-    ) : NavigationRoute {
-        companion object {
-            const val NAME = "ProjectDetails"
-        }
-
-        override val name: String = NAME
-    }
+        val navigationData: ProjectDetailsNavigationData,
+        val closeAction: () -> Unit
+    ) : NavigationRoute(NavigationRouteName.PROJECT_DETAILS)
 }

@@ -6,26 +6,22 @@ import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotImageResource
 import com.mirego.pilot.components.content.PilotLocalImageContent
 import com.mirego.trikot.kword.I18N
-import com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModelImpl
-import kotlinx.coroutines.CoroutineScope
 
 class ErrorViewModelImpl(
     icon: PilotImageResource,
     title: String,
     message: String,
     retryLabel: String,
-    retryAction: () -> Unit,
-    coroutineScope: CoroutineScope
-) : ErrorViewModel, VMDViewModelImpl(coroutineScope) {
+    retryAction: () -> Unit
+) : ErrorViewModel {
 
     companion object {
-        fun build(i18N: I18N, titleKey: KWordTranslation, messageKey: KWordTranslation, coroutineScope: CoroutineScope, retryAction: () -> Unit) = ErrorViewModelImpl(
+        fun build(i18N: I18N, titleKey: KWordTranslation, messageKey: KWordTranslation, retryAction: () -> Unit) = ErrorViewModelImpl(
             icon = SharedImageResource.errorPageIcon,
             title = i18N[titleKey],
             message = i18N[messageKey],
             retryLabel = i18N[KWordTranslation.GENERIC_RETRY],
-            retryAction = retryAction,
-            coroutineScope = coroutineScope
+            retryAction = retryAction
         )
     }
 

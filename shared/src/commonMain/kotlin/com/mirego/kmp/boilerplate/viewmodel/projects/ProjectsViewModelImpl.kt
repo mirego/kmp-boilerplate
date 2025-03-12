@@ -2,6 +2,7 @@ package com.mirego.kmp.boilerplate.viewmodel.projects
 
 import com.mirego.kmp.boilerplate.analytics.Analytics
 import com.mirego.kmp.boilerplate.analytics.ScreenName
+import com.mirego.kmp.boilerplate.extension.eagerlyStateIn
 import com.mirego.kmp.boilerplate.extension.prioritiseData
 import com.mirego.kmp.boilerplate.localization.KWordTranslation
 import com.mirego.kmp.boilerplate.usecase.preview.ProjectsUseCasePreview
@@ -11,66 +12,55 @@ import com.mirego.kmp.boilerplate.usecase.projects.ProjectsViewData
 import com.mirego.kmp.boilerplate.viewmodel.common.EmptyViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.common.SharedImageResource
-import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
-import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
 import com.mirego.pilot.components.PilotRemoteImage
+import com.mirego.pilot.viewmodel.viewModelScope
 import com.mirego.trikot.datasources.DataState
 import com.mirego.trikot.kword.I18N
-import com.mirego.trikot.viewmodels.declarative.PublishedSubClass
-import com.mirego.trikot.viewmodels.declarative.viewmodel.list
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
+import org.koin.core.annotation.InjectedParam
+import org.koin.core.component.KoinComponent
 
 @Factory
-@PublishedSubClass(superClass = NavigationViewModelImpl::class)
 class ProjectsViewModelImpl(
     private val projectsUseCase: ProjectsUseCase,
     private val i18N: I18N,
-    viewModelFactory: ViewModelFactory,
-    coroutineScope: CoroutineScope
-) : ProjectsViewModel, BaseProjectsViewModelImpl(
-    onTrackScreenView = {
-        Analytics.trackScreenView(ScreenName.projects)
-    },
-    viewModelFactory = viewModelFactory,
-    coroutineScope = coroutineScope
-) {
-
-    init {
-        bindRootContent(
-            projectsUseCase.projects().map { stateData ->
-                when (val prioritizedData = stateData.prioritiseData()) {
-                    is DataState.Data -> when (val data = prioritizedData.value) {
-                        is ProjectsViewData.Content -> buildData(data)
-                        is ProjectsViewData.Empty -> buildEmptyData()
-                    }
-
-                    is DataState.Error -> buildError()
-                    is DataState.Pending -> buildLoading()
-                }
+    @InjectedParam override val navigationManager: NavigationManager
+) : ProjectsViewModel(), KoinComponent {
+    override val rootContent = projectsUseCase.projects().map { stateData ->
+        when (val prioritizedData = stateData.prioritiseData()) {
+            is DataState.Data -> when (val data = prioritizedData.value) {
+                is ProjectsViewData.Content -> buildData(data)
+                is ProjectsViewData.Empty -> buildEmptyData()
             }
-        )
+
+            is DataState.Error -> buildError()
+            is DataState.Pending -> buildLoading()
+        }
+    }.eagerlyStateIn(viewModelScope, buildLoading())
+
+    override fun onAppear(coroutineScope: CoroutineScope) {
+        super.onAppear(coroutineScope)
+        Analytics.trackScreenView(ScreenName.projects)
     }
 
     private fun buildData(viewData: ProjectsViewData.Content) = ProjectsRoot.Content(
-        sections = list {
-            elements = listOf(
-                buildHeader(),
-                buildProjectList(viewData)
-            )
-        }
+        sections = listOf(
+            buildHeader(),
+            buildProjectList(viewData)
+        )
     )
 
     private fun buildEmptyData() = ProjectsRoot.Content(
-        sections = list {
-            elements = listOf(
-                buildHeader(),
-                buildEmpty()
-            )
-        }
+        sections = listOf(
+            buildHeader(),
+            buildEmpty()
+        )
     )
 
     private fun buildHeader() = ProjectsContentSection.Header(
@@ -79,11 +69,9 @@ class ProjectsViewModelImpl(
     )
 
     private fun buildProjectList(viewData: ProjectsViewData.Content) = ProjectsContentSection.ProjectsList(
-        viewModel = list(
-            elements = viewData.items.map { item ->
-                item.toItem(isLoading = false)
-            }
-        )
+        projects = viewData.items.map { item ->
+            item.toItem(isLoading = false)
+        }
     )
 
     private fun ProjectItemViewData.toItem(isLoading: Boolean) = ProjectItem(
@@ -97,11 +85,16 @@ class ProjectsViewModelImpl(
         ),
         tapAction = {
             Analytics.trackViewProject(projectId = id)
-            navigateToProjectDetails(
-                ProjectDetailsNavigationData(
-                    id = id,
-                    backgroundColor = backgroundColor,
-                    textColor = textColor
+            navigationManager.push(
+                NavigationRoute.ProjectDetails(
+                    navigationData = ProjectDetailsNavigationData(
+                        id = id,
+                        backgroundColor = backgroundColor,
+                        textColor = textColor
+                    ),
+                    closeAction = {
+                        navigationManager.pop()
+                    }
                 )
             )
         },
@@ -112,8 +105,7 @@ class ProjectsViewModelImpl(
         emptyViewModel = EmptyViewModelImpl(
             title = i18N[KWordTranslation.GENERIC_EMPTY_CONTENT_TITLE],
             message = i18N[KWordTranslation.PROJECTS_EMPTY_CONTENT_MESSAGE],
-            actionButton = null,
-            coroutineScope = coroutineScope
+            actionButton = null
         )
     )
 
@@ -121,28 +113,22 @@ class ProjectsViewModelImpl(
         errorViewModel = ErrorViewModelImpl.build(
             i18N = i18N,
             titleKey = KWordTranslation.GENERIC_ERROR_TITLE,
-            messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE,
-            coroutineScope = coroutineScope
-
+            messageKey = KWordTranslation.GENERIC_ERROR_MESSAGE
         ) {
-            coroutineScope.launch {
+            viewModelScope.launch {
                 projectsUseCase.refreshProjects()
             }
         }
     )
 
     private fun buildLoading() = ProjectsRoot.Content(
-        sections = list {
-            elements = listOf(
-                buildHeader(),
-                ProjectsContentSection.ProjectsList(
-                    viewModel = list(
-                        elements = ProjectsUseCasePreview.buildPreviewItems().map {
-                            it.toItem(isLoading = true)
-                        }
-                    )
-                )
+        sections = listOf(
+            buildHeader(),
+            ProjectsContentSection.ProjectsList(
+                projects = ProjectsUseCasePreview.buildPreviewItems().map {
+                    it.toItem(isLoading = true)
+                }
             )
-        }
+        )
     )
 }

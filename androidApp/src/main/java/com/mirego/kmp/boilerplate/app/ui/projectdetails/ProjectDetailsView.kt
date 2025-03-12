@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,34 +26,32 @@ import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsRoot
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsViewModel
 import com.mirego.pilot.components.ui.PilotButton
 import com.mirego.pilot.components.ui.pilotImageResourcePainter
-import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
 
 @Composable
 fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemUiController: SystemUiController? = null) {
-    val viewModel: ProjectDetailsViewModel by projectDetailsViewModel.observeAsState()
-    systemUiController?.setNavigationBarColor(color = viewModel.backgroundColor.toColor(), darkIcons = false)
+    systemUiController?.setNavigationBarColor(color = projectDetailsViewModel.backgroundColor.toColor(), darkIcons = false)
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(viewModel.backgroundColor.toColor())
+            .background(projectDetailsViewModel.backgroundColor.toColor())
     ) {
-        ContentView(viewModel = viewModel)
+        ContentView(viewModel = projectDetailsViewModel)
 
         PilotButton(
+            pilotButton = projectDetailsViewModel.closeButton,
             modifier = Modifier
                 .statusBarsPadding()
                 .padding(8.dp)
                 .clip(CircleShape)
                 .size(40.dp)
-                .background(viewModel.textColor.toColor().copy(alpha = 0.1f)),
-            pilotButton = viewModel.closeButton
+                .background(projectDetailsViewModel.textColor.toColor().copy(alpha = 0.1f))
         ) { content ->
             Image(
                 modifier = Modifier
                     .size(32.dp)
                     .align(Alignment.Center),
                 painter = pilotImageResourcePainter(content.imageResource),
-                colorFilter = ColorFilter.tint(viewModel.textColor.toColor()),
+                colorFilter = ColorFilter.tint(projectDetailsViewModel.textColor.toColor()),
                 contentDescription = content.contentDescription
             )
         }
@@ -61,8 +60,8 @@ fun ProjectDetailsView(projectDetailsViewModel: ProjectDetailsViewModel, systemU
 
 @Composable
 private fun ContentView(viewModel: ProjectDetailsViewModel) {
-    val projectDetailsViewModel: ProjectDetailsViewModel by viewModel.observeAsState()
-    projectDetailsViewModel.rootContent?.let { content ->
+    val projectDetailsRoot: ProjectDetailsRoot? by viewModel.rootContent.collectAsState(null)
+    projectDetailsRoot?.let { content ->
         when (content) {
             is ProjectDetailsRoot.Content -> ProjectDetailsContentView(content = content)
             is ProjectDetailsRoot.Error -> ErrorView(errorViewModel = content.errorViewModel)

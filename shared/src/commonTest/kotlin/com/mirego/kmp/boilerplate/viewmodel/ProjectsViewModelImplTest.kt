@@ -7,7 +7,7 @@ import com.mirego.kmp.boilerplate.usecase.projects.ProjectItemViewData
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsUseCase
 import com.mirego.kmp.boilerplate.usecase.projects.ProjectsViewData
 import com.mirego.kmp.boilerplate.utils.stateDataData
-import com.mirego.kmp.boilerplate.viewmodel.factory.ViewModelFactory
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsContentSection
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsRoot
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsViewModelImpl
@@ -15,19 +15,19 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlin.test.Test
 import kotlin.test.assertTrue
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 
 class ProjectsViewModelImplTest : BaseTest() {
     private val useCase = mockk<ProjectsUseCase>()
-    private val viewModelFactory = mockk<ViewModelFactory>()
+    private val navigationManager = mockk<NavigationManager>()
 
     private val viewModel by lazy {
         ProjectsViewModelImpl(
             useCase,
             i18N,
-            viewModelFactory,
-            testCoroutineScope
+            navigationManager
         )
     }
 
@@ -36,7 +36,7 @@ class ProjectsViewModelImplTest : BaseTest() {
         val viewData = ProjectsViewData.Empty
         every { useCase.projects() } returns flowOf(stateDataData(viewData))
 
-        val sections = (viewModel.rootContent as ProjectsRoot.Content).sections.elements
+        val sections = (viewModel.rootContent.first() as ProjectsRoot.Content).sections
         assertTrue { sections[0] is ProjectsContentSection.Header }
         assertTrue { sections[1] is ProjectsContentSection.NoProjects }
     }
@@ -58,7 +58,7 @@ class ProjectsViewModelImplTest : BaseTest() {
         )
         every { useCase.projects() } returns flowOf(stateDataData(viewData))
 
-        val sections = (viewModel.rootContent as ProjectsRoot.Content).sections.elements
+        val sections = (viewModel.rootContent.first() as ProjectsRoot.Content).sections
         assertTrue { sections[0] is ProjectsContentSection.Header }
         assertTrue { sections[1] is ProjectsContentSection.ProjectsList }
     }

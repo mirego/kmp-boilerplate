@@ -2,20 +2,29 @@ package com.mirego.kmp.boilerplate.viewmodel.projectdetails
 
 import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.viewmodel.common.ErrorViewModel
-import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationViewModel
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.pilot.components.PilotButton
 import com.mirego.pilot.components.PilotRemoteImage
 import com.mirego.pilot.components.content.PilotLocalImageContent
-import com.mirego.trikot.viewmodels.declarative.Published
+import com.mirego.pilot.components.lifecycle.PilotAppearanceLifecycleViewModel
+import kotlinx.coroutines.flow.StateFlow
+import org.koin.core.parameter.ParametersHolder
+import org.koin.core.parameter.parametersOf
 
-interface ProjectDetailsViewModel : NavigationViewModel {
-    val closeButton: PilotButton<PilotLocalImageContent>
+abstract class ProjectDetailsViewModel : PilotAppearanceLifecycleViewModel() {
+    abstract val closeButton: PilotButton<PilotLocalImageContent>
 
-    val backgroundColor: RGBAColor
-    val textColor: RGBAColor
+    abstract val backgroundColor: RGBAColor
+    abstract val textColor: RGBAColor
 
-    @Published
-    val rootContent: ProjectDetailsRoot?
+    abstract val rootContent: StateFlow<ProjectDetailsRoot>
+
+    abstract val navigationManager: NavigationManager
+
+    companion object {
+        fun parameters(navigationManager: NavigationManager, route: NavigationRoute.ProjectDetails?): ParametersHolder = parametersOf(navigationManager, route)
+    }
 }
 
 sealed interface ProjectDetailsRoot {

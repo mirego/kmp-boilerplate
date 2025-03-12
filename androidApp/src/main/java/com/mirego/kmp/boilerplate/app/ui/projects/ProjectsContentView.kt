@@ -12,11 +12,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.ripple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,27 +39,25 @@ import com.mirego.kmp.boilerplate.app.ui.theme.style
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectItem
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsContentSection
 import com.mirego.pilot.components.ui.pilotImageResourcePainter
-import com.mirego.trikot.viewmodels.declarative.components.VMDListViewModel
-import com.mirego.trikot.viewmodels.declarative.compose.extensions.observeAsState
-import com.mirego.trikot.viewmodels.declarative.compose.viewmodel.VMDLazyColumn
 
 @Composable
-fun ProjectsContentView(listViewModel: VMDListViewModel<ProjectsContentSection>) {
-    val viewModel: VMDListViewModel<ProjectsContentSection> by listViewModel.observeAsState()
+fun ProjectsContentView(projectSections: List<ProjectsContentSection>) {
     val statusBarPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
-    VMDLazyColumn(
+    LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        viewModel = viewModel,
         contentPadding = PaddingValues(vertical = padding + statusBarPadding, horizontal = padding),
         verticalArrangement = Arrangement.spacedBy(padding * 2)
-    ) { section ->
-        when (section) {
-            is ProjectsContentSection.Header -> HeaderView(header = section)
-            is ProjectsContentSection.NoProjects -> EmptyContentView(
-                emptyViewModel = section.emptyViewModel,
-                modifier = Modifier.padding(top = 100.dp)
-            )
-            is ProjectsContentSection.ProjectsList -> ProjectsListView(viewModel = section.viewModel)
+    ) {
+        items(items = projectSections) { section ->
+            when (section) {
+                is ProjectsContentSection.Header -> HeaderView(header = section)
+                is ProjectsContentSection.NoProjects -> EmptyContentView(
+                    emptyViewModel = section.emptyViewModel,
+                    modifier = Modifier.padding(top = 100.dp)
+                )
+
+                is ProjectsContentSection.ProjectsList -> ProjectsListView(projects = section.projects)
+            }
         }
     }
 }
@@ -87,12 +86,12 @@ private fun HeaderView(header: ProjectsContentSection.Header) {
 }
 
 @Composable
-private fun ProjectsListView(viewModel: VMDListViewModel<ProjectItem>) {
+private fun ProjectsListView(projects: List<ProjectItem>) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(padding * 2)
     ) {
-        viewModel.elements.forEach { item ->
+        projects.forEach { item ->
             ItemView(item)
         }
     }

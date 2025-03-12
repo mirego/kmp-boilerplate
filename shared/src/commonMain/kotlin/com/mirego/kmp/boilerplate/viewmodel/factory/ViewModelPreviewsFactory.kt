@@ -4,57 +4,60 @@ import com.mirego.kmp.boilerplate.model.RGBAColor
 import com.mirego.kmp.boilerplate.usecase.preview.PreviewState
 import com.mirego.kmp.boilerplate.usecase.preview.UseCaseFactoryPreview
 import com.mirego.kmp.boilerplate.usecase.projectdetails.toRGBAColor
+import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModel
 import com.mirego.kmp.boilerplate.viewmodel.application.ApplicationViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationManager
+import com.mirego.kmp.boilerplate.viewmodel.navigation.NavigationRoute
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsNavigationData
 import com.mirego.kmp.boilerplate.viewmodel.projectdetails.ProjectDetailsViewModelImpl
 import com.mirego.kmp.boilerplate.viewmodel.projects.ProjectsViewModelImpl
+import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModel
 import com.mirego.kmp.boilerplate.viewmodel.root.RootViewModelImpl
 import com.mirego.trikot.kword.I18N
-import com.mirego.trikot.viewmodels.declarative.util.CoroutineScopeProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import org.koin.core.component.KoinComponent
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
-class ViewModelFactoryPreview(
+class ViewModelPreviewsFactory(
     private val i18N: I18N,
     private val useCaseFactoryPreview: UseCaseFactoryPreview = UseCaseFactoryPreview()
-) : ViewModelFactory {
-
-    fun createCoroutineScope() = CoroutineScopeProvider.provideMainWithSuperviserJob(
-        CoroutineExceptionHandler { _, exception ->
-            println("CoroutineExceptionHandler got $exception")
-        }
-    )
-
-    fun createApplication() = ApplicationViewModelImpl(
-        this,
-        createCoroutineScope()
-    )
-
-    override fun createRoot(coroutineScope: CoroutineScope) = createRoot()
-
-    fun createRoot() = RootViewModelImpl(
-        i18N = i18N,
-        viewModelFactory = this,
+) : KoinComponent {
+    private val navigationManager = NavigationManager(
         coroutineScope = createCoroutineScope()
     )
 
-    override fun createProjects(coroutineScope: CoroutineScope) = createProjects()
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        println("CoroutineExceptionHandler got $exception")
+    }
+
+    private fun createCoroutineScope() = CoroutineScope(Dispatchers.Main.immediate + SupervisorJob() + coroutineExceptionHandler)
+
+    fun createApplication(): ApplicationViewModel = ApplicationViewModelImpl()
+
+    fun createRoot(): RootViewModel = RootViewModelImpl(navigationManager)
+
     fun createProjects(previewState: PreviewState = PreviewState.Data.Content) = ProjectsViewModelImpl(
         projectsUseCase = useCaseFactoryPreview.projectsUseCase(previewState),
         i18N = i18N,
-        viewModelFactory = this,
-        coroutineScope = createCoroutineScope()
+        navigationManager = navigationManager
     )
 
-    override fun createProjectDetails(navigationData: ProjectDetailsNavigationData, closeAction: () -> Unit, coroutineScope: CoroutineScope) = createProjectDetails()
-
     fun createProjectDetails(previewState: PreviewState = PreviewState.Data.Content) = ProjectDetailsViewModelImpl(
-        navigationData = ProjectDetailsNavigationData("", "000000".toRGBAColor() ?: RGBAColor.None, "ffffff".toRGBAColor() ?: RGBAColor.None),
         projectDetailsUseCase = useCaseFactoryPreview.projectDetailsUseCase(previewState),
         i18N = i18N,
-        viewModelFactory = this,
-        closeAction = {},
-        coroutineScope = createCoroutineScope()
+        navigationManager = navigationManager,
+        route = NavigationRoute.ProjectDetails(
+            navigationData = ProjectDetailsNavigationData(
+                "",
+                "000000".toRGBAColor() ?: RGBAColor.None,
+                "ffffff".toRGBAColor() ?: RGBAColor.None
+            ),
+            closeAction = {
+                // NO-OP
+            }
+        )
     )
 }
