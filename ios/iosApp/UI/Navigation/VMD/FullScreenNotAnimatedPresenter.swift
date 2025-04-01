@@ -56,7 +56,7 @@ struct FullScreenNotAnimatedPresenter<Content: View>: UIViewRepresentable {
             controller.view.backgroundColor = .clear
             controller.modalPresentationStyle = .overFullScreen
 
-            guard let presenting = view.owningController else {
+            guard let presenting = view.nextViewController else {
                 resetItemBinding()
                 return
             }
@@ -88,14 +88,12 @@ struct FullScreenNotAnimatedPresenter<Content: View>: UIViewRepresentable {
     }
 }
 
-extension UIView {
-    var owningController: UIViewController? {
-        if let responder = next as? UIViewController {
-            return responder
-        } else if let responder = next as? UIView {
-            return responder.owningController
+extension UIResponder {
+    var nextViewController: UIViewController? {
+        if let viewControllerResponder = self as? UIViewController {
+            viewControllerResponder
         } else {
-            return nil
+            next?.nextViewController
         }
     }
 }
