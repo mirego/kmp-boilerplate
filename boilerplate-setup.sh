@@ -77,14 +77,6 @@ do
 done
 PACKAGE_NAME=${USER_INPUT}
 
-argumentIsPascalCase=false
-while [ ${argumentIsPascalCase} == "false" ]
-do
-  read -p $'\nWhat is the name of the shared code\'s iOS framework? (ex: MyProject)\n' USER_INPUT
-  isPascalCase "$USER_INPUT"
-done
-FRAMEWORK_NAME=${USER_INPUT}
-
 header "Updating project name all files..."
 projectName="kmp-boilerplate"
 run "/usr/bin/sed -i .bak 's/$projectName/$PROJECT_NAME/g' settings.gradle.kts"
@@ -93,19 +85,17 @@ run "/usr/bin/sed -i .bak 's/$projectName/$PROJECT_NAME/g' ios/iosApp/Info.plist
 run "/usr/bin/sed -i .bak 's/$projectName/$PROJECT_NAME/g' BOILERPLATE_README.md"
 success "Done!\n"
 
-header "Updating iOS Framework name..."
-frameworkName="Shared"
-for file in $content; do
-  if [[ $file != *.kt ]]; then
-    run "/usr/bin/sed -i .bak s/$frameworkName/$FRAMEWORK_NAME/g $file"
-  fi
-done
-mv shared/"${frameworkName}".podspec shared/"${FRAMEWORK_NAME}".podspec
-success "Done!\n"
-
 header "Updating project.pbxproj product bundle identifier..."
 bundleIdentifier="com.mirego.kmp.boilerplate"
 run "/usr/bin/sed -i .bak s/$bundleIdentifier/$PACKAGE_NAME/g ios/iosApp.xcodeproj/project.pbxproj"
+success "Done!\n"
+
+header "Replacing package name in file paths..."
+packageNamePath="com/mirego/kmp/boilerplate"
+packageNameAsPath=${PACKAGE_NAME//\./\/}
+for file in $content; do
+  run "/usr/bin/sed -i .bak 's|$packageNamePath|$packageNameAsPath|g' $file"
+done
 success "Done!\n"
 
 header "Replacing package name in all files..."

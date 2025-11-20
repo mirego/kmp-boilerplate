@@ -25,7 +25,7 @@ private struct NavigationModifier: ViewModifier {
         }
     }
     
-    private func buildNavigation(routes: [NavigationRoute], route: NavigationRoute) -> PilotNavigationType<ViewModelHolder, EmptyViewModifier>? {
+    private func buildNavigation(routes: [NavigationRoute], route: NavigationRoute) -> PilotNavigationType<ViewModelHolder, EmptyViewModifier> {
         let onDismissClosure: () -> Void = {
             navigationManager.poppedFrom(route: route)
         }
@@ -50,7 +50,7 @@ private struct NavigationModifier: ViewModifier {
     }
     
     private func buildViewModelHolder(route: NavigationRoute) -> ViewModelHolder {
-        return switch onEnum(of: route) {
+        switch onEnum(of: route) {
         case .projectDetails(let route):
             ViewModelHolder.projectDetails(
                 koin.projectDetailsViewModel(

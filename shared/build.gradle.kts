@@ -2,6 +2,7 @@
 
 import co.touchlab.skie.configuration.EnumInterop
 import co.touchlab.skie.configuration.FunctionInterop
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -29,6 +30,8 @@ fun org.jetbrains.kotlin.gradle.plugin.mpp.Framework.configureFramework() {
     export(libs.pilot.navigation)
     export(libs.pilot.viewmodel)
     export(libs.pilot.components)
+    export(libs.kotlinx.coroutines.core)
+    export(libs.kotlinx.serialization)
     binaryOption("bundleId", TRIKOT_FRAMEWORK_NAME)
 }
 
@@ -75,7 +78,8 @@ kotlin {
         publishAllLibraryVariants()
     }
 
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     cocoapods {
@@ -101,7 +105,12 @@ kotlin {
     sourceSets {
         all {
             languageSettings {
-                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.Experimental")
+                optIn("kotlin.time.ExperimentalTime")
+                optIn("io.ktor.util.InternalAPI")
+                optIn("kotlinx.serialization.InternalSerializationApi")
+                optIn("kotlinx.serialization.ExperimentalSerializationApi")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
             }
         }
 
@@ -110,13 +119,17 @@ kotlin {
                 implementation(libs.apollo.runtime)
                 api(libs.koin.annotations)
                 api(libs.kotlinx.coroutines.core)
-                api(libs.kotlinx.serialization.json)
+                api(libs.kotlinx.serialization)
                 api(libs.koin.core)
                 implementation(libs.okio)
                 implementation(libs.skie)
                 api(libs.trikot.analytics)
                 api(libs.trikot.datasources)
                 api(libs.trikot.kword)
+                api(libs.ktor.client.auth)
+                api(libs.ktor.client.core)
+                api(libs.ktor.client.contentNegotiation)
+                api(libs.ktor.client.serialization)
                 api(libs.killswitch)
                 api(libs.pilot.viewmodel)
                 api(libs.pilot.components)
@@ -136,6 +149,7 @@ kotlin {
             dependencies {
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.lifecycle.viewmodel.ktx)
+                implementation(libs.ktor.client.okHttp)
             }
         }
 
@@ -150,14 +164,18 @@ kotlin {
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
-        val iosMain by getting {
+
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by getting {
-            iosSimulatorArm64Test.dependsOn(this)
+            dependencies {
+                api(libs.ktor.client.darwin)
+                implementation(libs.crashkios)
+                api(libs.ktor.io)
+                implementation(libs.kotlinx.serialization)
+            }
         }
     }
 }
@@ -191,14 +209,6 @@ ktlint {
     }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    } else {
-        dependsOn(tasks.withType<com.mirego.kword.KWordEnumGenerate>())
-    }
-}
-
 tasks["runKtlintFormatOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
 tasks["runKtlintCheckOverCommonMainSourceSet"].dependsOn("kspCommonMainKotlinMetadata")
 
@@ -209,7 +219,7 @@ val checkCommon: Task by tasks.creating {
     dependsOn("testReleaseUnitTest")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     } else {

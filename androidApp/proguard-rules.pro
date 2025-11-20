@@ -1,44 +1,60 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+-dontwarn com.google.android.gms.common.internal.Hide
+-dontwarn com.google.protobuf.java_com_google_ads_interactivemedia_v3__sdk_1p_binary_b0308732GeneratedExtensionRegistryLite$Loader
+-dontwarn java.beans.ConstructorProperties
+-dontwarn java.beans.Transient
+-dontwarn org.slf4j.impl.StaticLoggerBinder
+-dontwarn org.slf4j.impl.StaticMDCBinder
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Ticketmaster
+-keep class com.ticketmaster.** { *; }
+-dontwarn com.ticketmaster.**
+-dontwarn org.chromium.net.**
+-dontwarn coil.size.Dimension$Original
+-dontwarn java.beans.ConstructorProperties
+-dontwarn java.beans.Transient
+-keep class retrofit2.** { *; }
+#  With R8 full mode generic signatures are stripped for classes that are not
+#  kept. Suspend functions are wrapped in continuations where the type argument
+#  is used.
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+#  R8 full mode strips generic signatures from return types if not kept.
+-if interface * { @retrofit2.http.* public *** *(...); }
+-keep,allowoptimization,allowshrinking,allowobfuscation class <3>
+#  With R8 full mode generic signatures are stripped for classes that are not kept.
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Go Killswitch
+-keep class com.mirego.gokillswitch.** { *; }
+-keep class com.mirego.gohttp.** { *; }
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Crashlytics
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**
 
-# kotlinx.serialization
-# See (https://github.com/Kotlin/kotlinx.serialization#android)
+-keepnames class androidx.lifecycle.ViewModel
+-keepclassmembers public class * extends androidx.lifecycle.ViewModel { public <init>(...); }
+-keepclassmembers class * { public <init>(...); }
+-keep class com.mirego.trikot.viewmodels.declarative.** { *; }
+-keep public class * extends com.mirego.trikot.viewmodels.declarative.viewmodel.VMDViewModel { *; }
+-keep public class * extends com.mirego.trikot.viewmodels.declarative.controller.VMDViewModelController { *; }
+-keepclassmembers class * implements com.mirego.trikot.viewmodels.declarative.controller.VMDViewModelControllerFactory { *; }
 
-# Keep `Companion` object fields of serializable classes.
-# This avoids serializer lookup through `getDeclaredClasses` as done for named companion objects.
+# KotlinX Serialization
 -if @kotlinx.serialization.Serializable class **
 -keepclassmembers class <1> {
     static <1>$Companion Companion;
 }
-
-# Keep `serializer()` on companion objects (both default and named) of serializable classes.
 -if @kotlinx.serialization.Serializable class ** {
     static **$* *;
 }
 -keepclassmembers class <2>$<3> {
     kotlinx.serialization.KSerializer serializer(...);
 }
-
-# Keep `INSTANCE.serializer()` of serializable objects.
 -if @kotlinx.serialization.Serializable class ** {
     public static ** INSTANCE;
 }
@@ -47,18 +63,6 @@
     kotlinx.serialization.KSerializer serializer(...);
 }
 
-# @Serializable and @Polymorphic are used at runtime for polymorphic serialization.
--keepattributes RuntimeVisibleAnnotations,AnnotationDefault
-
-# Serializer for classes with named companion objects are retrieved using `getDeclaredClasses`.
-# If you have any, uncomment and replace classes with those containing named companion objects.
-#-keepattributes InnerClasses # Needed for `getDeclaredClasses`.
-#-if @kotlinx.serialization.Serializable class
-#com.example.myapplication.HasNamedCompanion, # <-- List serializable classes with named companions.
-#com.example.myapplication.HasNamedCompanion2
-#{
-#    static **$* *;
-#}
-#-keepnames class <1>$$serializer { # -keepnames suffices; class is kept when serializer() is kept.
-#    static <1>$$serializer INSTANCE;
-#}
+# Koin
+-keep class org.koin.core.annotation.** { *; }
+-keep @org.koin.core.annotation.* class * { *; }

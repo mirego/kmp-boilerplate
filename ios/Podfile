@@ -17,7 +17,7 @@ target 'iosApp' do
 
     ENV['TRIKOT_FRAMEWORK_NAME']='Shared'
     properties = load_properties('../gradle/libs.versions.toml')
-    pod 'Trikot/kword', :git => 'git@github.com:mirego/trikot.git', :tag => properties['trikot']
+    pod 'Trikot/kword', :git => 'git@github.com:mirego/trikot.git', :tag => properties['trikot'], :inhibit_warnings => true
 
     pod 'SwiftLint'
 

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.crashlyticsPlugin)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.navigation.safeargs)
 }
 
 kotlin {
@@ -12,10 +13,10 @@ kotlin {
 
 android {
     namespace = "com.mirego.kmp.boilerplate"
-    compileSdk = 34
+    compileSdk = 36
     defaultConfig {
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
 
         applicationId = "com.mirego.kmp.boilerplate"
         versionCode = 1
@@ -84,14 +85,19 @@ dependencies {
     implementation(libs.android.firebase.analytics)
     implementation(libs.android.firebase.crashlytics)
     implementation(platform(libs.android.firebase.bom))
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(libs.compose.bom))
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.placeholder.material)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.animation)
+    implementation(libs.compose.material)
+    implementation(libs.compose.material.icons)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.preview)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.compose.navigation)
